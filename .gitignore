@@ -1,4 +1,4 @@
-_CoqProject
+.DS_Store
 Makefile
 *.vo
 *.glob
