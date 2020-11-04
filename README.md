@@ -1,5 +1,5 @@
 # Forked from GeoCoq
-A formalization of geometry in Coq.
+A formalization of geometry in Coq by Goyet Christopher
 
 This library contains a formalization of geometry using the Coq proof assistant. It contains both proofs about the foundations of geometry and high-level proofs in the same style as in high-school.
 
@@ -10,6 +10,7 @@ Trying to make a more usable version of Geocoq, with :
 - as many lemmas as possible (to simplify use for all, 
 without having to memorize the entire library ... ) 
 
+Goyet Christopher
 
 # master branch : GeoCoq
 
