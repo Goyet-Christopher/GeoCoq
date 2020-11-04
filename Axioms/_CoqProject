@@ -1,12 +1,2 @@
 # Library name
 -R .. GeoCoq
-
-# Coq files
-./Axioms/beeson_s_axioms.v
-./Axioms/makarios_variant_axioms.v
-./Axioms/independent_tarski_axioms.v
-./Axioms/parallel_postulates.v
-./Axioms/continuity_axioms.v
-./Axioms/tarski_axioms.v
-./Axioms/euclidean_axioms.v
-./Axioms/hilbert_axioms.v
