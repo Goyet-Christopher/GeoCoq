@@ -3,6 +3,22 @@
 (* Tarski's axiomatic *)
 
 (* Some general tactics *)
+
+Ltac spliter := repeat
+match goal with
+   | H:(?X1 /\ ?X2) |- _ => induction H
+end.
+
+Ltac exists_and H x := elim H; intro x; intros; clear H;spliter.
+
+Ltac DecompAndAll :=
+ repeat
+ match goal with
+   | H:(?X1 /\ ?X2) |- _ => decompose [and] H;clear H
+end.
+
+
+(**
 Ltac ex_elim H x := elim H; intros x ; intro; clear H.
 
 Ltac DecompEx H P := elim H;intro P;intro;clear H.
@@ -42,11 +58,6 @@ Ltac assert_if_not_exist H :=
 Ltac absurde :=
 match goal with
    |H : (?X <> ?X) |- _ => apply False_ind; apply H; reflexivity
-end.
-
-Ltac spliter := repeat
-match goal with
-   | H:(?X1 /\ ?X2) |- _ => induction H
 end.
 
 Ltac ex_and H x := elim H; intro x; intros; clear H;spliter.
@@ -185,3 +196,5 @@ Tactic Notation "show_term" constr(E) "in" hyp(H) :=
   change (@ltac_something _ E) with E in H.
 Tactic Notation "show_term" "in" hyp(H) :=
   unfold ltac_something in H.
+
+*)
