@@ -14,13 +14,13 @@ Proof.
 Qed.
 
 Lemma def_to_FSC : forall A B C D A' B' C' D',
-  Col A B C /\
-  Cong_3 A B C A' B' C' /\
-  Cong A D A' D' /\
+  Col A B C ->
+  Cong_3 A B C A' B' C' ->
+  Cong A D A' D' ->
   Cong B D B' D'-> FSC A B C D A' B' C' D'.
 Proof.
     intros.
-    assumption.
+    repeat (split; try assumption).
 Qed.
 
 Lemma FSC_col1 : forall A B C D A' B' C' D',
@@ -82,6 +82,59 @@ Proof.
 Qed.
 
 End FSC_def.
+
+Section FSC_cons.
+Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
+
+Lemma FSC_cons_1213 : forall A B C D A' B' C' D',
+  Bet A B C -> Bet A' B' C'
+  -> Cong A B A' B'
+  -> Cong A C A' C'
+  -> Cong A D A' D'
+  -> Cong B D B' D'
+  -> FSC A B C D A' B' C' D'.
+Proof.
+    intros.
+    apply def_to_FSC.
+    apply bet_col_123. assumption.
+    apply bet_cong1213_cong3; assumption.
+    assumption.
+    assumption.
+Qed.
+
+Lemma FSC_cons_1223 : forall A B C D A' B' C' D',
+  Bet A B C -> Bet A' B' C'
+  -> Cong A B A' B'
+  -> Cong B C B' C'
+  -> Cong A D A' D'
+  -> Cong B D B' D'
+  -> FSC A B C D A' B' C' D'.
+Proof.
+    intros.
+    apply def_to_FSC.
+    apply bet_col_123. assumption.
+    apply bet_cong1223_cong3; assumption.
+    assumption.
+    assumption.
+Qed.
+
+Lemma FSC_cons_1323 : forall A B C D A' B' C' D',
+  Bet A B C -> Bet A' B' C'
+  -> Cong A C A' C'
+  -> Cong B C B' C'
+  -> Cong A D A' D'
+  -> Cong B D B' D'
+  -> FSC A B C D A' B' C' D'.
+Proof.
+    intros.
+    apply def_to_FSC.
+    apply bet_col_123. assumption.
+    apply bet_cong1323_cong3; assumption.
+    assumption.
+    assumption.
+Qed.
+
+End FSC_cons.
 
 Section FSC_prop.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
@@ -186,7 +239,7 @@ Section T4_4.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
 Lemma l4_16 : forall A B C D A' B' C' D',
-   FSC A B C D A' B' C' D' -> A<>B -> Cong C D C' D'.
+   FSC A B C D A' B' C' D' -> A<>B \/ A'<>B' -> Cong C D C' D'.
 Proof.
     intros.
     assert(Col A B C).
@@ -201,7 +254,9 @@ Proof.
     apply FSC_bet_231; assumption.
     apply OFSC_cong_34 with B A B' A'.
     apply FSC_bet_312; assumption.
-    apply diff_symmetry; assumption.
+      induction H0.
+      left. apply diff_symmetry; assumption.
+      right. apply diff_symmetry; assumption.
 Qed.
 
 Definition FSC_cong_34 A B C D A' B' C' D' :=
@@ -222,7 +277,9 @@ Proof.
         apply IFSC_axial_sym2; assumption.
       apply OFSC_to_FSC_2.
       apply OFSC_axial_sym2; assumption.
-    apply l4_16 with A B A B; assumption.
+    apply l4_16 with A B A B.
+      assumption.
+      left. assumption.
 Qed.
 
 End T4_4.

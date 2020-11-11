@@ -101,6 +101,35 @@ Proof.
     apply not_col_321. assumption.
 Qed.
 
+Lemma not_bet_not_col : forall A B C,
+~ Bet A B C -> ~ Bet B C A -> ~ Bet C A B -> ~ Col A B C.
+Proof.
+    intros.
+    intro.
+    induction H2.
+      apply H; assumption.
+    induction H2.
+      apply H0. apply between_symmetry. assumption.
+      apply H1. apply between_symmetry. assumption.
+Qed.
+
+Lemma not_col_not_bet : forall A B C,
+~ Col A B C -> ~ Bet A B C /\ ~ Bet B C A /\ ~ Bet C A B.
+Proof.
+    intros.
+    repeat split.
+    intro.
+    apply H.
+    apply bet_col_123; assumption.
+    intro.
+    apply H.
+    apply bet_col_231; assumption.
+    intro.
+    apply H.
+    apply bet_col_312; assumption.
+Qed.
+
+
 End T4_4.
 
 Print All.

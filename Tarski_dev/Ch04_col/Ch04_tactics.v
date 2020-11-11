@@ -10,3 +10,6 @@ not_col_permutation_3 not_col_permutation_4 not_col_permutation_5 : col.
 Hint Immediate col_trivial_1 col_trivial_2 col_trivial_3: col.
 
 
+Ltac eCol := eauto with col.
+
+Hint Resolve col_transitivity_1 col_transitivity_2 out_col : col.
