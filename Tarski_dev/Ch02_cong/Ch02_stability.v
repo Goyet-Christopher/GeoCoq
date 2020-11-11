@@ -43,3 +43,23 @@ Proof.
 Qed.
 
 End Beeson_1.
+
+(*
+Section equiv.
+Context `{Tn:Tarski_neutral_dimensionless}.
+
+Lemma between_exchange2_implies_eq_dec :
+(forall A B C D, Bet A B D -> Bet B C D -> Bet A C D) ->
+ (forall A B:Tpoint, ~ A <> B -> A = B).
+Proof.
+    intros.
+    apply between_identity.
+    apply H with B.
+    elim H0. intro. subst.
+
+Qed.
+
+End equiv.
+*)
+
+

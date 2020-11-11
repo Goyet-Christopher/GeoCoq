@@ -36,6 +36,15 @@ Proof.
     apply cong_symmetry. assumption.
 Qed.
 
+Lemma construction_uniqueness_simple : forall A B C C',
+ A <> B -> Bet A B C -> Bet A B C' -> Cong B C B C' -> C=C'.
+Proof.
+    intros.
+    assert(Cong B C' B C').
+        apply cong_reflexivity.
+    apply construction_uniqueness with A B B C'; assumption.
+Qed.
+
 End T1_1.
 
 Print All.

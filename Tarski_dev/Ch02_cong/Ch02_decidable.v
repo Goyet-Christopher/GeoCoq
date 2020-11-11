@@ -25,6 +25,15 @@ Proof.
       apply (l2_11_neq A B C A' B' C'); assumption.
 Qed.
 
+Lemma l2_11_cong3 : forall A B C A' B' C',
+  Bet A B C -> Bet A' B' C' -> Cong A B A' B' -> Cong B C B' C' -> Cong_3 A B C A' B' C'.
+Proof.
+    intros.
+    assert(Cong A C A' C').
+      apply l2_11 with B B'; assumption.
+    apply def_to_cong3; assumption.
+Qed.
+
 Lemma bet_cong3 : forall A B C A' B',  
 Bet A B C -> Cong A B A' B' -> exists C', Cong_3 A B C A' B' C'.
 Proof.

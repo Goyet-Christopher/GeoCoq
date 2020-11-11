@@ -2,6 +2,7 @@ Require Export GeoCoq.Axioms.tarski_axioms.
 Require Export GeoCoq.Tarski_dev.Definitions.
 Require Export GeoCoq.Utils.general_tactics.
 
+(* Extends the segment [AB] of length CD with the point x *)
 Ltac prolong A B x C D :=
  assert (sg:= segment_construction A B C D);
  destruct sg as (x, sg);

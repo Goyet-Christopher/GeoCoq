@@ -10,8 +10,15 @@ Lemma def_to_cong3 : forall A B C A' B' C',
 -> Cong_3 A B C A' B' C'.
 Proof.
     intros.
-    unfold Cong_3.
     repeat split; assumption.
+Qed.
+
+Lemma def_to_cong3_reverse : forall A B C A' B' C', 
+  Cong A B B' A' -> Cong A C C' A' -> Cong B C C' B' 
+-> Cong_3 A B C A' B' C'.
+Proof.
+    intros.
+    repeat split; apply cong_1243; assumption.
 Qed.
 
 Lemma cong3_to_def : forall A B C A' B' C', 
@@ -87,8 +94,7 @@ Lemma cong3_swap_213 : forall A B C A' B' C',
 Proof.
     unfold Cong_3.
     intros.
-    induction H.
-    induction H0.
+    spliter.
     apply cong_2143 in H.
     repeat split; assumption.
 Qed.
@@ -169,6 +175,34 @@ Proof.
     split. apply cong3_swap_231; assumption.
     split. apply cong3_swap_312; assumption.
     apply cong3_swap_321; assumption.
+Qed.
+
+
+Lemma cong3_identity_12 : forall A B C A' C',
+Cong_3 A B C A' A' C' -> A=B.
+Proof.
+    intros.
+    apply cong3_12 in H.
+    apply cong_identity with A'.
+    assumption.
+Qed.
+
+Lemma cong3_identity_13 : forall A B C A' B',
+Cong_3 A B C A' B' A' -> A=C.
+Proof.
+    intros.
+    apply cong3_identity_12 with B A' B'.
+    apply cong3_swap_132.
+    assumption.
+Qed.
+
+Lemma cong3_identity_23 : forall A B C A' B',
+Cong_3 A B C A' B' B' -> B=C.
+Proof.
+    intros.
+    apply cong3_23 in H.
+    apply cong_identity with B'.
+    assumption.
 Qed.
 
 End Cong3_prop.
