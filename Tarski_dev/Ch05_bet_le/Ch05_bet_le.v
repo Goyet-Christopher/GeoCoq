@@ -189,7 +189,7 @@ Proof.
         apply cong_2134 in H5.
       exists_and H2 b'.
       assert(Bet_4 A a' b' B).
-        apply bet4_sides with O; assumption.
+        apply bet4_sides2 with O; assumption.
       assert(Le a' b' A B).
         apply bet4_le_23; assumption.
       assert(Cong a b a' b').
