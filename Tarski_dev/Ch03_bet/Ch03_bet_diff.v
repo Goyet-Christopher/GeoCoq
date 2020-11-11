@@ -43,15 +43,6 @@ Proof.
     apply diff_symmetry. assumption.
 Qed.
 
-Lemma not_bet_distincts : forall A B C, 
-  ~ Bet A B C -> A <> B /\ B <> C.
-Proof.
-    intros A B C HNBet. 
-    repeat split; intro; subst B; apply HNBet.
-      apply between_trivial_112.
-      apply between_trivial_122.
-Qed.
-
 (* Bet strictement *)
 Lemma BetSEq : forall A B C, 
   BetS A B C <-> Bet A B C /\ A <> B /\ A <> C /\ B <> C.

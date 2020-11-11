@@ -170,18 +170,26 @@ Qed.
 
 Lemma IFSC_IFSC_Bet : forall A B C D E A' B' C' D' E',
   IFSC A B C D A' B' C' D' -> IFSC B C E D B' C' E' D'
-  -> B<>C
+  -> B<>C \/ B'<>C'
   -> Bet A B E /\ Bet A' B' E' /\ Bet A C E /\ Bet A' C' E' .
 Proof.
     intros.
     apply IFSC_to_def in H.
     apply IFSC_to_def in H0.
     spliter.
+    assert(B <> C).
+      induction H1.
+        assumption.
+      apply cong_diff_12_34 with B' C'.
+        assumption.
+        apply cong_3412; assumption.
+    assert(B' <> C').
+      induction H1.
+        apply cong_diff_12_34 with B C; assumption.
+        assumption.
     assert(Bet A B E).
       apply between_outer_transitivity_3 with C;
       assumption.
-    assert(B' <> C').
-      apply cong_diff_12_34 with B C; assumption.
     assert(Bet A' B' E').
       apply between_outer_transitivity_3 with C';
       assumption.
@@ -194,7 +202,7 @@ Qed.
 
 Lemma IFSC_transitivity_1 : forall A B C D E A' B' C' D' E',
   IFSC A B C D A' B' C' D' -> IFSC B C E D B' C' E' D'
-  -> B<>C
+  -> B<>C \/ B'<>C'
   -> IFSC A B E D A' B' E' D'.
 Proof.
     intros.
@@ -210,7 +218,7 @@ Qed.
 
 Lemma IFSC_transitivity_2 : forall A B C D E A' B' C' D' E',
   IFSC A B C D A' B' C' D' -> IFSC B C E D B' C' E' D'
-  -> B<>C
+  -> B<>C \/ B'<>C'
   -> IFSC A C E D A' C' E' D'.
 Proof.
     intros.
@@ -256,6 +264,7 @@ Proof.
     apply OFSC_to_IFSC.
     apply IFSC_prolong_to_OFSC with B B';
       assumption.
+    left.
     induction H3.
       apply IFSC_bet1 in H.
       apply bet_neq12__neq with B; assumption.
@@ -301,6 +310,7 @@ Proof.
       apply IFSC_IFSC_swap_OFSC with A A'; assumption.
     apply (OFSC_cong_34 E C B D E' C' B' D').
       assumption.
+      left.
       apply diff_symmetry.
       assumption.
 Qed.
@@ -332,6 +342,17 @@ Qed.
 
 Definition IFSC_cong_24 A B C D A' B' C' D' :=
   l4_2 A B C D A' B' C' D'.
+
+Lemma l4_17_IFSC : forall A B C P Q,
+  Bet A C B
+  -> Cong A P A Q -> Cong B P B Q 
+  -> Cong C P C Q.
+Proof.
+    intros.
+    assert (IFSC A C B P A C B Q).
+      apply IFSC_axial_sym2; assumption.
+    apply IFSC_cong_24 with A B A B; assumption.
+Qed.
 
 Lemma IFSC_cong3_234 : forall A B C D A' B' C' D', 
   IFSC A B C D A' B' C' D'
@@ -409,6 +430,21 @@ Proof.
     apply IFSC_cong3_134 with B B'; assumption.
 Qed.
 
+Lemma IFSC_cong4 : forall A B C D A' B' C' D',
+  IFSC A B C D A' B' C' D'
+  -> Bet A B C /\ Bet A' B' C' /\
+     Cong_4 A B C D A' B' C' D'.
+Proof.
+    intros.
+    apply IFSC_cong3 in H.
+    spliter.
+    split.
+      assumption.
+    split.
+      assumption.
+    apply def_to_cong4_with_cong3; assumption.
+Qed.
+
 (* necessite des 2 Bet ??? *)
 Lemma cong3_IFSC : forall A B C D A' B' C' D',
   Bet A B C -> Bet A' B' C'
@@ -439,8 +475,21 @@ Proof.
     apply l4_3 with A A'; assumption.
 Qed.
 
-
 Lemma IFSC_symmetry : forall A B C D A' B' C' D',
+  IFSC A B C D A' B' C' D'
+  -> IFSC A' B' C' D' A B C D.
+Proof.
+    intros.
+    apply IFSC_cong3 in H.
+    spliter.
+    apply def_to_IFSC_with_cong3.
+    assumption.
+    assumption.
+    apply cong_3412. apply cong3_12 with D D'; assumption.
+    apply cong3_symmetry; assumption.
+Qed.
+
+Lemma IFSC_symmetry_24 : forall A B C D A' B' C' D',
   IFSC A B C D A' B' C' D'
   -> IFSC C B A D C' B' A' D'.
 Proof.

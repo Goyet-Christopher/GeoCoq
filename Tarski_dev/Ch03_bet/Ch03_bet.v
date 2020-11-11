@@ -76,8 +76,8 @@ Ltac bet_assumption :=
 Ltac inner_pasch_ex A P B Q x C :=
     assert(ip:= inner_pasch A B C P Q);
     destruct ip as (x, ip);
-    [unfold Bet_4 in *;spliter;bet_assumption 
-    | unfold Bet_4 in *;spliter;bet_assumption 
+    [unfold Bet_5 in *;unfold Bet_4 in *;spliter;bet_assumption 
+    | unfold Bet_5 in *;unfold Bet_4 in *;spliter;bet_assumption 
     | idtac];
     induction ip.
 
@@ -85,7 +85,7 @@ Section T1_4_end.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
 Lemma l2_11_reverse : forall A B C A' B' C',
-  Bet A B C -> Bet A' B' C' -> Cong A B B' C' -> Cong A' B' B C -> Cong A C A' C'.
+  Bet A B C -> Bet A' B' C' -> Cong A B B' C' -> Cong B C A' B' -> Cong A C A' C'.
 Proof.
     intros.
     apply cong_1243.
@@ -93,8 +93,21 @@ Proof.
     assumption.
     apply between_symmetry; assumption.
     apply cong_1243; assumption.
-    apply cong_3421; assumption.
+    apply cong_1243; assumption.
 Qed.
+
+Lemma l2_11_cong3_reverse : forall A B C A' B' C',
+  Bet A B C -> Bet A' B' C' -> Cong A B B' C' -> Cong B C A' B' -> Cong_3 A B C C' B' A'.
+Proof.
+    intros.
+    assert(Cong A C A' C').
+      apply l2_11_reverse with B B'; assumption.
+    apply def_to_cong3_reverse; assumption.
+Qed.
+
+
+
+
 
 End T1_4_end.
 

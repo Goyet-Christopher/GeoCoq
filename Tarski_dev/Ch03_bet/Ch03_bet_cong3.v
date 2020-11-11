@@ -1,20 +1,9 @@
-Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet_eq.
+Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet4.
 Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_IFSC.
-Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_exists.
+
 
 Section T3.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
-
-Lemma cong3_bet_eq : forall  A B C X,
-  Bet A B C -> Cong_3 A B C A X C -> B = X.
-Proof.
-    intros.
-    assert (IFSC A B C B A B C X).
-      apply cong3_swap_132 in H0.
-      apply IFSC_axial_sym; assumption.
-    apply IFSC_eq with A C.
-    assumption.
-Qed.
 
 Lemma bet_cong1213_cong3 : forall  A B C A' B' C',
   Bet A B C -> Bet A' B' C'
@@ -33,11 +22,7 @@ Lemma bet_cong1223_cong3 : forall  A B C A' B' C',
   -> Cong A B A' B' -> Cong B C B' C'
   -> Cong_3 A B C A' B' C'.
 Proof.
-    intros.
-    repeat split.
-    assumption.
-    apply l2_11 with B B'; assumption.
-    assumption.
+    exact l2_11_cong3.
 Qed.
 
 Lemma bet_cong1323_cong3 : forall  A B C A' B' C',
@@ -145,6 +130,29 @@ Proof.
     apply H0.
 Qed.
 
+
+Lemma OFSC_central_sym_with_cong3 : forall A B C A' B' C',
+  Bet A B C ->
+  Cong_3 A B C C' B' A' ->
+  Cong B C' B' A ->
+  OFSC A B C B' C' B' A' B.
+Proof.
+    intros.
+    apply def_to_OFSC_with_cong3.
+    assumption.
+    apply l4_6_cong3_cases with A B C.
+      assumption.
+      left. assumption.
+    apply def_to_cong3.
+    apply H0.
+    apply cong_4321; assumption.
+    apply cong_1221.
+    apply H0.
+Qed.
+
+
 End T3_cases.
+
+
 
 Print All.
