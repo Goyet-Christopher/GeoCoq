@@ -11,6 +11,25 @@ Proof.
     assumption.
 Qed.
 
+Lemma col_to_all : forall A B C, 
+  Col A B C -> (Bet A B C /\ Bet C B A) 
+            \/ (Bet A C B /\ Bet B C A)
+            \/ (Bet B A C /\ Bet C A B).
+Proof.
+    intros.
+    induction H.
+      left. split.
+        assumption.
+        apply between_symmetry. assumption.
+    induction H.
+      right. left. split.
+        assumption.
+        apply between_symmetry. assumption.
+      right. right. split.
+        assumption.
+        apply between_symmetry. assumption.
+Qed.
+
 Lemma def_to_col : forall A B C, 
   Bet A B C \/ Bet A C B \/ Bet B A C -> Col A B C.
 Proof.

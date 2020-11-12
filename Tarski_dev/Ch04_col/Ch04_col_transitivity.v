@@ -4,41 +4,81 @@ Section Col_transitivity.
 
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-Lemma l6_16_1 : forall P Q S X,
-  P<>Q -> S<>P -> Col S P Q -> Col X P Q -> Col X P S.
+Lemma l6_16_a : forall P Q S X,
+  P<>Q -> Bet S P Q -> Col X P Q -> Col X P S.
 Proof.
     intros.
-    apply def_to_col.
+    assert(Q<>P).
+      apply diff_symmetry; assumption.
+    assert(Bet Q P S).
+      apply between_symmetry; assumption.
+    apply col_to_all in H1.
     induction H1.
-      induction H2.
+      spliter.
         right. apply betsym_left.
-        apply l5_2 with Q; 
-          try apply between_symmetry;
-          try apply diff_symmetry; assumption.
-      induction H2.
-        left. apply between_outer_transitivity_2 with Q.
+        apply l5_2 with Q; assumption.
+    induction H1.
+      spliter.
+        left. apply between_outer_transitivity_2 with Q;
           assumption.
-          apply between_symmetry. assumption.
-          apply diff_symmetry. assumption.
-        left. apply between_exchange_1 with Q; 
-          apply between_symmetry; assumption.
-    induction H1;
-      induction H2.
-      left. apply between_outer_transitivity_3 with Q.
+      spliter.
+        left. apply between_exchange_1 with Q;
           assumption.
-          apply between_symmetry; assumption.
+Qed.
+
+Lemma l6_16_b : forall P Q S X,
+  P<>Q -> Bet S Q P -> Col X P Q -> Col X P S.
+Proof.
+    intros.
+    assert(Q<>P).
+      apply diff_symmetry; assumption.
+    assert(Bet P Q S).
+      apply between_symmetry; assumption.
+    apply col_to_all in H1.
+    induction H1.
+      spliter.
+      left. apply between_outer_transitivity_3 with Q;
           assumption.
-      induction H2.
+    induction H1.
+      spliter.
         right. apply betsym_left.
-          apply l5_1 with Q; try apply between_symmetry; assumption.
-        right; right. apply between_exchange_3 with Q.
-          assumption. apply between_symmetry; assumption.
+          apply l5_1 with Q; assumption.
+      spliter.
+        right; right. apply between_exchange_3 with Q;
+          assumption.
+Qed.
+
+Lemma l6_16_c : forall P Q S X,
+  Bet P S Q -> Col X P Q -> Col X P S.
+Proof.
+    intros.
+    assert(Bet Q S P).
+      apply between_symmetry; assumption.
+    apply col_to_all in H0.
+    induction H0.
+      spliter.
         left. apply between_exchange_4 with Q; assumption.
-      induction H2.
-        right; left. apply between_exchange_2 with Q.
-          assumption. apply between_symmetry; assumption.
+    induction H0.
+      spliter.
+        right; left. apply between_exchange_2 with Q;
+          assumption.
+      spliter.
         right. apply betsym_left.
           apply l5_3 with Q; assumption.
+Qed.
+
+Lemma l6_16_1 : forall P Q S X,
+  P<>Q -> Col S P Q -> Col X P Q -> Col X P S.
+Proof.
+    intros.
+    induction H0.
+    (* Bet S P Q *)
+      apply l6_16_a with Q; assumption.
+    induction H0.
+    (* Bet S Q P *)
+      apply l6_16_b with Q; assumption.
+    (* Bet P S Q *)
+      apply l6_16_c with Q; assumption.
 Qed.
 
 Lemma col_transitivity_1 : forall P Q A B,
@@ -49,7 +89,6 @@ Proof.
       subst. apply col_trivial_112.
     apply col_231.
     apply l6_16_1 with Q.
-      assumption.
       assumption.
       apply col_312. assumption.
       apply col_312. assumption.
