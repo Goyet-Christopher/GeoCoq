@@ -200,27 +200,6 @@ Section bet5_cons.
 
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-Lemma bet5_bet : forall A B C D E,
-  Bet A C E -> Bet A B C -> Bet C D E
- -> Bet_5 A B C D E.
-Proof.
-    intros.
-    assert(Bet_4 A B C E).
-      apply bet_123_134_bet4; assumption.
-    assert(Bet_4 A C D E).
-      apply bet_124_234_bet4; assumption.
-    apply def_to_bet5.
-    apply bet_123_134_bet4.
-      assumption.
-      apply bet4_bet_123 with E; assumption.
-    apply bet_124_234_bet4.
-      apply bet4_bet_234 with A; assumption.
-      apply bet4_bet_234 with A; assumption.
-    assumption.
-    apply bet4_outer with C; assumption.
-    assumption.
-Qed.
-
 Lemma bet5_bet4_13 : forall A B C D E,
   Bet_4 B C D E -> Bet_4 A B D E 
   -> Bet_5 A B C D E.
@@ -286,6 +265,42 @@ Proof.
         apply bet4_transitivity_35; assumption.
     spliter.
     apply def_to_bet5; assumption.
+Qed.
+
+Lemma bet5_bet_1 : forall A B C D E,
+  Bet A C E -> Bet A B C -> Bet C D E
+ -> Bet_5 A B C D E.
+Proof.
+    intros.
+    assert(Bet_4 A B C E).
+      apply bet_123_134_bet4; assumption.
+    assert(Bet_4 A C D E).
+      apply bet_124_234_bet4; assumption.
+    apply bet5_bet4_24; assumption.
+Qed.
+
+Lemma bet5_bet_2 : forall A B C D E,
+ Bet A B C -> Bet A D E -> Bet A C D
+-> Bet_5 A B C D E.
+Proof.
+    intros.
+    assert(Bet_4 A C D E).
+      apply bet_123_134_bet4; assumption.
+    assert(Bet_4 A B C D).
+      apply bet_123_134_bet4; assumption.
+    apply bet5_bet4_25; assumption.
+Qed.
+
+Lemma bet5_bet_3 : forall A B C D E,
+C<>D -> Bet A B C -> Bet A C D -> Bet C D E
+-> Bet_5 A B C D E.
+Proof.
+    intros.
+    assert(Bet_4 A B C D).
+      apply bet_123_134_bet4; assumption.
+    assert(Bet_4 A C D E).
+      apply bet4_sides; assumption.
+    apply bet5_bet4_25; assumption.
 Qed.
 
 End bet5_cons.
