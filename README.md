@@ -5,10 +5,11 @@ This library contains a formalization of geometry using the Coq proof assistant.
 
 Trying to make a more usable version of Geocoq, with :
 - as little tactics as possible,
-- explicits and readable proofs
-- small files, lemmas sorted by similarity
-- as many lemmas as possible (to simplify use for everyone, 
-without having to memorize the entire library ... ) 
+- explicits and readable proofs,
+- smalls files / sort lemmas by similarity,
+- changing the names of many lemmas to make them more understandable and recognizable,
+- as many lemmas as possible (to simplify the use for everyone, 
+without having to know the whole library by heart ... ) 
 
 Goyet Christopher
 
