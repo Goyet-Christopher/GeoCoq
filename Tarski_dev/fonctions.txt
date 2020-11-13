@@ -620,7 +620,7 @@ l6_21 : ~ Col A B C -> C <> D -> Col A B P -> Col A B Q -> Col C D P -> Col C D 
 
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
->>>>>>> Library GeoCoq.Tarski_dev.Ch05_bet_le.Ch05_le
+>>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_le
 le_to_def : Le A B C D -> exists X , Bet C X D /\ Cong A B C X
 le_to_def_sym : Le A B C D -> exists X , Bet C X D /\ Cong C X A B
 def_to_le : (exists X , Bet C X D /\ Cong A B C X) -> Le A B C D
@@ -646,7 +646,7 @@ le_2143 : Le A B C D -> Le B A D C
 
 
 
- >>>>>>> Library GeoCoq.Tarski_dev.Ch05_bet_le.Ch05_bet_le
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_bet_le
 bet_le_3231 : Bet A B C -> Le C B C A
 bet_le_2331 : Bet A B C -> Le B C C A
 bet_le_3213 : Bet A B C -> Le C B A C
@@ -663,14 +663,16 @@ bet_le_eq : Bet A B C -> Le A C B C -> A = B
 bet_le_eq_reverse : Bet A B C -> Le A C A B -> B = C
 l5_12_b : Col A B C -> Le A B A C -> Le B C A C -> Bet A B C
 bet2_le2_le : Bet a o b -> Bet A O B -> Le o a O A -> Le o b O B -> Le a b A B
+bet2_le2_le_13 : Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Le B C B' C'  -> Le A C A' C'.
+bet2_le2_le_23 : Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Le A' C' A C  -> Le B' C' B C.
+bet2_le2_le_12 : Bet A B C -> Bet A' B' C' -> Le B C B' C' -> Le A' C' A C  -> Le A' B' A B
 
-
-
- >>>>>>> Library GeoCoq.Tarski_dev.Ch05_bet_le.Ch05_bet_cong_eq
-bet_cong_eq : Bet A B C -> Bet A C D -> Cong B C A D -> C = D /\ A = B
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_bet_cong_eq
+bet_cong_eq : Bet A B C -> Bet A C D -> Cong B C A D -> A = B /\ C = D
+bet4_cong_eq : Bet_4 A B C D -> Cong B C A D -> A = B /\ C = D.
 bet_cong_eq2 : Bet A B C -> Cong A B A' B' -> Cong A C A' C' -> Bet A' C' B' -> B = C /\ B' = C'.
 
- >>>>>>> Library GeoCoq.Tarski_dev.Ch05_bet_le.Ch05_lt
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_lt
 lt_to_def : Lt A B C D -> Le A B C D /\ ~ Cong A B C D
 def_to_lt : Le A B C D /\ ~ Cong A B C D -> Lt A B C D
 lt_le : Lt A B C D -> Le A B C D
@@ -680,25 +682,39 @@ lt_1123 : B <> C -> Lt A A B C
 lt_1243 : Lt A B C D -> Lt A B D C
 lt_2134 : Lt A B C D -> Lt A B D C
 lt_2143 : Lt A B C D -> Lt B A D C
-cong2_lt__lt : Lt A B C D -> Cong A B A' B' -> Cong C D C' D' -> Lt A' B' C' D'
+cong2_lt_lt : Lt A B C D -> Cong A B A' B' -> Cong C D C' D' -> Lt A' B' C' D'
 bet_lt_1213 : B <> C -> Bet A B C -> Lt A B A C
 bet_lt_2313 : A <> B -> Bet A B C -> Lt B C A C
-le1234_lt__lt : Le A B C D -> Lt C D E F -> Lt A B E F
-le3456_lt__lt : Lt A B C D -> Le C D E F -> Lt A B E F
+le1234_lt_lt : Le A B C D -> Lt C D E F -> Lt A B E F
+le3456_lt_lt : Lt A B C D -> Le C D E F -> Lt A B E F
 lt_transitivity : Lt A B C D -> Lt C D E F -> Lt A B E F
 
-
- >>>>>>> Library GeoCoq.Tarski_dev.Ch05_bet_le.Ch05_lt_not
+>>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_lt_not
 not_and_lt :  ~ (Lt A B C D /\ Lt C D A B)
 not_lt : ~ Lt A B A B
 le_not_lt : Le A B C D -> ~ Lt C D A B
 cong_not_lt :  Cong A B C D -> ~ Lt A B C D
-nlt__le :  ~ Lt A B C D -> Le C D A B
-lt__nle : Lt A B C D -> ~ Le C D A B
-nle__lt : ~ Le A B C D -> Lt C D A B
+not_lt_le :  ~ Lt A B C D -> Le C D A B
+lt_not_le : Lt A B C D -> ~ Le C D A B
+not_le_lt : ~ Le A B C D -> Lt C D A B
 
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_bet_lt
+bet2_lt2_lt : Bet a o b -> Bet A O B -> Lt o a O A -> Lt o b O B -> Lt a b A B
+bet2_le_lt_lt : Bet a o b -> Bet A O B -> Le o a O A -> Lt o b O B -> Lt a b A B
+bet2_lt_le_lt : Bet a o b -> Bet A O B -> Lt o a O A -> Le o b O B -> Lt a b A B
+bet2_lt2_lt_13 : Bet A B C -> Bet A' B' C' -> Lt A B A' B' -> Lt B C B' C' -> Lt A C A' C'
+bet2_le_lt_lt_13 : Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Lt B C B' C' -> Lt A C A' C'
+bet2_lt_le_lt_13 : Bet A B C -> Bet A' B' C' -> Lt A B A' B' -> Le B C B' C' -> Lt A C A' C'
 
- >>>>>>> Library GeoCoq.Tarski_dev.Ch05_bet_le.Ch05_ge
+bet2_lt2_lt_23 : Bet A B C -> Bet A' B' C' -> Lt A B A' B' -> Lt A' C' A C -> Lt B' C' B C
+bet2_le_lt_lt_23 : Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Lt A' C' A C -> Lt B' C' B C
+bet2_lt_le_lt_23 :  Bet A B C -> Bet A' B' C' -> Lt A B A' B' -> Le A' C' A C -> Lt B' C' B C
+
+bet2_lt2_lt_12 : Bet A B C -> Bet A' B' C' -> Lt B C B' C' -> Lt A' C' A C  -> Lt A' B' A B
+bet2_le_lt_lt_12 :  Bet A B C -> Bet A' B' C' -> Le B C B' C' -> Lt A' C' A C -> Lt A' B' A B
+bet2_lt_le_lt_12 :  Bet A B C -> Bet A' B' C' -> Lt B C B' C' -> Le A' C' A C -> Lt A' B' A B.
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_ge
 ge_to_def : Ge A B C D -> Le C D A B
 def_to_ge : Le C D A B -> Ge A B C D
 ge_2134 : Ge A B C D -> Ge B A C D
@@ -707,7 +723,7 @@ ge_2143 : Ge A B C D -> Ge B A D C
 
 
 
- >>>>>>> Library GeoCoq.Tarski_dev.Ch05_bet_le.Ch05_gt
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_gt
 gt_to_def : Gt A B C D -> Lt C D A B
 def_to_gt : Lt C D A B -> Gt A B C D
 gt_2134 : Gt A B C D -> Gt B A C D
@@ -764,6 +780,10 @@ out2_bet : Out A B C -> Out C A B -> Bet A B C
  >>>>>>> Library GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_cong
 cong_preserves_bet : Bet A B C -> Cong A B A' B' -> Cong A C A' C' -> Out A' B' C' -> Bet A' B' C'
 out_cong_cong : Out A B C -> Out A' B' C' -> Cong A B A' B' -> Cong A C A' C' -> Cong B C B' C'
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_equiv
+l6_2_sym_equiv : P <> A -> P <> B -> P <> C -> Bet C P A -> Bet C P B <-> Out P A B
+l6_2_equiv : P <> A -> P <> B -> P <> C -> Bet A P C -> Bet B P C <-> Out P A B
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_col_cases
 col_out2_col : Col A B C -> Out B A AA -> Out B C CC -> Col AA B CC
