@@ -38,48 +38,6 @@ Proof.
 Qed.
 
 
-(** Unicity of intersection *)
-
-Lemma l6_21 : forall A B C D P Q,
-  ~ Col A B C -> C<>D 
--> Col A B P -> Col A B Q -> Col C D P -> Col C D Q 
--> P=Q.
-Proof.
-    intros.
-    induction (eq_dec_points P Q).
-      assumption.
-    apply not_col_distincts in H.
-    apply Col_perm in H1.
-    apply Col_perm in H2.
-    apply Col_perm in H3.
-    apply Col_perm in H4.
-    spliter.
-    assert(Q<>P).
-      apply diff_symmetry; assumption.
-    assert(B<>A).
-      apply diff_symmetry; assumption.
-    assert (Col C P Q).
-      apply col_transitivity_1 with D; assumption.
-    assert (Col Q B C).
-      apply col_transitivity_1 with P.
-        assumption.
-        apply col_321. apply col_transitivity_1 with A; assumption.
-        apply col_321; assumption.
-    assert (Col A B C).
-      apply Col_perm in H31.
-      apply Col_perm in H32.
-      spliter.
-      induction (eq_dec_points Q A).
-        subst Q; assumption.
-      induction (eq_dec_points Q B).
-        subst. apply col_213. 
-          apply col_transitivity_1 with P; assumption.
-        apply col_213.
-          apply col_transitivity_1 with Q; try assumption.
-          apply diff_symmetry; assumption.
-    contradiction.
-Qed.
-
 End Out_eq.
 
 Print All.

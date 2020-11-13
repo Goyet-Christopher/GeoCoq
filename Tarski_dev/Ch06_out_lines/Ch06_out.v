@@ -100,6 +100,15 @@ End Out_def.
 Section Out_prop.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
+Lemma out_symmetry : forall P A B, 
+  Out P A B -> Out P B A.
+Proof.
+    intros.
+    apply out_to_def in H.
+    spliter.
+    apply disjunction_commutativity in H1.
+    apply def_to_out; assumption.
+Qed.
 
 Lemma bet_out : forall A B C, 
   A <> B -> Bet A B C -> Out A B C.
@@ -111,6 +120,14 @@ Proof.
       apply bet_neq12__neq with B; assumption.
     left.
     assumption.
+Qed.
+
+Lemma bet_out2 : forall A B C, 
+  A <> C -> Bet A C B -> Out A B C.
+Proof.
+    intros.
+    apply out_symmetry.
+    apply bet_out; assumption.
 Qed.
 
 Lemma out_trivial : forall P A,
@@ -125,15 +142,7 @@ Proof.
     apply between_trivial_122.
 Qed.
 
-Lemma out_symmetry : forall P A B, 
-  Out P A B -> Out P B A.
-Proof.
-    intros.
-    apply out_to_def in H.
-    spliter.
-    apply disjunction_commutativity in H1.
-    apply def_to_out; assumption.
-Qed.
+
 
 (** out transitivity *)
 

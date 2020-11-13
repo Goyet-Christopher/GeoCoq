@@ -1,5 +1,11 @@
+Require Export GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_bet.
 
-Lemma l6_2_sym : forall A B C P,
+Section Out_equiv.
+Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
+
+
+
+Lemma l6_2_sym_equiv : forall A B C P,
   P<>A -> P<>B -> P<>C -> Bet C P A
 -> (Bet C P B <-> Out P A B).
 Proof.
@@ -11,24 +17,24 @@ Proof.
         apply diff_symmetry; assumption.
         assumption. assumption.
     intro.
-      apply out_to_def in H3.
-      spliter.
-      induction H5.
-      apply between_outer_transitivity_3 with A; assumption.
-      apply between_exchange_4 with A; assumption.
+      apply l6_2_sym with A; assumption.
 Qed.
 
-Lemma l6_2 : forall A B C P,
+Lemma l6_2_equiv : forall A B C P,
   P<>A -> P<>B -> P<>C -> Bet A P C 
 -> (Bet B P C <-> Out P A B).
 Proof.
     intros.
-    apply between_symmetry in H2.
     split.
       intros.
+      apply between_symmetry in H2.
       apply between_symmetry in H3.
-      apply l6_2_sym with C; try assumption.
+      apply l6_2_sym_equiv with C; assumption.
     intro.
-      apply between_symmetry.
-      eapply l6_2_sym with A; try assumption.
+      apply l6_2 with A; assumption.
 Qed.
+
+End Out_equiv.
+
+
+
