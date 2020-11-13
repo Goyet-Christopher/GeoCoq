@@ -170,23 +170,8 @@ Lemma bet2_le2_le : forall O o A B a b,
   Bet a o b -> Bet A O B -> Le o a O A -> Le o b O B -> Le a b A B.
 Proof.
     intros.
-    induction(eq_dec_points A O).
-    (* A = O *)
-      subst O.
-      assert (o=a).
-        apply le_zero with A; assumption.
-      subst o. assumption.
-    (* A <> O *)
-      induction(eq_dec_points B O).
-      (* B = O *)
-      subst O.
-      assert (o=b). 
-        apply le_zero with B; assumption.
-      subst. apply le_2143; assumption.
-      (* B <> O *)
       exists_and H1 a'.
         apply between_symmetry in H1.
-        apply cong_2134 in H5.
       exists_and H2 b'.
       assert(Bet_4 A a' b' B).
         apply bet4_sides2 with O; assumption.
@@ -196,7 +181,7 @@ Proof.
         apply (l2_11 a o b a' O b').
           assumption.
           apply between_inner with A B; try assumption.
-          apply cong_1243; assumption.
+          apply cong_2143; assumption.
         assumption.
       apply(l5_6 a' b' A B a b A B).
         assumption.
@@ -204,6 +189,77 @@ Proof.
         apply cong_1212.
 Qed.
 
+Lemma bet2_le2_le_13 : forall A B C A' B' C', 
+  Bet A B C -> Bet A' B' C'
+  -> Le A B A' B' -> Le B C B' C' 
+  -> Le A C A' C'.
+Proof.
+    intros.
+    apply bet2_le2_le with B' B; try assumption.
+      apply le_2143; assumption.
+Qed.
+
+Lemma bet2_le2_le_23 : forall A B C A' B' C', 
+  Bet A B C -> Bet A' B' C'
+  -> Le A B A' B' -> Le A' C' A C
+  -> Le B' C' B C.
+Proof.
+    intros.
+    induction(eq_dec_points A B).
+    (* A = B *)
+      subst B.
+      apply le_transitivity with A' C'.
+        apply bet_le_2313. assumption.
+        assumption.
+    (* A <> B *)
+    apply le_to_def2 in H1.
+    exists_and H1 B0.
+    apply le_to_def in H2.
+    exists_and H2 C0.
+    assert(Bet A B0 C0).
+      assert (Bet A B0 C0 \/ Bet A C0 B0).
+        apply l5_4 with B C; assumption.
+      assert(Col A B0 C0).
+        induction H6.
+          apply bet_col_123. assumption.
+          apply bet_col_132. assumption.
+      assert(Le A' B' A' C').
+        apply bet_le_1213. assumption.
+      assert(Le A B0 A C0).
+        apply l5_6 with A' B' A' C'.
+          assumption.
+          apply cong_3412. assumption.
+          assumption.
+      induction H6.
+        assumption.
+        assert(C0 = B0).
+          apply bet_le_eq_reverse with A; assumption.
+        subst C0. apply between_trivial_122.
+    assert(Bet_5 A B B0 C0 C).
+      apply bet5_bet_2; assumption.
+    apply (l5_6 B0 C0 B C).
+      apply le_transitivity with B C0.
+        apply l5_12_a. apply bet5_bet_234 with A C. assumption.
+        apply l5_12_a. apply bet5_bet_245 with A B0. assumption.
+      apply l4_3_1 with A A'; try assumption.
+        apply cong_3412; assumption.
+      apply cong_1212.
+Qed.
+
+
+Lemma bet2_le2_le_12 : forall A B C A' B' C',
+  Bet A B C -> Bet A' B' C'
+  -> Le B C B' C' -> Le A' C' A C 
+  -> Le A' B' A B.
+Proof.
+  intros.
+  apply le_2143.
+  apply bet2_le2_le_23 with C C'.
+    apply between_symmetry; assumption.
+    apply between_symmetry; assumption.
+    apply le_2143; assumption.
+    apply le_2143; assumption.
+Qed.
 
 End Bet_Le.
 
