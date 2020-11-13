@@ -311,14 +311,15 @@ bet5_bet_235 : Bet_5 A B C D E -> Bet B C E
 bet5_bet_245 : Bet_5 A B C D E -> Bet B D E
 bet5_bet_345 : Bet_5 A B C D E -> Bet C D E
 bet5_symmetry : Bet_5 A B C D E -> Bet_5 E D C B A
-bet5_bet : Bet A C E -> Bet A B C -> Bet C D E -> Bet_5 A B C D E
 bet5_bet4_13 : Bet_4 B C D E -> Bet_4 A B D E -> Bet_5 A B C D E
 bet5_bet4_14 : Bet_4 B C D E -> Bet_4 A B C E -> Bet_5 A B C D E
 bet5_bet4_15 : B <> C \/ B <> D \/ C <> D -> Bet_4 A B C D -> Bet_4 B C D E -> Bet_5 A B C D E
 bet5_bet4_24 : Bet_4 A C D E -> Bet_4 A B C E -> Bet_5 A B C D E
 bet5_bet4_25 : Bet_4 A B C D -> Bet_4 A C D E -> Bet_5 A B C D E
 bet5_bet4_35 : Bet_4 A B C D -> Bet_4 A B D E -> Bet_5 A B C D E
-
+bet5_bet_1 : Bet A C E -> Bet A B C -> Bet C D E -> Bet_5 A B C D E
+bet5_bet_2 : Bet A B C -> Bet A D E -> Bet A C D -> Bet_5 A B C D E.
+bet5_bet_3 : C<>D -> Bet A B C -> Bet A C D -> Bet C D E -> Bet_5 A B C D E.
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch03_bet.Ch03_OFSC
 def_to_OFSC : Bet A B C -> Bet A' B' C' -> Cong A B A' B' -> Cong B C B' C' -> Cong A D A' D' -> Cong B D B' D' -> OFSC A B C D A' B' C' D'
@@ -475,6 +476,8 @@ l5_1 : A <> B -> Bet A B C -> Bet A B D -> Bet A C D \/ Bet A D C
 l5_2 : A <> B -> Bet A B C -> Bet A B D -> Bet B C D \/ Bet B D C
 segment_construction_2 : Q <> A -> exists X, (Bet Q A X \/ Bet Q X A) /\ Cong Q X B C
 l5_3 : Bet A B D -> Bet A C D -> Bet A B C \/ Bet A C B
+l5_4 : A<>B-> Bet A B C -> Bet A B B0 -> Bet A C0 C -> Bet A B0 C0 \/ Bet A C0 B0.
+
 betsym_left : Bet A1 B1 C1 \/ Bet A2 B2 C2 -> Bet C1 B1 A1 \/ Bet A2 B2 C2
 betsym_right : Bet A1 B1 C1 \/ Bet A2 B2 C2 -> Bet A1 B1 C1 \/ Bet C2 B2 A2
 betsym_left_right : Bet A1 B1 C1 \/ Bet A2 B2 C2 -> Bet C1 B1 A1 \/ Bet C2 B2 A2
@@ -498,6 +501,7 @@ between_cong_3 : A <> B -> Bet A B D -> Bet A B E -> Cong B D B E -> D = E
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  >>>>>>> Library GeoCoq.Tarski_dev.Ch04_col.Ch04_col
 col_to_def : Col A B C -> Bet A B C \/ Bet B C A \/ Bet C A B
+col_to_all : Col A B C -> (Bet A B C /\ Bet C B A) \/ (Bet A C B /\ Bet B C A) \/ (Bet B A C /\ Bet C A B).
 def_to_col : Bet A B C \/ Bet B C A \/ Bet C A B -> Col A B C
 bet_col_123 : Bet A B C -> Col A B C
 bet_col_132 : Bet A C B -> Col A B C
@@ -510,13 +514,13 @@ col_312 : Col A B C -> Col C A B
 col_321 : Col A B C -> Col C B A
 col_213 : Col A B C -> Col B A C
 col_132 : Col A B C -> Col A C B
-Col_cases : Col A B C \/
+col_cases : Col A B C \/
 			Col A C B \/
 			Col B A C \/ 
 			Col B C A \/ 
 			Col C A B \/ 
 			Col C B A   -> Col A B C
-Col_perm : Col A B C -> Col A B C /\
+col_perm : Col A B C -> Col A B C /\
 						Col A C B /\
 						Col B A C /\ 
 						Col B C A /\ 
@@ -534,10 +538,14 @@ IFSC_col2 : IFSC A B C D A' B' C' D' -> Col A' B' C'
 l4_13 : Col A B C -> Cong_3 A B C A' B' C' -> Col A' B' C'
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch04_col.Ch04_col_transitivity
-l6_16_1 : P <> Q -> S <> P -> Col S P Q -> Col X P Q -> Col X P S
+l6_16_a : P <> Q -> Bet S P Q -> Col X P Q -> Col X P S
+l6_16_b : P <> Q -> Bet S Q P -> Col X P Q -> Col X P S
+l6_16_c : Bet P S Q -> Col X P Q -> Col X P S
+l6_16_1 : P <> Q -> Col S P Q -> Col X P Q -> Col X P S
 col_transitivity_1 : P <> Q -> Col P Q A -> Col P Q B -> Col P A B
 col_transitivity_2 : P <> Q -> Col P Q A -> Col P Q B -> Col Q A B
 col_transitivity_3 : X <> Y -> Col X Y A -> Col X Y B -> Col X Y C -> Col A B C
+col_transitivity_4 : A<>B -> A <> C -> Col A B C -> Col A B X -> Col A C Y -> Col A X Y /\ Col B X Y /\ Col C X Y.
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch04_col.Ch04_col_not
 not_col_231 : ~ Col A B C -> ~ Col B C A
@@ -606,7 +614,7 @@ l4_17 : A<>B -> Col A B C -> Cong A P A Q -> Cong B P B Q -> Cong C P C Q.
 l4_18 : A <> B -> Col A B C -> Cong A C A C' -> Cong B C B C' -> C = C'
 l4_19 : Bet A C B -> Cong A C A C' -> Cong B C B C' -> C = C'
 col_cong_3_cong_3_eq : A <> B -> Col A B C -> Cong_3 A B C A' B' C1 -> Cong_3 A B C A' B' C2 -> C1 = C2
-
+l6_21 : ~ Col A B C -> C <> D -> Col A B P -> Col A B Q -> Col C D P -> Col C D Q -> P = Q
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -655,6 +663,8 @@ bet_le_eq : Bet A B C -> Le A C B C -> A = B
 bet_le_eq_reverse : Bet A B C -> Le A C A B -> B = C
 l5_12_b : Col A B C -> Le A B A C -> Le B C A C -> Bet A B C
 bet2_le2_le : Bet a o b -> Bet A O B -> Le o a O A -> Le o b O B -> Le a b A B
+
+
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch05_bet_le.Ch05_bet_cong_eq
 bet_cong_eq : Bet A B C -> Bet A C D -> Cong B C A D -> C = D /\ A = B
@@ -742,8 +752,6 @@ not_bet_and_out : ~ (Bet A B C /\ Out B A C)
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_eq
 l6_11_uniqueness : R <> A -> B <> C -> Out A X R -> Cong A X B C -> Out A Y R -> Cong A Y B C -> X = Y
-l6_21 : ~ Col A B C -> C <> D -> Col A B P -> Col A B Q -> Col C D P -> Col C D Q -> P = Q
-
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_bet
 l6_2_sym : P <> A -> P <> B -> P <> C -> Bet C P A -> Out P A B -> Bet C P B
@@ -778,6 +786,10 @@ l6_3_2 : P <> A /\ P <> B /\ (exists C : Tpoint, P <> C /\ Bet A P C /\ Bet B P 
 l6_11_existence : A <> R -> B <> C -> exists X : Tpoint, Out A X R /\ Cong A X B C
 segment_construction_3 : A <> B -> X <> Y -> exists C : Tpoint, Out A B C /\ Cong A C X Y
 
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_le
+l6_13_1 : Out P A B -> Le P A P B -> Bet P A B
+l6_13_2 : Out P A B -> Bet P A B -> Le P A P B
 
 
 
