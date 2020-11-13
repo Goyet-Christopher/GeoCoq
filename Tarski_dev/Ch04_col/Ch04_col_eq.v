@@ -1,4 +1,6 @@
 Require Export GeoCoq.Tarski_dev.Ch04_col.Ch04_FSC.
+Require Export GeoCoq.Tarski_dev.Ch04_col.Ch04_col_transitivity.
+Require Export GeoCoq.Tarski_dev.Ch04_col.Ch04_col_not.
 
 
 Section T4_4.
@@ -43,6 +45,47 @@ Proof.
       apply l4_13 with A B C; assumption.
     apply H3.
     apply H3.
+Qed.
+
+
+Lemma l6_21 : forall A B C D P Q,
+  ~ Col A B C -> C<>D 
+-> Col A B P -> Col A B Q -> Col C D P -> Col C D Q 
+-> P=Q.
+Proof.
+    intros.
+    induction (eq_dec_points P Q).
+      assumption.
+    apply not_col_distincts in H.
+    apply col_perm in H1.
+    apply col_perm in H2.
+    apply col_perm in H3.
+    apply col_perm in H4.
+    spliter.
+    assert(Q<>P).
+      apply diff_symmetry; assumption.
+    assert(B<>A).
+      apply diff_symmetry; assumption.
+    assert (Col C P Q).
+      apply col_transitivity_1 with D; assumption.
+    assert (Col Q B C).
+      apply col_transitivity_1 with P.
+        assumption.
+        apply col_321. apply col_transitivity_1 with A; assumption.
+        apply col_321; assumption.
+    assert (Col A B C).
+      apply col_perm in H31.
+      apply col_perm in H32.
+      spliter.
+      induction (eq_dec_points Q A).
+        subst Q; assumption.
+      induction (eq_dec_points Q B).
+        subst. apply col_213. 
+          apply col_transitivity_1 with P; assumption.
+        apply col_213.
+          apply col_transitivity_1 with Q; try assumption.
+          apply diff_symmetry; assumption.
+    contradiction.
 Qed.
 
 End T4_4.
