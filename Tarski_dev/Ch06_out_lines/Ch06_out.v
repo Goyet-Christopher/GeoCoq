@@ -1,4 +1,4 @@
-Require Export GeoCoq.Tarski_dev.Ch05_bet_le.Ch05_final.
+Require Export GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_final.
 
 Section Out_def.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
