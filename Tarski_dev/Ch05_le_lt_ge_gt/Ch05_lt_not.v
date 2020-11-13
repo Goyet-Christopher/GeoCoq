@@ -1,5 +1,5 @@
-Require Export GeoCoq.Tarski_dev.Ch05_bet_le.Ch05_lt.
-Require Export GeoCoq.Tarski_dev.Ch05_bet_le.Ch05_cong_decidability.
+Require Export GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_lt.
+Require Export GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_cong_decidability.
 
 Section Lt_prop.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
