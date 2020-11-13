@@ -7,7 +7,7 @@ Trying to make a more usable version of Geocoq, with :
 - as little tactics as possible,
 - explicits and readable proofs
 - small files, lemmas sorted by similarity
-- as many lemmas as possible (to simplify use for all, 
+- as many lemmas as possible (to simplify use for everyone, 
 without having to memorize the entire library ... ) 
 
 Goyet Christopher
