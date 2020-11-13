@@ -123,6 +123,30 @@ Proof.
         apply col_transitivity_1 with Y; assumption.
 Qed.
 
+Lemma col_transitivity_4 : forall A B C X Y,
+ A<>B -> A <> C -> Col A B C -> Col A B X -> Col A C Y 
+-> Col A X Y /\ Col B X Y /\ Col C X Y.
+Proof.
+    intros.
+    apply col_perm in H1.
+    apply col_perm in H2.
+    apply col_perm in H3.
+    spliter.
+    assert(B<>A).
+      apply diff_symmetry. assumption.
+    assert(C<>A).
+      apply diff_symmetry. assumption.
+    assert(Col A B Y).
+      apply col_transitivity_1 with C; assumption.
+    apply col_perm in H21.
+    spliter.
+    split.
+      apply col_transitivity_1 with B; assumption.
+    split.
+      apply col_transitivity_1 with A; assumption.
+      apply col_transitivity_3 with A B; assumption.
+Qed.
+
 End Col_transitivity.
 
 Print All.
