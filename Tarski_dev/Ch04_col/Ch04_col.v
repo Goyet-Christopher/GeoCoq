@@ -155,7 +155,7 @@ Section T4_3.
 
 Context `{Tn:Tarski_neutral_dimensionless}.
 
-Lemma Col_cases : forall A B C,
+Lemma col_cases : forall A B C,
  Col A B C \/ Col A C B \/ Col B A C \/
  Col B C A \/ Col C A B \/ Col C B A ->
  Col A B C.
@@ -174,7 +174,7 @@ Proof.
     apply col_321; assumption.
 Qed.
 
-Lemma Col_perm : forall A B C,
+Lemma col_perm : forall A B C,
  Col A B C ->
  Col A B C /\ Col A C B /\ Col B A C /\
  Col B C A /\ Col C A B /\ Col C B A.
