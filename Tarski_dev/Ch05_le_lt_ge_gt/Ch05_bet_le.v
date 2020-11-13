@@ -211,7 +211,7 @@ Proof.
       apply le_transitivity with A' C'.
         apply bet_le_2313. assumption.
         assumption.
-    (* A <> B *)
+    (* A <> B for l5_4*)
     apply le_to_def2 in H1.
     exists_and H1 B0.
     apply le_to_def in H2.

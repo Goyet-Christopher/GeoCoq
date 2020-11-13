@@ -49,7 +49,7 @@ Proof.
     assumption.
 Qed.
 
-Lemma nlt__le : forall A B C D,
+Lemma not_lt_le : forall A B C D,
   ~ Lt A B C D -> Le C D A B.
 Proof.
     intros A B C D HNLt.
@@ -70,7 +70,7 @@ Proof.
       assumption.
 Qed.
 
-Lemma lt__nle : forall A B C D,
+Lemma lt_not_le : forall A B C D,
   Lt A B C D -> ~ Le C D A B.
 Proof.
     intros.
@@ -80,7 +80,7 @@ Proof.
     assumption.
 Qed.
 
-Lemma nle__lt : forall A B C D,
+Lemma not_le_lt : forall A B C D,
   ~ Le A B C D -> Lt C D A B.
 Proof.
     intros.

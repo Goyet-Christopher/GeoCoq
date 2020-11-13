@@ -106,7 +106,7 @@ Qed.
 Definition lt_2143 A B C D :=
   lt_comm A B C D.
 
-Lemma cong2_lt__lt : forall A B C D A' B' C' D',
+Lemma cong2_lt_lt : forall A B C D A' B' C' D',
   Lt A B C D -> Cong A B A' B' -> Cong C D C' D' -> Lt A' B' C' D'.
 Proof.
     intros.
@@ -144,7 +144,7 @@ Proof.
     apply between_symmetry; assumption.
 Qed.
 
-Lemma le1234_lt__lt : forall A B C D E F,
+Lemma le1234_lt_lt : forall A B C D E F,
   Le A B C D -> Lt C D E F -> Lt A B E F.
 Proof.
     intros.
@@ -161,7 +161,7 @@ Proof.
       apply cong_1212.
 Qed.
 
-Lemma le3456_lt__lt : forall A B C D E F,
+Lemma le3456_lt_lt : forall A B C D E F,
   Lt A B C D -> Le C D E F -> Lt A B E F.
 Proof.
     intros.
@@ -183,7 +183,7 @@ Lemma lt_transitivity : forall A B C D E F,
   Lt A B C D -> Lt C D E F -> Lt A B E F.
 Proof.
     intros.
-    apply le1234_lt__lt with C D.
+    apply le1234_lt_lt with C D.
       apply lt_le; assumption.
       assumption.
 Qed.

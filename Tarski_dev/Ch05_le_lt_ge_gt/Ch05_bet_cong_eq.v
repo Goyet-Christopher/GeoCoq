@@ -25,6 +25,18 @@ Proof.
       apply between_cong with B; assumption.
 Qed.
 
+Lemma bet4_cong_eq : forall A B C D,
+  Bet_4 A B C D -> Cong B C A D 
+-> A = B /\ C = D.
+Proof.
+    intros.
+    assert(Bet A B C).
+      apply H.
+    assert(Bet A C D).
+      apply H.
+    apply bet_cong_eq; assumption.
+Qed.
+
 Lemma bet_cong_eq2 : forall A B C A' B' C',
   Bet A B C -> Cong A B A' B' -> Cong A C A' C'
   -> Bet A' C' B' -> B = C /\ B' = C'.
