@@ -47,6 +47,7 @@ Proof.
     apply H3.
 Qed.
 
+(** Unicity of intersection *)
 
 Lemma l6_21 : forall A B C D P Q,
   ~ Col A B C -> C<>D 
