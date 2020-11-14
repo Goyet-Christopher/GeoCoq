@@ -216,9 +216,55 @@ Qed.
 
 End T4_3.
 
-Section OFSC_IFSC.
+
+Section col_cons.
 
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
+
+Lemma bet2_col_1 : forall A B C D,
+  A <> B -> Bet A B C -> Bet A B D -> Col B C D.
+Proof.
+    intros.
+    assert(Bet B C D \/ Bet B D C ).
+      apply l5_2 with A; assumption.
+    induction H2.
+      apply bet_col_123. assumption.
+      apply bet_col_132. assumption.
+Qed.
+
+Lemma bet2_col_2 : forall A B C D,
+  A <> B -> Bet A B C -> Bet A B D -> Col A C D.
+Proof.
+    intros.
+    assert(Bet A C D \/ Bet A D C).
+      apply l5_1 with B; assumption.
+    induction H2.
+      apply bet_col_123. assumption.
+      apply bet_col_132. assumption.
+Qed.
+
+Lemma bet2_col_4 : forall A B C D,
+  Bet A B D -> Bet A C D -> Col A B C.
+Proof.
+    intros.
+    assert(Bet A B C \/ Bet A C B).
+      apply l5_3 with D; assumption.
+    induction H1.
+      apply bet_col_123. assumption.
+      apply bet_col_132. assumption.
+Qed.
+
+Lemma bet3_col_45 : forall A B C D E,
+  A<>B-> Bet A B E -> Bet A B C -> Bet A D E -> Col A C D.
+Proof.
+    intros.
+    assert(Bet A C D \/ Bet A D C).
+      apply l5_4 with B E; assumption.
+    induction H3.
+      apply bet_col_123. assumption.
+      apply bet_col_132. assumption.
+Qed.
+
 
 Lemma OFSC_col1 : forall A B C D A' B' C' D', 
   OFSC A B C D A' B' C' D'
@@ -260,12 +306,6 @@ Proof.
     assumption.
 Qed.
 
-End OFSC_IFSC.
-
-Section T4_4.
-
-Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
-
 Lemma l4_13 : forall A B C A' B' C',
  Col A B C -> Cong_3 A B C A' B' C' -> Col A' B' C'.
 Proof.
@@ -279,6 +319,6 @@ Proof.
     apply l4_6_bet_213 with A B C; assumption.
 Qed.
 
-End T4_4.
+End col_cons.
 
 Print All.
