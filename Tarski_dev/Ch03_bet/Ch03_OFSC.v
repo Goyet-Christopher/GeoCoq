@@ -274,8 +274,8 @@ Proof.
     intros.
     assert(Cong B C B' C').
       induction H2.
-      apply cong3_23 with A A'; assumption.
-      apply cong3_12 with D D'; assumption.
+      apply cong3_2356 with A A'; assumption.
+      apply cong3_1245 with D D'; assumption.
     apply def_to_OFSC_with_cong3; assumption.
 Qed.
 
@@ -324,6 +324,18 @@ Proof.
 Qed.
 
 Lemma OFSC_axial_sym : forall A B C D D',
+  Bet A B C -> Cong A D A D' -> Cong B D B D'
+  -> OFSC A B C D A B C D'.
+Proof.
+      repeat split.
+      assumption. assumption.
+      apply cong_1212.
+      apply cong_1212.
+      assumption.
+      assumption.
+Qed.
+
+Lemma OFSC_axial_sym_cong3 : forall A B C D D',
   Bet A B C -> Cong_3 A B D A B D'
   -> OFSC A B C D A B C D'.
 Proof.
@@ -335,16 +347,17 @@ Proof.
       apply H0.
 Qed.
 
-Lemma OFSC_axial_sym2 : forall A B C D D',
-  Bet A B C -> Cong A D A D' -> Cong B D B D'
-  -> OFSC A B C D A B C D'.
+Lemma OFSC_axial_sym2 : forall A B C D,
+  Bet A B C -> Cong A B B C -> Cong A D C D
+  -> OFSC A B C D C B A D.
 Proof.
       repeat split.
-      assumption. assumption.
-      apply cong_1212.
-      apply cong_1212.
       assumption.
+      apply between_symmetry. assumption.
+      apply cong_1243. assumption.
+      apply cong_3421. assumption.
       assumption.
+      apply cong_1212.
 Qed.
 
 Lemma OFSC_central_sym : forall A B C A' B' C',
@@ -373,7 +386,7 @@ Lemma l4_17_OFSC : forall A B C P Q,
 Proof.
     intros.
     assert (OFSC A B C P A B C Q).
-      apply OFSC_axial_sym2; assumption.
+      apply OFSC_axial_sym; assumption.
     apply OFSC_cong_34 with A B A B.
       assumption.
       left; assumption.

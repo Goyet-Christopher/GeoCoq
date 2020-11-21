@@ -1,4 +1,4 @@
-Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet4.
+Require Export GeoCoq.Tarski_dev.Ch03_bet.bet4.Ch03_bet4.
 Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_IFSC.
 
 
@@ -37,13 +37,53 @@ Proof.
     assumption.
 Qed.
 
+Lemma bet_cong1213_cong3_reverse : forall  A B C A' B' C',
+  Bet A B C -> Bet A' B' C'
+  -> Cong A B B' C' -> Cong A C A' C'
+  -> Cong_3 A B C C' B' A'.
+Proof.
+    intros.
+    apply def_to_cong3_reverse.
+    assumption.
+    assumption.
+    apply cong_1243.
+    apply l4_3_1 with A C'.
+      assumption.
+      apply between_symmetry. assumption.
+      apply cong_1243. assumption.
+      apply cong_1243. assumption.
+Qed.
+
+Lemma bet_cong1223_cong3_reverse : forall  A B C A' B' C',
+  Bet A B C -> Bet A' B' C'
+  -> Cong A B B' C' -> Cong B C A' B'
+  -> Cong_3 A B C C' B' A'.
+Proof.
+    exact l2_11_cong3_reverse.
+Qed.
+
+Lemma bet_cong1323_cong3_reverse : forall  A B C A' B' C',
+  Bet A B C -> Bet A' B' C'
+  -> Cong A C A' C' -> Cong B C A' B'
+  -> Cong_3 A B C C' B' A'.
+Proof.
+    intros.
+    repeat split.
+    apply l4_3 with C A'.
+      assumption.
+      apply between_symmetry. assumption.
+      apply cong_1243. assumption.
+      apply cong_1243. assumption.
+    apply cong_1243. assumption.
+    apply cong_1243. assumption.
+Qed.
 
 Lemma l4_6 : forall A B C A' B' C', 
   Bet A B C -> Cong_3 A B C A' B' C' -> Bet A' B' C'.
 Proof.
     intros.
     assert (exists B'', Bet A' B'' C' /\ Cong_3 A B C A' B'' C').
-      apply cong3_13 in H0.
+      apply cong3_1346 in H0.
       apply l4_5_b; assumption.
       exists_and H1 x.
     assert ( x = B').
@@ -76,7 +116,7 @@ Proof.
     intros.
     apply l4_6 with A B C.
     assumption.
-    apply Cong3_cases.
+    apply cong3_cases.
     assumption.
 Qed.
 
@@ -86,7 +126,7 @@ Proof.
     intros.
     apply l4_6 with A C B.
     assumption.
-    apply Cong3_perm in H0.
+    apply cong3_perm in H0.
     apply H0.
 Qed.
 
@@ -96,7 +136,7 @@ Proof.
     intros.
     apply l4_6 with B A C.
     assumption.
-    apply Cong3_perm in H0.
+    apply cong3_perm in H0.
     apply H0.
 Qed.
 
@@ -106,7 +146,7 @@ Proof.
     intros.
     apply l4_6 with B C A.
     assumption.
-    apply Cong3_perm in H0.
+    apply cong3_perm in H0.
     apply H0.
 Qed.
 
@@ -116,7 +156,7 @@ Proof.
     intros.
     apply l4_6 with C A B.
     assumption.
-    apply Cong3_perm in H0.
+    apply cong3_perm in H0.
     apply H0.
 Qed.
 
@@ -126,7 +166,7 @@ Proof.
     intros.
     apply l4_6 with C B A.
     assumption.
-    apply Cong3_perm in H0.
+    apply cong3_perm in H0.
     apply H0.
 Qed.
 

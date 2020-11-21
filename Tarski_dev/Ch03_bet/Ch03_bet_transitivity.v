@@ -87,14 +87,14 @@ Proof.
     apply diff_symmetry; assumption.
 Qed.
 
-Lemma between_inner : forall A1 A2 A3 A4 A5,
-  Bet A1 A3 A5 -> Bet A1 A2 A3 -> Bet A3 A4 A5
-->Bet A2 A3 A4.
+Lemma between_inner : forall A B C D E,
+  Bet A C E -> Bet A B C -> Bet C D E
+->Bet B C D.
 Proof.
     intros.
-    apply between_exchange_1 with A1.
+    apply between_exchange_1 with A.
       assumption.
-      apply between_exchange_4 with A5; assumption.
+      apply between_exchange_4 with E; assumption.
 Qed.
 
 End T2_3.

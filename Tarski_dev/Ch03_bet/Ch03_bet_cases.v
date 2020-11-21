@@ -1,52 +1,72 @@
-Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet5.
-Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet4_cong4.
+Require Export GeoCoq.Tarski_dev.Ch03_bet.bet5.Ch03_bet5.
+Require Export GeoCoq.Tarski_dev.Ch03_bet.bet4.Ch03_bet4_cong4.
 
 Section T5.
-
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
 
-Definition preRhombus A B A' B' := 
-Cong A B B A' /\ Cong B A' A' B' /\ Cong A B' A' B' /\ Cong A B A B'
-/\ Cong A B A' B' /\ Cong A B' B A'.
-
-Lemma preRhombus_mid : forall Q A B A' B',
-  Bet Q A B' -> Bet Q B A' -> preRhombus A B A' B' 
-  -> exists E, Bet A E A' /\ Bet B' E B /\ Cong A E E A'/\ Cong B' E E B.
+Lemma flat_QEqui_mid : forall Q A B A' B',
+  Bet Q A B' -> Bet Q B A' -> QEqui A B A' B' 
+  -> exists E, IFSC A E A' B A E A' B' /\ IFSC B E B' A B E B' A' 
+            /\ IFSC A E A' B A' E A B /\ IFSC A E A' B' A' E A B'
+            /\ IFSC B E B' A B' E B A /\ IFSC B E B' A' B' E B A'.
+(*  -> exists E, Bet A E A' /\ Bet B E B' /\ Cong A E E A'/\ Cong B' E E B. *)
 Proof.
     intros.
-    unfold preRhombus in *.
+    apply qequi_to_all in H1.
     spliter.
     inner_pasch_ex B' A A' B E Q. (* Bet A C D' -> Bet A D C' -> E *)
     exists E.
-    apply between_symmetry in H8.
-    assert (IFSC A E A' B A E A' B').
-      apply IFSC_axial_sym2; try assumption.
-      apply cong_2134; assumption.
-    assert (Cong B' E E B).
-      apply cong_4312.
-      apply l4_2 with A A' A A'; assumption.
-    assert (IFSC B' E B A B' E B A').
-      apply IFSC_axial_sym2; try assumption.
-        apply cong_2143; assumption.
+    assert(IFSC A E A' B A E A' B').
+      apply IFSC_axial_sym; try assumption.
         apply cong_2134; assumption.
+    assert(IFSC B E B' A B E B' A').
+      apply IFSC_axial_sym; try assumption.
+          apply cong_2134. assumption.
+          apply cong_2143. assumption.
+    assert (Cong B E E B').
+      apply cong_2134.
+      apply IFSC_cong_24 with A A' A A'; assumption.
     assert (Cong A E E A').
       apply cong_2134.
-      apply l4_2 with B' B B' B; assumption.
-    repeat split; assumption.
+      apply IFSC_cong_24 with B B' B B'; assumption.
+    split. assumption.
+    split. assumption.
+    split.
+      apply IFSC_axial_sym2; try assumption.
+        apply cong_1243. assumption.
+    split.
+      apply IFSC_axial_sym2; try assumption.
+    split.
+      apply IFSC_axial_sym2; try assumption.
+        apply cong_2143. assumption.
+      apply IFSC_axial_sym2; try assumption.
+        apply cong_1243. assumption.
+(*
+      apply def_to_cong3_reverse; try assumption; try apply cong_1221.
+    split.
+      apply def_to_cong3_reverse; try assumption; try apply cong_1221.
+        apply cong_1243. assumption.
+    split.
+      apply def_to_cong3_reverse; try assumption; try apply cong_1221.
+        apply cong_4321. assumption.
+        apply cong_2134. assumption.
+      apply def_to_cong3_reverse; try assumption; try apply cong_1221.
+        apply cong_4321. assumption.
+*)
 Qed.
 
-Lemma l5_1_preRhombus : forall A B C D,
+Lemma l5_1_QEqui : forall A B C D,
   A<>B -> B<>C -> Bet A B C -> Bet A B D -> exists C' D' B',
-  preRhombus C D C' D' /\ Bet_4 B C D' B' /\ Bet_4 B D C' B'.
+  QEqui C D C' D' /\ Bet_4 B C D' B' /\ Bet_4 B D C' B'.
 Proof.
     intros.
     prolong4 A B D C' C D.
     exists C'.
     prolong4 A B C D' C D.
     exists D'.
-      assert(Cong  C D' D C').
-        apply cong_1234_1256 with C D; assumption.
+    assert(Cong  C D' D C').
+      apply cong_1234_1256 with C D; assumption.
     prolong4 A B C' B' B C.
     exists B'.
     assert(Bet_5 A B D C' B').
@@ -80,19 +100,15 @@ Proof.
       apply OFSC_cong_34 with B C B' C'.
         assumption.
         left; assumption.
-    assert(Cong C D' C' D').
-      apply cong_1234_1256 with C D; assumption.
-    assert(Cong D C' C' D').
-      apply cong_1234_1256 with C D; assumption.
     split.
-    repeat split; try assumption.
+      apply qequi_2adj_1op_3; assumption.
     split.
       apply bet5_bet4_2345 with A; assumption.
       apply bet5_bet4_2345 with A; assumption.
 Qed.
 
 Lemma rotate_DCDE : forall D C D' E,
-  C<>D' -> OFSC D E D' C D' E D C 
+  C<>D' -> IFSC D E D' C D' E D C
 -> exists P R Q, Bet D' C R /\ Bet E C P /\ OFSC D E D' C P R Q C /\ OFSC P R Q C Q R P C.
 Proof.
     intros.
@@ -106,7 +122,7 @@ Proof.
     split. assumption.
     split. assumption.
     assert(Cong_3 D E C D' E C).
-      apply OFSC_cong3_124 with D' D; assumption.
+      apply IFSC_cong3_124 with D' D. assumption.
     assert(OFSC D' C R P P C E D' ).
       apply def_to_OFSC_reverse.
         assumption. assumption. 
@@ -123,8 +139,7 @@ Proof.
     assert (Cong R Q E D').
       apply cong_1234_1256 with P R.
         apply cong_2134; assumption.
-        apply cong_2134.
-        apply cong3_23 with D' P; assumption.
+        apply cong3_3256 with D' P; assumption.
     assert(OFSC D E D' C P R Q C).
       apply def_to_OFSC_with_cong3.
         apply H0. assumption.
@@ -148,50 +163,36 @@ Proof.
       assert(D<>E).
         apply cong_diff_12_34 with D' E.
         assumption.
-        apply cong_3412; apply H0.
-      assert(Cong D' C Q C).
-        apply OFSC_cong_34 with D E P R.
-          assumption.
-          left; assumption.
-      apply def_to_OFSC.
+        apply cong_3412. apply IFSC_cong_12 with D' C D C. assumption.
+      apply OFSC_transitivity with D E D' C.
+        apply OFSC_symmetry. assumption. left. assumption.
+        apply OFSC_symmetry_24.
+        apply OFSC_transitivity with D E D' C.
+        apply OFSC_symmetry. apply IFSC_to_OFSC. assumption. left. assumption.
         assumption.
-        apply between_symmetry; assumption.
-        apply cong_2143; assumption.
-        apply cong_3412; assumption.
-        apply cong_1234_3456 with D' C.
-          apply cong_4321; assumption.
-          assumption.
-        apply cong_1212.
+        left. assumption.
       left. apply diff_symmetry; assumption.
 Qed.
 
-Lemma bet4_preRhombus : forall B B' C C' D D',
+Lemma bet4_QEqui : forall B B' C C' D D',
   C<>C'-> Bet_4 B C D' B' -> Bet_4 B D C' B'
-  -> preRhombus C D C' D' -> Bet B C D.
+  -> QEqui C D C' D' -> Bet B C D.
 Proof.
     intros.
-    assert(exists E, Bet C E C' /\ Bet D' E D /\ Cong C E E C'/\ Cong D' E E D).
-      apply preRhombus_mid with B.
-        apply H0.
-        apply H1.
-        assumption.
-    exists_and H3 E.
-    unfold preRhombus in *.
-    spliter.
+    assert(Bet B C D') by apply H0.
+    assert(Bet B D C') by apply H1.
+    assert(H' := flat_QEqui_mid B C D C' D' H3 H4 H2).
+    apply qequi_to_all in H2.
+    exists_and H' E.
+    assert(Cong C E E C').
+      apply cong_1243. apply IFSC_cong_12 with C' D' C D'. assumption.
     assert(C<>D').
       apply (cong_diff_12 C C' D'); assumption.
     assert(exists P R Q, Bet D' C R /\ Bet E C P /\ OFSC D E D' C P R Q C /\ OFSC P R Q C Q R P C).
-      apply rotate_DCDE.
-        assumption.
-        apply def_to_OFSC; try assumption.
-        apply between_symmetry; assumption.
-        apply cong_4312; assumption.
-        apply cong_2134; assumption.
-        apply cong_2143; assumption.
-        apply cong_1212.
-    exists_and H13 P.
-    exists_and H14 R.
-    exists_and H13 Q.
+      apply rotate_DCDE; assumption.
+    exists_and H18 P.
+    exists_and H19 R.
+    exists_and H18 Q.
 (* C, D', B, B', C', P appartiennent a la mediatrice de [PQ] *)
     assert (Cong C P C Q).
       apply cong_2143.
@@ -204,11 +205,10 @@ Proof.
         apply cong_2134.
         apply OFSC_cong_24 with D D' P Q; assumption.
     assert (Cong D' P D' Q).
-      apply l4_17_OFSC with R C. assumption.
+      apply l4_17_OFSC with R C; try assumption.
         apply between_symmetry; assumption.
         apply cong_2143.
         apply OFSC_cong_12 with Q C P C; assumption.
-        assumption.
     assert (Cong B P B Q).
       apply l4_17_OFSC with D' C; try assumption.
         apply diff_symmetry; assumption.
@@ -217,28 +217,13 @@ Proof.
       apply l4_17_OFSC with C D'; try assumption.
         apply H0. 
     assert (Cong C' P C' Q).
-      induction(eq_dec_points B B').
-        (* B = B' *)
-        subst B'.
-        assert(B = C /\ C = D').
-          apply bet4_equality_2.
-            assumption.
-        spliter.
-        subst D'. subst C.
-        assert(B = D /\ D = C').
-          apply bet4_equality_2.
-            assumption.
-        spliter.
-        subst C'. subst D.
-        assumption.
-        (* B <> B' *)
-        apply l4_17_IFSC with B B'; try assumption.
-          apply H1.
+      apply l4_17_IFSC with B B'; try assumption.
+        apply H1.
     assert (Cong P P P Q).
       apply l4_17_OFSC with C' C; try assumption.
       apply diff_symmetry; assumption.
       apply between_outer_transitivity_2 with E.
-        apply between_symmetry; assumption.
+        apply between_symmetry; apply H5.
         assumption.
         apply diff_symmetry.
           apply (cong_diff_14 C E C'); assumption.
@@ -268,8 +253,8 @@ Proof.
     (* B = C -> Bet A C D *)
       subst. left. assumption.
     (* B <> C *)
-    assert(exists C' D' B', preRhombus C D C' D' /\ Bet_4 B C D' B' /\ Bet_4 B D C' B').
-      apply l5_1_preRhombus with A; assumption.
+    assert(exists C' D' B', QEqui C D C' D' /\ Bet_4 B C D' B' /\ Bet_4 B D C' B').
+      apply l5_1_QEqui with A; assumption.
       exists_and H3 C'.
       exists_and H4 D'.
       exists_and H3 B'.
@@ -283,7 +268,7 @@ Proof.
     left.
     apply between_exchange_2 with B.
       assumption.
-      eapply bet4_preRhombus with B' C' D'; assumption.
+      apply bet4_QEqui with B' C' D'; assumption.
 Qed.
 
 
@@ -333,6 +318,36 @@ Proof.
       assumption.
     apply l5_2 with P; assumption.
 Qed.
+
+Lemma l5_4 : forall A B C B0 C0,
+ A<>B-> Bet A B C -> Bet A B B0 -> Bet A C0 C 
+-> Bet A B0 C0 \/ Bet A C0 B0.
+Proof.
+    intros.
+    assert(Bet A B C0 \/ Bet A C0 B).
+      apply l5_3 with C; assumption.
+    induction H3.
+      apply l5_1 with B; assumption.
+    right.
+      apply between_exchange_3 with B; assumption.
+Qed.
+
+Lemma between_inner_2 : forall A B C D E,
+ Bet A B E -> Bet A D E -> Bet B C D -> Bet A C E.
+Proof.
+    intros.
+    assert (H2 := l5_3 A B D E H H0).
+    induction H2.
+    apply between_exchange_3 with D.
+      apply between_exchange_2 with B; assumption.
+      assumption.
+    apply between_exchange_3 with B.
+      apply between_exchange_2 with D.
+        assumption.
+        apply between_symmetry. assumption.
+      assumption.
+Qed.
+
 
 Lemma betsym_left : forall A1 B1 C1 A2 B2 C2,
    Bet A1 B1 C1 \/ Bet A2 B2 C2 -> Bet C1 B1 A1 \/ Bet A2 B2 C2.
@@ -411,6 +426,7 @@ Proof.
       right. assumption.
       left. right. assumption.
 Qed.
+
 
 
 End T5.

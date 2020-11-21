@@ -141,7 +141,30 @@ End IFSC_def.
 Section IFSC_prop.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
+Lemma IFSC_reflexivity : forall A B C D,
+  Bet A B C-> IFSC A B C D A B C D.
+Proof.
+    intros.
+    apply def_to_IFSC_with_cong3.
+      assumption.
+      assumption.
+      apply cong_reflexivity.
+      apply cong3_reflexivity.
+Qed.
+
 Lemma IFSC_axial_sym : forall A B C D D',
+  Bet A B C -> Cong A D A D' -> Cong C D C D'
+  -> IFSC A B C D A B C D'.
+Proof.
+    repeat split.
+    assumption. assumption.
+    apply cong_1212.
+    apply cong_1212.
+    assumption.
+    assumption.
+Qed.
+
+Lemma IFSC_axial_sym_cong3 : forall A B C D D',
   Bet A B C -> Cong_3 A C D A C D'
   -> IFSC A B C D A B C D'.
 Proof.
@@ -156,16 +179,17 @@ Proof.
     assumption.
 Qed.
 
-Lemma IFSC_axial_sym2 : forall A B C D D',
-  Bet A B C -> Cong A D A D' -> Cong C D C D'
-  -> IFSC A B C D A B C D'.
+Lemma IFSC_axial_sym2 : forall A B C D,
+  Bet A B C -> Cong A B B C -> Cong A D C D
+  -> IFSC A B C D C B A D.
 Proof.
     repeat split.
-    assumption. assumption.
-    apply cong_1212.
-    apply cong_1212.
     assumption.
+    apply between_symmetry. assumption.
+    apply cong_1221.
+    apply cong_3421. assumption.
     assumption.
+    apply cong_3412. assumption.
 Qed.
 
 Lemma IFSC_IFSC_Bet : forall A B C D E A' B' C' D' E',
@@ -350,7 +374,7 @@ Lemma l4_17_IFSC : forall A B C P Q,
 Proof.
     intros.
     assert (IFSC A C B P A C B Q).
-      apply IFSC_axial_sym2; assumption.
+      apply IFSC_axial_sym; assumption.
     apply IFSC_cong_24 with A B A B; assumption.
 Qed.
 
@@ -455,8 +479,8 @@ Proof.
     intros.
     assert(Cong B C B' C').
       induction H1.
-      apply cong3_12 with D D'; assumption.
-      apply cong3_23 with A A'; assumption.
+      apply cong3_1245 with D D'; assumption.
+      apply cong3_2356 with A A'; assumption.
     apply def_to_IFSC_with_cong3; assumption.
 Qed.
 
@@ -485,7 +509,7 @@ Proof.
     apply def_to_IFSC_with_cong3.
     assumption.
     assumption.
-    apply cong_3412. apply cong3_12 with D D'; assumption.
+    apply cong3_4512 with D D'; assumption.
     apply cong3_symmetry; assumption.
 Qed.
 
