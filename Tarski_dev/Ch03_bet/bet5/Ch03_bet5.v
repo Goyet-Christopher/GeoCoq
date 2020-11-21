@@ -1,4 +1,5 @@
-Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet4.
+Require Export GeoCoq.Tarski_dev.Ch03_bet.bet4.Ch03_bet4.
+Require Export GeoCoq.Tarski_dev.Ch03_bet.bet4.Ch03_bet4_transitivity.
 
 Section Bet5.
 
@@ -13,15 +14,46 @@ Proof.
     repeat (split;auto).
 Qed.
 
+Lemma all_to_bet5 : forall A B C D E,
+  Bet A B C -> Bet A B D -> Bet A B E ->
+               Bet A C D -> Bet A C E ->
+               Bet A D E ->
+               Bet B C D -> Bet B C E ->
+               Bet B D E ->
+               Bet C D E
+ -> Bet_5 A B C D E.
+Proof.
+    intros.
+    unfold Bet_5.
+    unfold Bet_4.
+    repeat split; assumption.
+Qed.
+
+
 Lemma bet5_to_def : forall A B C D E,
  Bet_5 A B C D E -> 
 Bet_4 A B C D /\ Bet_4 B C D E /\ 
    Bet_4 A C D E /\ Bet_4 A B D E /\ Bet_4 A B C E.
 Proof.
-    unfold Bet_5.
     intros.
     assumption.
 Qed.
+
+Lemma bet5_to_all : forall A B C D E,
+ Bet_5 A B C D E -> Bet A B C /\ Bet A B D /\ Bet A B E /\
+                    Bet A C D /\ Bet A C E /\
+                    Bet A D E /\
+                    Bet B C D /\ Bet B C E /\
+                    Bet B D E /\
+                    Bet C D E.
+Proof.
+    unfold Bet_5.
+    unfold Bet_4.
+    intros.
+    spliter.
+    repeat split; assumption.
+Qed.
+
 
 Lemma bet5_bet4_1234 : forall A B C D E,
  Bet_5 A B C D E -> Bet_4 A B C D.
@@ -167,6 +199,17 @@ Proof.
     apply bet4_bet_234 with B.
     assumption.
 Qed.
+End Bet5.
+
+Section Bet5_prop.
+Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
+
+Lemma bet5_trivial : forall A,
+  Bet_5 A A A A A.
+Proof.
+    intros.
+    apply def_to_bet5; apply bet4_trivial.
+Qed.
 
 Lemma bet5_symmetry : forall A B C D E, 
 Bet_5 A B C D E -> Bet_5 E D C B A.
@@ -194,7 +237,7 @@ Proof.
 Qed.
 *)
 
-End Bet5.
+End Bet5_prop.
 
 Section bet5_cons.
 
@@ -303,6 +346,31 @@ Proof.
     apply bet5_bet4_25; assumption.
 Qed.
 
+Lemma bet5_bet_4 : forall A B C D E,
+ Bet B C D -> Bet A B D -> Bet A D E
+-> Bet_5 A B C D E.
+Proof.
+    intros.
+    assert(Bet_4 A B D E).
+      apply bet_123_134_bet4; assumption.
+    assert(Bet_4 A B C D).
+      apply bet_124_234_bet4; assumption.
+    apply bet5_bet4_35; assumption.
+Qed.
+
+Lemma bet5_bet_5 : forall A B C D E,
+ Bet B C D -> Bet B D E -> Bet A B E
+-> Bet_5 A B C D E.
+Proof.
+    intros.
+    assert(Bet_4 B C D E).
+      apply bet_123_134_bet4; assumption.
+    assert(Bet_4 A B D E).
+      apply bet_124_234_bet4; assumption.
+    apply bet5_bet4_13; assumption.
+Qed.
+
 End bet5_cons.
+
 
 Print All.

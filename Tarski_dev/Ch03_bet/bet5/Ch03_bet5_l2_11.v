@@ -1,5 +1,5 @@
-Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet5.
-Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet4_l2_11.
+Require Export GeoCoq.Tarski_dev.Ch03_bet.bet5.Ch03_bet5.
+Require Export GeoCoq.Tarski_dev.Ch03_bet.bet4.Ch03_bet4_l2_11.
 
 Section bet5_l2_11.
 
