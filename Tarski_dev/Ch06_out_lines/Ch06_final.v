@@ -1,4 +1,5 @@
 Require Export GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out.
+Require Export GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_decidability.
 Require Export GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_exists.
 Require Export GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_eq.
 Require Export GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_le.

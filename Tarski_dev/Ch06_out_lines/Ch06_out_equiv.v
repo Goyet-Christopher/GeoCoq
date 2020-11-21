@@ -36,5 +36,6 @@ Qed.
 
 End Out_equiv.
 
+Print All.
 
 
