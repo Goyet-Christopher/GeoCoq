@@ -106,12 +106,38 @@ cong_1234_4356 : Cong A B C D -> Cong D C E F -> Cong A B E F
 cong_1234_5634 : Cong A B C D -> Cong E F C D -> Cong A B E F
 cong_1234_5643 : Cong A B C D -> Cong E F D C -> Cong A B E F
 
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch02_cong.Ch02_Qequi
+def_to_qequi : Cong A B B C -> Cong A B A D -> Cong B C C D -> QEqui A B C D
+qequi_to_def : QEqui A B C D -> Cong A B B C /\ Cong A B A D /\ Cong B C C D
+qequi_to_all : QEqui A B C D -> Cong A B B C /\
+								Cong A B A D /\
+								Cong A D C D /\
+								Cong B C C D /\ 
+								Cong A B C D /\ Cong A D B C
+qequi_reverse : QEqui A B C D -> QEqui A D C B
+qequi_rot_1 : QEqui A B C D -> QEqui B C D A
+qequi_rot_2 : QEqui A B C D -> QEqui C D A B
+qequi_rot_3 : QEqui A B C D -> QEqui D A B C
+qequi_rrot_1 : QEqui A B C D -> QEqui D C B A
+qequi_rrot_2 : QEqui A B C D -> QEqui C B A D
+qequi_rrot_3 : QEqui A B C D -> QEqui B A D C
+qequi_2op_1adj_B : Cong A B C D -> Cong A D B C -> Cong A B B C -> QEqui A B C D
+qequi_2op_1adj_A : Cong A B C D -> Cong A D B C -> Cong A B A D -> QEqui A B C D
+qequi_2op_1adj_D : Cong A B C D -> Cong A D B C -> Cong A D C D -> QEqui A B C D
+qequi_2op_1adj_C : Cong A B C D -> Cong A D B C -> Cong B C C D -> QEqui A B C D
+qequi_2adj_1op_1 : Cong A B A D -> Cong B C C D -> Cong A B C D -> QEqui A B C D
+qequi_2adj_1op_2 : Cong A B A D -> Cong B C C D -> Cong A D B C -> QEqui A B C D
+qequi_2adj_1op_3 : Cong A B A D -> Cong A B B C -> Cong A B C D -> QEqui A B C D
+qequi_3adj : Cong A B A D -> Cong A B B C -> Cong B C C D -> QEqui A B C D
+
+
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch02_cong.Ch02_cong_eq
 cong_reverse_identity : Cong A A C D -> C = D
 construction_uniqueness : Q <> A -> Bet Q A X -> Cong A X B C -> Bet Q A Y -> Cong A Y B C -> X = Y
 construction_uniqueness_sym : Q <> A -> Bet Q A X -> Cong B C A X -> Bet Q A Y -> Cong B C A Y -> X=Y.
 construction_uniqueness_simple : A <> B -> Bet A B C -> Bet A B C' -> Cong B C B C' -> C=C'.
+# A éviter : préférer les between_cong
 
 
 
@@ -121,9 +147,31 @@ def_to_cong3_reverse : Cong A B B' A' -> Cong A C C' A' -> Cong B C C' B' -> Con
 cong3_to_def : Cong_3 A B C A' B' C' -> Cong A B A' B' /\ 
 										Cong A C A' C' /\ 
 										Cong B C B' C'
-cong3_12 : Cong_3 A B C A' B' C' -> Cong A B A' B'
-cong3_13 : Cong_3 A B C A' B' C' -> Cong A C A' C'
-cong3_23 : Cong_3 A B C A' B' C' -> Cong B C B' C'
+cong3_to_def_reverse : Cong_3 A B C C' B' A' -> Cong A B B' C' /\ Cong A C A' C' /\ Cong B C A' B'
+cong3_1245 : Cong_3 A B C A' B' C' -> Cong A B A' B'
+cong3_1254 : Cong_3 A B C A' B' C' -> Cong A B B' A'
+cong3_1346 : Cong_3 A B C A' B' C' -> Cong A C A' C'
+cong3_1364 : Cong_3 A B C A' B' C' -> Cong A C C' A'
+cong3_2145 : Cong_3 A B C A' B' C' -> Cong B A A' B'
+cong3_2154 : Cong_3 A B C A' B' C' -> Cong B A B' A'
+cong3_2356 : Cong_3 A B C A' B' C' -> Cong B C B' C'
+cong3_2365 : Cong_3 A B C A' B' C' -> Cong B C C' B'
+cong3_3146 : Cong_3 A B C A' B' C' -> Cong C A A' C'
+cong3_3164 : Cong_3 A B C A' B' C' -> Cong C A C' A'
+cong3_3256 : Cong_3 A B C A' B' C' -> Cong C B B' C'
+cong3_3265 : Cong_3 A B C A' B' C' -> Cong C B C' B'
+cong3_4512 : Cong_3 A B C A' B' C' -> Cong A' B' A B
+cong3_4521 : Cong_3 A B C A' B' C' -> Cong A' B' B A
+cong3_4613 : Cong_3 A B C A' B' C' -> Cong A' C' A C
+cong3_4631 : Cong_3 A B C A' B' C' -> Cong A' C' C A
+cong3_5412 : Cong_3 A B C A' B' C' -> Cong B' A' A B
+cong3_5421 : Cong_3 A B C A' B' C' -> Cong B' A' B A
+cong3_5623 : Cong_3 A B C A' B' C' -> Cong B' C' B C
+cong3_5632 : Cong_3 A B C A' B' C' -> Cong B' C' C B
+cong3_6413 : Cong_3 A B C A' B' C' -> Cong C' A' A C
+cong3_6431 : Cong_3 A B C A' B' C' -> Cong C' A' C A
+cong3_6532 : Cong_3 A B C A' B' C' -> Cong C' B' C B
+cong3_6523 : Cong_3 A B C A' B' C' -> Cong C' B' B C
 cong3_reflexivity : Cong_3 A B C A B C.
 cong3_symmetry : Cong_3 A B C A' B' C' -> Cong_3 A' B' C' A B C
 cong3_swap_132 : Cong_3 A B C A' B' C' -> Cong_3 A C B A' C' B'
@@ -133,13 +181,14 @@ cong3_swap_312 : Cong_3 A B C A' B' C' -> Cong_3 C A B C' A' B'
 cong3_swap_321 : Cong_3 A B C A' B' C' -> Cong_3 C B A C' B' A'
 cong3_transitivity_12_23_13 : Cong_3 A0 B0 C0 A1 B1 C1 -> Cong_3 A1 B1 C1 A2 B2 C2 -> Cong_3 A0 B0 C0 A2 B2 C2
 cong3_transitivity_12_13_23 : Cong_3 A0 B0 C0 A1 B1 C1 -> Cong_3 A0 B0 C0 A2 B2 C2 -> Cong_3 A1 B1 C1 A2 B2 C2
-Cong3_cases : Cong_3 A B C A' B' C' \/ 
+cong3_transitivity_12_31_13 : Cong_3 A0 B0 C0 A1 B1 C1 -> Cong_3 A2 B2 C2 A1 B1 C1 -> Cong_3 A0 B0 C0 A2 B2 C2
+cong3_cases : Cong_3 A B C A' B' C' \/ 
 			  Cong_3 A C B A' C' B' \/ 
 			  Cong_3 B A C B' A' C' \/ 
 			  Cong_3 B C A B' C' A' \/ 
 			  Cong_3 C A B C' A' B' \/ 
 			  Cong_3 C B A C' B' A'     -> Cong_3 A B C A' B' C'
-Cong3_perm : Cong_3 A B C A' B' C' -> Cong_3 A B C A' B' C' /\ 
+cong3_perm : Cong_3 A B C A' B' C' -> Cong_3 A B C A' B' C' /\ 
 									  Cong_3 A C B A' C' B' /\ 
 									  Cong_3 B A C B' A' C' /\ 
 									  Cong_3 B C A B' C' A' /\ 
@@ -219,6 +268,7 @@ bet_neq32__neq : Bet A B C -> C <> B -> A <> C
 BetSEq : BetS A B C <-> Bet A B C /\ A <> B /\ A <> C /\ B <> 
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet_not
+not_bet_symmetry : ~ Bet A B C -> ~ Bet C B A
 not_bet_213 : A <> B -> Bet A B C -> ~ Bet B A C
 not_bet_312 : A <> B -> Bet A B C -> ~ Bet C A B
 not_bet_distincts : ~ Bet A B C -> A <> B /\ B <> C
@@ -237,7 +287,8 @@ between_exchange_3 : Bet A B C -> Bet A C D -> Bet A B D
 between_exchange_4 : Bet A B D -> Bet B C D -> Bet A B C
 between_outer_transitivity_2 : Bet A B C -> Bet B C D -> B <> C -> Bet A C D
 between_outer_transitivity_3 : Bet A B C -> Bet B C D -> B <> C -> Bet A B D
-between_inner : Bet A1 A3 A5 -> Bet A1 A2 A3 -> Bet A3 A4 A5 ->Bet A2 A3 A4
+between_inner : Bet A C E -> Bet A B C -> Bet C D E ->Bet B C D
+between_inner_2 : Bet A B E -> Bet A D E -> Bet B C D -> Bet A C E (from )
 
 >>>>>>> Library GeoCoq.Tarski_dev.Ch03_bet.Ch03_exists
 two_distinct_points : exists X Y, X <> Y
@@ -264,25 +315,33 @@ bet4_bet_432 : Bet_4 A B C D -> Bet D C B
 bet4_bet_134 : Bet_4 A B C D -> Bet A C D
 bet4_bet_431 : Bet_4 A B C D -> Bet D C A
 bet4_symmetry : Bet_4 A B C D -> Bet_4 D C B A
-bet4_outer : Bet_4 A B C E -> Bet_4 A C D E -> Bet_4 A B D E
+
 bet_123_134_bet4 : Bet A B C -> Bet A C D -> Bet_4 A B C D
 bet_124_234_bet4 : Bet A B D -> Bet B C D -> Bet_4 A B C D
 bet4_sides : B<>C -> Bet A B C -> Bet B C D -> Bet_4 A B C D
 bet4_sides2 : Bet A C E -> Bet A B C -> Bet C D E -> Bet_4 A B D E
 bet4_equality : Bet_4 A B C D -> Bet_4 A D C B -> B = C /\ C = D
 bet4_equality_2 : Bet_4 A B C A -> A = B /\ B = C
+segment_construction4 : exists X , Bet_4 A B C X /\ Cong D E C X
+Ltac prolong4 A B C x D E : Bet A B C -> exists X, Bet_4 A B C X /\ Cong D E C X
+
+>>>>>>> Library GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet4_transitivity
+bet4_outer : Bet_4 A B C E -> Bet_4 A C D E -> Bet_4 A B D E
 bet4_transitivity_13 : Bet_4 B C D E -> Bet_4 A B D E -> Bet_4 A C D E /\ Bet_4 A B C D /\ Bet_4 A B C E
 bet4_transitivity_14 : Bet_4 B C D E -> Bet_4 A B C E -> Bet_4 A C D E /\ Bet_4 A B D E /\ Bet_4 A B C D
 bet4_transitivity_15 : Bet_4 A B C D -> Bet_4 B C D E -> B <> C \/ B <> D \/ C <> D -> Bet_4 A C D E /\ Bet_4 A B D E /\ Bet_4 A B C E
 bet4_transitivity_24 : Bet_4 A C D E -> Bet_4 A B C E -> Bet_4 A B C D /\ Bet_4 A B D E /\ Bet_4 B C D E
 bet4_transitivity_25 : Bet_4 A B C D -> Bet_4 A C D E -> Bet_4 B C D E /\ Bet_4 A B D E /\ Bet_4 A B C E
 bet4_transitivity_35 : Bet_4 A B C D -> Bet_4 A B D E -> Bet_4 B C D E /\ Bet_4 A C D E /\ Bet_4 A B C E
-segment_construction4 : exists X , Bet_4 A B C X /\ Cong D E C X
-Ltac prolong4 A B C x D E : Bet A B C -> exists X, Bet_4 A B C X /\ Cong D E C X
-l2_11_bet4 : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A B A' B' -> Cong B C B' C' -> Cong C D C' D' -> Cong A D A' D'.
-l2_11_bet4_cong4 : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong_4 A B C D A' B' C' D' -> Cong A D A' D'.
-l2_11_bet4_reverse : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A B C' D' -> Cong B C B' C' -> Cong C D A' B' -> Cong A D A' D'.
-l2_11_bet4_cong4_reverse : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong_4 A B C D D' C' B' A' -> Cong A D A' D'.
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet4_l2_11
+l2_11_bet4_123 : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A B A' B' -> Cong B C B' C' -> Cong C D C' D' -> Cong_4 A B C D A' B' C' D' /\ Cong A D A' D'
+l2_11_bet4_132 : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A B A' B' -> Cong B C C' D' -> Cong C D B' C' -> Cong_3 A B D A' B' D' /\ Cong_3 B C D D' C' B' /\ Cong A D A' D'
+l2_11_bet4_213 : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A B B' C' -> Cong B C A' B' -> Cong C D C' D' -> Cong_3 A C D A' C' D' /\ Cong_3 A B C C' B' A' /\ Cong A D A' D'
+l2_11_bet4_231 : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A B B' C' -> Cong B C C' D' -> Cong C D A' B' -> Cong_3 A C D D' B' A' /\ Cong_3 A B C B' C' D' /\ Cong A D A' D'
+l2_11_bet4_312 : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A B C' D' -> Cong B C A' B' -> Cong C D B' C' -> Cong_3 A B D D' C' A' /\ Cong_3 B C D A' B' C' /\ Cong A D A' D'
+l2_11_bet4_321 : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A B C' D' -> Cong B C B' C' -> Cong C D A' B' -> Cong_4 A B C D D' C' B' A' /\ Cong A D A' D'
+
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet5
 def_to_bet5 : Bet_4 A B C D ->
@@ -290,11 +349,29 @@ def_to_bet5 : Bet_4 A B C D ->
 			  Bet_4 A C D E ->
 			  Bet_4 A B D E -> 
 			  Bet_4 A B C E -> Bet_5 A B C D E
+all_to_bet5 :  Bet A B C 
+			   -> Bet A B D 
+			   -> Bet A B E 
+			   -> Bet A C D 
+			   -> Bet A C E 
+			   -> Bet A D E 
+			   -> Bet B C D 
+			   -> Bet B C E 
+			   -> Bet B D E 
+			   -> Bet C D E -> Bet_5 A B C D E.
 bet5_to_def : Bet_5 A B C D E -> Bet_4 A B C D /\
 								 Bet_4 B C D E /\
 								 Bet_4 A C D E /\ 
 								 Bet_4 A B D E /\ 
-								 Bet_4 A B C E.
+								 Bet_4 A B C E
+
+bet5_to_all : Bet_5 A B C D E -> Bet A B C /\ Bet A B D /\ Bet A B E /\
+			                     Bet A C D /\ Bet A C E /\
+			                     Bet A D E /\
+			                     Bet B C D /\ Bet B C E /\
+			                     Bet B D E /\
+			                     Bet C D E.
+
 bet5_bet4_1234 : Bet_5 A B C D E -> Bet_4 A B C D
 bet5_bet4_2345 : Bet_5 A B C D E -> Bet_4 B C D E
 bet5_bet4_1345 : Bet_5 A B C D E -> Bet_4 A C D E
@@ -318,8 +395,38 @@ bet5_bet4_24 : Bet_4 A C D E -> Bet_4 A B C E -> Bet_5 A B C D E
 bet5_bet4_25 : Bet_4 A B C D -> Bet_4 A C D E -> Bet_5 A B C D E
 bet5_bet4_35 : Bet_4 A B C D -> Bet_4 A B D E -> Bet_5 A B C D E
 bet5_bet_1 : Bet A C E -> Bet A B C -> Bet C D E -> Bet_5 A B C D E
-bet5_bet_2 : Bet A B C -> Bet A D E -> Bet A C D -> Bet_5 A B C D E.
-bet5_bet_3 : C<>D -> Bet A B C -> Bet A C D -> Bet C D E -> Bet_5 A B C D E.
+bet5_bet_2 : Bet A B C -> Bet A D E -> Bet A C D -> Bet_5 A B C D E
+bet5_bet_3 : C<>D -> Bet A B C -> Bet A C D -> Bet C D E -> Bet_5 A B C D E
+bet5_bet_4 : Bet B C D -> Bet A B D -> Bet A D E -> Bet_5 A B C D E
+
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet5_l2_11
+l2_11_bet5_1234 :Bet5->Bet5->Cong AB A'B'->Cong BC B'C'->Cong CD C'D'->Cong DE D'E'->Cong_5 ABCDE A'B'C'D'E'/\Cong AE A'E'
+l2_11_bet5_1243 :Bet5->Bet5->Cong AB A'B'->Cong BC B'C'->Cong CD D'E'->Cong DE C'D'->Cong_4 ABCE A'B'C'E'/\Cong_3 CDE E'D'C'/\Cong AE A'E'
+l2_11_bet5_1324 :Bet5->Bet5->Cong AB A'B'->Cong BC C'D'->Cong CD B'C'->Cong DE D'E'->Cong_4 ABDE A'B'D'E'/\Cong_3 BCD D'C'B'/\Cong AE A'E'
+l2_11_bet5_1342 :Bet5->Bet5->Cong AB A'B'->Cong BC C'D'->Cong CD D'E'->Cong DE B'C'->Cong_3 ABE A'B'E'/\Cong_3 BDE E'C'B'/\Cong_3 BCD C'D'E'/\Cong AE A'E'
+l2_11_bet5_1423 :Bet5->Bet5->Cong AB A'B'->Cong BC D'E'->Cong CD B'C'->Cong DE C'D'->Cong_3 ABE A'B'E'/\Cong_3 BCE E'D'B'/\Cong_3 CDE B'C'D'/\Cong AE A'E'
+l2_11_bet5_1432 :Bet5->Bet5->Cong AB A'B'->Cong BC D'E'->Cong CD C'D'->Cong DE B'C'->Cong_3 ABE A'B'E'/\Cong_3 BCE E'D'B'/\Cong_3 CDE D'C'B'/\Cong AE A'E'
+l2_11_bet5_2134 :Bet5->Bet5->Cong AB B'C'->Cong BC A'B'->Cong CD C'D'->Cong DE D'E'->Cong_4 ACDE A'C'D'E'/\Cong_3 ACE A'C'E'/\Cong_3 ABC C'B'A'/\Cong_3 CDE C'D'E'/\Cong AE A'E'
+l2_11_bet5_2143 :Bet5->Bet5->Cong AB B'C'->Cong BC A'B'->Cong CD D'E'->Cong DE C'D'->Cong_3 ACE A'C'E'/\Cong_3 ABC C'B'A'/\Cong_3 CDE E'D'C'/\Cong AE A'E'
+l2_11_bet5_2314 :Bet5->Bet5->Cong AB B'C'->Cong BC C'D'->Cong CD A'B'->Cong DE D'E'->Cong_3 ADE A'D'E'/\Cong_3 ACD D'B'A'/\Cong_3 ABC B'C'D'/\Cong AE A'E'
+l2_11_bet5_2341 :Bet5->Bet5->Cong AB B'C'->Cong BC C'D'->Cong CD D'E'->Cong DE A'B'->Cong_4 ABCD B'C'D'E'/\Cong_3 ADE E'B'A'/\Cong AE A'E'
+l2_11_bet5_2413 :Bet5->Bet5->Cong AB B'C'->Cong BC D'E'->Cong CD A'B'->Cong DE C'D'->Cong AE A'E'
+l2_11_bet5_2431 :Bet5->Bet5->Cong AB B'C'->Cong BC D'E'->Cong CD C'D'->Cong DE A'B'->Cong_3 ADE E'B'A'/\Cong_3 ABD B'C'E'/\Cong_3 BCD E'D'C'/\Cong AE A'E'
+l2_11_bet5_3124 :Bet5->Bet5->Cong AB C'D'->Cong BC A'B'->Cong CD B'C'->Cong DE D'E'->Cong_3 ADE A'D'E'/\Cong_3 ABD D'C'A'/\Cong_3 BCD A'B'C'/\Cong AE A'E'
+l2_11_bet5_3142 :Bet5->Bet5->Cong AB C'D'->Cong BC A'B'->Cong CD D'E'->Cong DE B'C'->Cong AE A'E'
+l2_11_bet5_3214 :Bet5->Bet5->Cong AB C'D'->Cong BC B'C'->Cong CD A'B'->Cong DE D'E'->Cong_4 ABCD D'C'B'A'/\Cong_3 ADE A'D'E'/\Cong AE A'E'
+l2_11_bet5_3241 :Bet5->Bet5->Cong AB C'D'->Cong BC B'C'->Cong CD D'E'->Cong DE A'B'->Cong_3 ADE E'B'A'/\Cong_3 ACD B'D'E'/\Cong_3 ABC D'C'B'/\Cong AE A'E'
+l2_11_bet5_3412 :Bet5->Bet5->Cong AB C'D'->Cong BC D'E'->Cong CD A'B'->Cong DE B'C'->Cong_3 ACE E'C'A'/\Cong_3 ABC C'D'E'/\Cong_3 CDE A'B'C'/\ Cong AE A'E'
+l2_11_bet5_3421 :Bet5->Bet5->Cong AB C'D'->Cong BC D'E'->Cong CD B'C'->Cong DE A'B'->Cong_4 ACDE E'C'B'A'/\Cong_3 ACE E'C'A'/\Cong_3 ABC C'D'E'/\Cong_3 CDE C'B'A'/\ Cong AE A'E'
+l2_11_bet5_4123 :Bet5->Bet5->Cong AB D'E'->Cong BC A'B'->Cong CD B'C'->Cong DE C'D'->Cong_3 ABE E'D'A'/\Cong_3 BCE A'B'D'/\Cong_3 CDE B'C'D'/\Cong AE A'E'
+l2_11_bet5_4132 :Bet5->Bet5->Cong AB D'E'->Cong BC A'B'->Cong CD C'D'->Cong DE B'C'->Cong_3 ABE E'D'A'/\ Cong_3 BCE A'B'D'/\Cong_3 CDE D'C'B'/\Cong AE A'E'
+l2_11_bet5_4213 :Bet5->Bet5->Cong AB D'E'->Cong BC B'C'->Cong CD A'B'->Cong DE C'D'->Cong_3 ABE E'D'A'/\ Cong_3 BDE A'C'D'/\Cong_3 BCD C'B'A'/\Cong AE A'E'
+l2_11_bet5_4231 :Bet5->Bet5->Cong AB D'E'->Cong BC B'C'->Cong CD C'D'->Cong DE A'B'->Cong_4 ABDE E'D'B'A'/\Cong_3 BCD B'C'D'/\Cong AE A'E'
+l2_11_bet5_4312 :Bet5->Bet5->Cong AB D'E'->Cong BC C'D'->Cong CD A'B'->Cong DE B'C'->Cong_4 ABCE E'D'C'A'/\Cong_3 CDE A'B'C'/\Cong AE A'E'
+l2_11_bet5_4321 :Bet5->Bet5->Cong A B D' E'->Cong B C C' D'->Cong C D B' C'->Cong D E A' B'->Cong_5 ABCDE E'D'C'B'A'/\Cong AE A'E'
+
+
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch03_bet.Ch03_OFSC
 def_to_OFSC : Bet A B C -> Bet A' B' C' -> Cong A B A' B' -> Cong B C B' C' -> Cong A D A' D' -> Cong B D B' D' -> OFSC A B C D A' B' C' D'
@@ -360,9 +467,10 @@ OFSC_cong3 : OFSC A B C D A' B' C' D' -> A <> B -> Bet A B C /\
 cong3_OFSC : Bet A B C -> Bet A' B' C' -> Cong_3 A B D A' B' D' -> Cong_3 A B C A' B' C' \/ 
 																   Cong_3 B C D B' C' D'      -> OFSC A B C D A' B' C' D'
 OFSC_symmetry : OFSC A B C D A' B' C' D' -> A <> B -> OFSC C B A D C' B' A' D'
-OFSC_axial_sym : Bet A B C -> Cong_3 A B D A B D' -> OFSC A B C D A B C D'
-OFSC_axial_sym2 : Bet A B C -> Cong A D A D' -> Cong B D B D' -> OFSC A B C D A B C D'.
-l4_17_OFSC : A <> B -> Bet A B C  -> Cong A P A Q -> Cong B P B Q  -> Cong C P C Q.
+OFSC_axial_sym : Bet A B C -> Cong A D A D' -> Cong B D B D' -> OFSC A B C D A B C D'
+OFSC_axial_sym_cong3 : Bet A B C -> Cong_3 A B D A B D' -> OFSC A B C D A B C D'
+OFSC_axial_sym : Bet A B C -> Cong A B B C -> Cong A D C D -> OFSC A B C D C B A D.
+l4_17_OFSC : A <> B -> Bet A B C  -> Cong A P A Q -> Cong B P B Q  -> Cong C P C Q
 OFSC_to_IFSC : OFSC A B C D A' B' C' D' -> A <> B -> IFSC A B C D A' B' C' D'
 
 
@@ -390,13 +498,16 @@ IFSC_cong3_123 : IFSC A B C D A' B' C' D' -> Cong_3 A B C A' B' C'
 IFSC_cong3_124 : IFSC A B C D A' B' C' D' -> Cong_3 A B D A' B' D'
 IFSC_cong3_134 : IFSC A B C D A' B' C' D' -> Cong_3 A C D A' C' D'
 IFSC_cong3_234 : IFSC A B C D A' B' C' D' -> Cong_3 B C D B' C' D'
+IFSC_reflexivity : Bet A B C-> IFSC A B C D A B C D
+IFSC_axial_sym : Bet A B C -> Cong A D A D' -> Cong C D C D' -> IFSC A B C D A B C D'
+IFSC_axial_sym_cong3 : Bet A B C -> Cong_3 A C D A C D' -> IFSC A B C D A B C D'
+IFSC_axial_sym2 : Bet A B C -> Cong A B B C -> Cong A D C D -> IFSC A B C D C B A D
 IFSC_IFSC_Bet : IFSC A B C D A' B' C' D' -> IFSC B C E D B' C' E' D' -> B<>C -> Bet A B E /\ 
 																				Bet A' B' E' /\ 
 																				Bet A C E /\ 
-																				Bet A' C' E' .
+																				Bet A' C' E'
 IFSC_transitivity_1 : IFSC A B C D A' B' C' D' -> IFSC B C E D B' C' E' D' -> B <> C -> IFSC A B E D A' B' E' D'
 IFSC_transitivity_2 : IFSC A B C D A' B' C' D' -> IFSC B C E D B' C' E' D' -> B <> C -> IFSC A C E D A' C' E' D'
-IFSC_axial_sym : Bet A B C -> Cong_3 A C D A C D' -> IFSC A B C D A B C D'
 IFSC_prolong_to_OFSC : IFSC A B C D A' B' C' D' -> Bet A C E -> Bet A' C' E' -> Cong C E C' E' -> OFSC A C E D A' C' E' D'
 IFSC_prolong_to_IFSC : IFSC A B C D A' B' C' D' -> Bet A C E -> Bet A' C' E' -> Cong C E C' E' -> A <> B \/ A <> C -> IFSC A C E D A' C' E' D'
 IFSC_IFSC_swap_OFSC : IFSC A B C D A' B' C' D' -> IFSC A C E D A' C' E' D' -> OFSC E C B D E' C' B' D'
@@ -410,8 +521,8 @@ IFSC_cong3 : IFSC A B C D A' B' C' D' -> Bet A B C /\
 										 Cong_3 A B D A' B' D' /\
 										 Cong_3 B C D B' C' D' /\
 										 Cong_3 A C D A' C' D'
-IFSC_cong4 : IFSC A B C D A' B' C' D' -> Bet A B C /\ Bet A' B' C' /\ Cong_4 A B C D A' B' C' D'.
-cong3_IFSC : Bet A B C -> Bet A' B' C' -> Cong_3 B C D B' C' D' \/ Cong_3 A B C A' B' C' -> Cong_3 A C D A' C' D'  -> IFSC A B C D A' B' C' D'.
+IFSC_cong4 : IFSC A B C D A' B' C' D' -> Bet A B C /\ Bet A' B' C' /\ Cong_4 A B C D A' B' C' D'
+cong3_IFSC : Bet A B C -> Bet A' B' C' -> Cong_3 B C D B' C' D' \/ Cong_3 A B C A' B' C' -> Cong_3 A C D A' C' D'  -> IFSC A B C D A' B' C' D'
 l4_3_1 : Bet A B C -> Bet A' B' C' -> Cong A B A' B' -> Cong A C A' C' -> Cong B C B' C'
 IFSC_symmetry : IFSC A B C D A' B' C' D' -> IFSC C B A D C' B' A' D'
 IFSC_eq : IFSC A B C B A B C X -> B = X
@@ -422,6 +533,9 @@ IFSC_to_OFSC : IFSC A B C D A' B' C' D' -> OFSC A B C D A' B' C' D'
 bet_cong1213_cong3 : Bet A B C -> Bet A' B' C' -> Cong A B A' B' -> Cong A C A' C' -> Cong_3 A B C A' B' C'
 bet_cong1223_cong3 : Bet A B C -> Bet A' B' C' -> Cong A B A' B' -> Cong B C B' C' -> Cong_3 A B C A' B' C'
 bet_cong1323_cong3 : Bet A B C -> Bet A' B' C' -> Cong A C A' C' -> Cong B C B' C' -> Cong_3 A B C A' B' C'
+bet_cong1213_cong3_reverse :  Bet A B C -> Bet A' B' C' -> Cong A B B' C' -> Cong A C A' C' -> Cong_3 A B C C' B' A'
+bet_cong1223_cong3_reverse :  Bet A B C -> Bet A' B' C' -> Cong A B B' C' -> Cong B C A' B' -> Cong_3 A B C C' B' A'
+bet_cong1323_cong3_reverse :  Bet A B C -> Bet A' B' C' -> Cong A C A' C' -> Cong B C A' B' -> Cong_3 A B C C' B' A'
 l4_6 : Bet A B C -> Cong_3 A B C A' B' C' -> Bet A' B' C'
 l4_6_cong3_cases : Bet A B C -> Cong_3 A B C A' B' C' \/
 								Cong_3 A C B A' C' B' \/
@@ -459,24 +573,26 @@ bet4_12_23_cases : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A B A' B' -> Cong 
 bet4_12_24_cases : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A B A' B' -> Cong B D B' D' -> Cong A C A' C' \/ Cong B C B' C' \/ Cong C D C' D' -> Cong_4 A B C D A' B' C' D'
 bet4_13_14_cases : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A C A' C' -> Cong A D A' D' -> Cong A B A' B' \/ Cong B C B' C' \/ Cong B D B' D' -> Cong_4 A B C D A' B' C' D'
 bet4_13_23_cases : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A C A' C' -> Cong B C B' C' -> Cong A D A' D' \/ Cong B D B' D' \/ Cong C D C' D' -> Cong_4 A B C D A' B' C' D'
-bet4_13_24_cases : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A C A' C' -> Cong B D B' D' -> Cong A B A' B' \/ Cong A D A' D' \/ Cong B C B' C' \/ Cong C D C' D' -> Cong_4 A B C D A' B' C' D'
+bet4_13_24_cases : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A C A' C' -> Cong B D B' D' -> Cong A B A' B' \/ Cong A D A' D' \/ Cong B C B' C' 
+																															  \/ Cong C D C' D' -> Cong_4 A B C D A' B' C' D'
 bet4_13_34_cases : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A C A' C' -> Cong C D C' D' -> Cong A B A' B' \/ Cong B C B' C' \/ Cong B D B' D' -> Cong_4 A B C D A' B' C' D'
-bet4_14_23_cases : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A D A' D' -> Cong B C B' C' -> Cong A B A' B' \/ Cong A C A' C' \/ Cong B D B' D' \/ Cong C D C' D' -> Cong_4 A B C D A' B' C' D'
+bet4_14_23_cases : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A D A' D' -> Cong B C B' C' -> Cong A B A' B' \/ Cong A C A' C' \/ Cong B D B' D'
+																															  \/ Cong C D C' D' -> Cong_4 A B C D A' B' C' D'
 bet4_14_24_cases : Bet_4 A B C D -> Bet_4 A' B' C' D' -> Cong A D A' D' -> Cong B D B' D' -> Cong A C A' C' \/ Cong B C B' C' \/ Cong C D C' D' -> Cong_4 A B C D A' B' C' D'
 
-l4_6_bet4 : Bet_4 A B C D -> Cong_4 A B C D A' B' C' D' -> Bet_4 A' B' C' D'.
+l4_6_bet4 : Bet_4 A B C D -> Cong_4 A B C D A' B' C' D' -> Bet_4 A' B' C' D'
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet_cases
 
-preRhombus_mid : Bet Q A B' -> Bet Q B A' ->
-preRhombus A B A' B' -> exists E, Bet A E A' /\  Bet B E B' /\ Cong A E E A' /\ Cong B E E B'
+preRhombus_mid : Bet Q A B' -> Bet Q B A' -> preRhombus A B A' B' -> exists E, Bet A E A' /\  Bet B E B' /\ Cong A E E A' /\ Cong B E E B'
 l5_1_preRhombus : A <> B -> B <> C -> Bet A B C -> Bet A B D -> exists C' D' B', preRhombus C D C' D' /\ Bet_4 B C D' B' /\ Bet_4 B D C' B'
 bet4_preRhombus : C <> C' -> Bet_4 B C D' B' ->,Bet_4 B D C' B' -> preRhombus C D C' D' -> Bet B C D
 l5_1 : A <> B -> Bet A B C -> Bet A B D -> Bet A C D \/ Bet A D C
 l5_2 : A <> B -> Bet A B C -> Bet A B D -> Bet B C D \/ Bet B D C
 segment_construction_2 : Q <> A -> exists X, (Bet Q A X \/ Bet Q X A) /\ Cong Q X B C
 l5_3 : Bet A B D -> Bet A C D -> Bet A B C \/ Bet A C B
-l5_4 : A<>B-> Bet A B C -> Bet A B B0 -> Bet A C0 C -> Bet A B0 C0 \/ Bet A C0 B0.
+l5_4 : A<>B-> Bet A B C -> Bet A B B0 -> Bet A C0 C -> Bet A B0 C0 \/ Bet A C0 B0
+between_inner_2 : Bet A B E -> Bet A D E -> Bet B C D -> Bet A C E.
 
 betsym_left : Bet A1 B1 C1 \/ Bet A2 B2 C2 -> Bet C1 B1 A1 \/ Bet A2 B2 C2
 betsym_right : Bet A1 B1 C1 \/ Bet A2 B2 C2 -> Bet A1 B1 C1 \/ Bet C2 B2 A2
@@ -491,9 +607,17 @@ disjunction_to_13 : A \/ B \/ C -> (A \/ C) \/ B
  >>>>>>> Library GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet_cong_eq
 cong3_bet_eq : Bet A B C -> Cong_3 A B C A X C -> B = X
 between_cong : Bet A B C -> Cong A B A C -> B = C
-between_cong_reverse : Bet A B C -> Cong A C B C -> A=B.
+between_cong_reverse : Bet A B C -> Cong A C B C -> A=B
+between_cong_1 : A <> B -> Bet A B D -> Bet A B E -> Cong A D A E -> D = E
 between_cong_2 : Bet A D B -> Bet A E B -> Cong A D A E -> D = E
 between_cong_3 : A <> B -> Bet A B D -> Bet A B E -> Cong B D B E -> D = E
+construction_uniqueness_1 : Q<>A -> Bet Q A X -> Cong Q X B C -> Bet Q A Y -> Cong Q Y B C -> X = Y
+construction_uniqueness_2 : Bet A X Q -> Cong A X B C -> Bet A Y Q -> Cong A Y B C -> X = Y
+construction_uniqueness_2_sym : Bet Q X A -> Cong A X B C -> Bet Q Y A -> Cong A Y B C -> X = Y
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch03_bet.Ch03_decidability
+cong_dec : Cong A B C D \/ ~ Cong A B C D
+bet_dec : Bet A B C \/ ~ Bet A B C
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -501,7 +625,7 @@ between_cong_3 : A <> B -> Bet A B D -> Bet A B E -> Cong B D B E -> D = E
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  >>>>>>> Library GeoCoq.Tarski_dev.Ch04_col.Ch04_col
 col_to_def : Col A B C -> Bet A B C \/ Bet B C A \/ Bet C A B
-col_to_all : Col A B C -> (Bet A B C /\ Bet C B A) \/ (Bet A C B /\ Bet B C A) \/ (Bet B A C /\ Bet C A B).
+col_to_all : Col A B C -> (Bet A B C /\ Bet C B A) \/ (Bet A C B /\ Bet B C A) \/ (Bet B A C /\ Bet C A B)
 def_to_col : Bet A B C \/ Bet B C A \/ Bet C A B -> Col A B C
 bet_col_123 : Bet A B C -> Col A B C
 bet_col_132 : Bet A C B -> Col A B C
@@ -530,11 +654,15 @@ col_trivial_112 : Col A A B
 col_trivial_122 : Col A B B
 col_trivial_121 : Col A B A
 
+bet2_col_1 : A <> B -> Bet A B C -> Bet A B D -> Col B C D
+bet2_col_2 : A <> B -> Bet A B C -> Bet A B D -> Col A C D
+bet2_col_4 : Bet A B D -> Bet A C D -> Col A B C
+bet3_col_45 : A<>B-> Bet A B E -> Bet A B C -> Bet A D E -> Col A C D
+
 OFSC_col1 : OFSC A B C D A' B' C' D' -> Col A B C
 OFSC_col2 : OFSC A B C D A' B' C' D' -> Col A' B' C'
 IFSC_col1 : IFSC A B C D A' B' C' D' -> Col A B C
 IFSC_col2 : IFSC A B C D A' B' C' D' -> Col A' B' C'
-
 l4_13 : Col A B C -> Cong_3 A B C A' B' C' -> Col A' B' C'
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch04_col.Ch04_col_transitivity
@@ -545,7 +673,7 @@ l6_16_1 : P <> Q -> Col S P Q -> Col X P Q -> Col X P S
 col_transitivity_1 : P <> Q -> Col P Q A -> Col P Q B -> Col P A B
 col_transitivity_2 : P <> Q -> Col P Q A -> Col P Q B -> Col Q A B
 col_transitivity_3 : X <> Y -> Col X Y A -> Col X Y B -> Col X Y C -> Col A B C
-col_transitivity_4 : A<>B -> A <> C -> Col A B C -> Col A B X -> Col A C Y -> Col A X Y /\ Col B X Y /\ Col C X Y.
+col_transitivity_4 : A<>B -> A <> C -> Col A B C -> Col A B X -> Col A C Y -> Col A X Y /\ Col B X Y /\ Col C X Y
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch04_col.Ch04_col_not
 not_col_231 : ~ Col A B C -> ~ Col B C A
@@ -569,14 +697,16 @@ not_col_perm : ~ Col A B C -> ~ Col A B C /\
 							  ~ Col B C A /\ 
 							  ~ Col C A B /\ 
 							  ~ Col C B A
-not_bet_not_col : ~ Bet A B C -> ~ Bet B C A -> ~ Bet C A B -> ~ Col A B C.
-not_col_not_bet : ~ Col A B C -> ~ Bet A B C /\ ~ Bet B C A /\ ~ Bet C A B.
+not_bet_not_col : ~ Bet A B C -> ~ Bet B C A -> ~ Bet C A B -> ~ Col A B C
+not_col_not_bet : ~ Col A B C -> ~ Bet A B C /\ ~ Bet B C A /\ ~ Bet C A B
 
-
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch04_col.Ch04_col_decidability
+Col_dec : Col A B C \/ ~ Col A B C
+not_col_exists : A <> B -> exists C : Tpoint, ~ Col A B C
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch04_col.Ch04_col_exists
 l4_14 : Col A B C -> Cong A B A' B' -> exists C' , Cong_3 A B C A' B' C'
-l4_14_col : Col A B C -> Cong A B A' B'  -> exists C', Col A' B' C' /\ Cong_3 A B C A' B' C'.
+l4_14_col : Col A B C -> Cong A B A' B'  -> exists C', Col A' B' C' /\ Cong_3 A B C A' B' C'
 
 
 >>>>>>> Library GeoCoq.Tarski_dev.Ch04_col.Ch04_FSC
@@ -662,15 +792,18 @@ bet4_le_23 : Bet_4 A B C D -> Le B C A D
 bet_le_eq : Bet A B C -> Le A C B C -> A = B
 bet_le_eq_reverse : Bet A B C -> Le A C A B -> B = C
 l5_12_b : Col A B C -> Le A B A C -> Le B C A C -> Bet A B C
+
+bet2_le_13_exists: Bet a o b -> Bet A O B -> Le o a O A -> Le o b O B -> exists a' b', Bet_4 A a' b' B /\ Le a' b' A B /\ Cong a b a' b' /\ Cong o b O b'
 bet2_le2_le : Bet a o b -> Bet A O B -> Le o a O A -> Le o b O B -> Le a b A B
-bet2_le2_le_13 : Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Le B C B' C'  -> Le A C A' C'.
-bet2_le2_le_23 : Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Le A' C' A C  -> Le B' C' B C.
+bet2_le2_le_13 : Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Le B C B' C'  -> Le A C A' C'
+bet2_le_23_exists : A<>B -> Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Le A' C' A C -> exists b c, Bet_5 A B b c C /\ Cong A b A' B' /\ Cong A' C' A c
+bet2_le2_le_23 : Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Le A' C' A C  -> Le B' C' B C
 bet2_le2_le_12 : Bet A B C -> Bet A' B' C' -> Le B C B' C' -> Le A' C' A C  -> Le A' B' A B
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_bet_cong_eq
 bet_cong_eq : Bet A B C -> Bet A C D -> Cong B C A D -> A = B /\ C = D
 bet4_cong_eq : Bet_4 A B C D -> Cong B C A D -> A = B /\ C = D.
-bet_cong_eq2 : Bet A B C -> Cong A B A' B' -> Cong A C A' C' -> Bet A' C' B' -> B = C /\ B' = C'.
+bet_cong_eq2 : Bet A B C -> Cong A B A' B' -> Cong A C A' C' -> Bet A' C' B' -> B = C /\ B' = C'
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_lt
 lt_to_def : Lt A B C D -> Le A B C D /\ ~ Cong A B C D
@@ -694,11 +827,12 @@ not_and_lt :  ~ (Lt A B C D /\ Lt C D A B)
 not_lt : ~ Lt A B A B
 le_not_lt : Le A B C D -> ~ Lt C D A B
 cong_not_lt :  Cong A B C D -> ~ Lt A B C D
-not_lt_le :  ~ Lt A B C D -> Le C D A B
+# not_lt_le :  ~ Lt A B C D -> Le C D A B
 lt_not_le : Lt A B C D -> ~ Le C D A B
 not_le_lt : ~ Le A B C D -> Lt C D A B
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_bet_lt
+bet2_lt_13: Bet a o b -> Bet A O B -> Le o a O A -> Le o b O B -> Cong a b A B -> Cong o b O B
 bet2_lt2_lt : Bet a o b -> Bet A O B -> Lt o a O A -> Lt o b O B -> Lt a b A B
 bet2_le_lt_lt : Bet a o b -> Bet A O B -> Le o a O A -> Lt o b O B -> Lt a b A B
 bet2_lt_le_lt : Bet a o b -> Bet A O B -> Lt o a O A -> Le o b O B -> Lt a b A B
@@ -706,13 +840,14 @@ bet2_lt2_lt_13 : Bet A B C -> Bet A' B' C' -> Lt A B A' B' -> Lt B C B' C' -> Lt
 bet2_le_lt_lt_13 : Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Lt B C B' C' -> Lt A C A' C'
 bet2_lt_le_lt_13 : Bet A B C -> Bet A' B' C' -> Lt A B A' B' -> Le B C B' C' -> Lt A C A' C'
 
+bet2_lt_23 : Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Le A' C' A C -> Cong B' C' B C -> Cong A B A' B' /\ Cong A' C' A C
 bet2_lt2_lt_23 : Bet A B C -> Bet A' B' C' -> Lt A B A' B' -> Lt A' C' A C -> Lt B' C' B C
 bet2_le_lt_lt_23 : Bet A B C -> Bet A' B' C' -> Le A B A' B' -> Lt A' C' A C -> Lt B' C' B C
 bet2_lt_le_lt_23 :  Bet A B C -> Bet A' B' C' -> Lt A B A' B' -> Le A' C' A C -> Lt B' C' B C
 
 bet2_lt2_lt_12 : Bet A B C -> Bet A' B' C' -> Lt B C B' C' -> Lt A' C' A C  -> Lt A' B' A B
 bet2_le_lt_lt_12 :  Bet A B C -> Bet A' B' C' -> Le B C B' C' -> Lt A' C' A C -> Lt A' B' A B
-bet2_lt_le_lt_12 :  Bet A B C -> Bet A' B' C' -> Lt B C B' C' -> Le A' C' A C -> Lt A' B' A B.
+bet2_lt_le_lt_12 :  Bet A B C -> Bet A' B' C' -> Lt B C B' C' -> Le A' C' A C -> Lt A' B' A B
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch05_le_lt_ge_gt.Ch05_ge
 ge_to_def : Ge A B C D -> Le C D A B
@@ -757,6 +892,9 @@ out_symmetry : Out P A B -> Out P B A
 out_transitivity_1 : Out P A B -> Out P A C -> Out P B C
 out_transitivity_2 : Out P A B -> Out P B C -> Out P A C
 out_transitivity_3 : Out P A C -> Out P B C -> Out P A B
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out_decidability
+out_dec : Out P A B \/ ~ Out P A B
 
 
  >>>>>>> Library GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_not_bet
@@ -814,6 +952,7 @@ l6_13_2 : Out P A B -> Bet P A B -> Le P A P B
 
 
 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
 
@@ -821,10 +960,98 @@ l6_13_2 : Out P A B -> Bet P A B -> Le P A P B
 
 
 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+>>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint
+midpoint_to_def : Midpoint M A B -> Bet A M B /\ Cong A M M B
+def_to_midpoint : Bet A M B -> Cong A M M B -> Midpoint M A B
+midpoint_bet1 : Midpoint M A B -> Bet A M B
+midpoint_bet2 : Midpoint M A B -> Bet B M A
+midpoint_col : Midpoint M A B -> Col M A B
+midpoint_cong : Midpoint M A B -> Cong A M M B
+midpoint_cong_2113 : Midpoint M A B -> Cong A M M B
+midpoint_cong_1213 : Midpoint M A B -> Cong M A M B
+midpoint_cong_1231 : Midpoint M A B -> Cong M A B M
+midpoint_cong_2131 : Midpoint M A B -> Cong A M B M
+midpoint_cong_1321 : Midpoint M A B -> Cong M B A M
+midpoint_cong_1312 : Midpoint M A B -> Cong M B M A
+midpoint_cong_3112 : Midpoint M A B -> Cong B M M A
+midpoint_cong_3121 : Midpoint M A B -> Cong B M A M
+midpoint_trivial : Midpoint A A A
+midpoint_symmetry : Midpoint M A B -> Midpoint M B A
+mid_cases : Midpoint A B C \/ Midpoint A C B -> Midpoint A B C
+mid_perm : Midpoint A B C -> Midpoint A B C /\ Midpoint A C B
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_central_symmetry
+symmetry_preserves_length : Midpoint A P P' -> Midpoint A Q Q' -> Cong P Q P' Q'
+symmetry_preserves_bet : Midpoint A P P' -> Midpoint A Q Q' -> Midpoint A R R' -> Bet P Q R -> Bet P' Q' R'
+symmetry_preserves_cong : Midpoint A P P' -> Midpoint A Q Q' -> Midpoint A R R' -> Midpoint A S S' -> Cong P Q R S -> Cong P' Q' R' S'
+symmetry_preserves_midpoint : Midpoint Z A A' -> Midpoint Z B B' -> Midpoint Z C C' -> Midpoint B A C -> Midpoint B' A' C'
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_central_symmetry_out
+symmetry_preserves_out : Out A B C -> Midpoint M A A' -> Midpoint M B B' -> Midpoint M C C' -> Out A' B' C'
 
 
 
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_eq
+midpoint_identity_112 : Midpoint A A B -> A = B
+midpoint_identity_121 : Midpoint A B A -> A = B
+midpoint_identity_122 : Midpoint M A A -> M = A
+symmetric_point_uniqueness : Midpoint P A P1 -> Midpoint P A P2 -> P1 = P2
+l7_9 : Midpoint A P X -> Midpoint A Q X -> P = Q
+l7_9_bis : Midpoint A P X -> Midpoint A X Q -> P = Q
+l7_17 : Midpoint A P P' -> Midpoint B P P' -> A = B
+l7_17_bis : Midpoint A P P' -> Midpoint B P' P -> A = B
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_cong
+cong_cong_half_1 : Midpoint M A B -> Midpoint M' A' B' -> Cong A B A' B' -> Cong A M A' M'
+cong_cong_half_2 : Midpoint M A B -> Midpoint M' A' B' -> Cong A B A' B' -> Cong B M B' M'
+cong_mid2_cong : Midpoint M A B -> Midpoint M' A' B' -> Cong A M A' M' -> Cong A B A' B'
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_diff
+midpoint_distinct_1 : A <> B -> Midpoint I A B -> I <> A /\ I <> B
+midpoint_distinct_2 : I <> A -> Midpoint I A B -> A <> B /\ I <> B
+midpoint_distinct_3 : I <> B -> Midpoint I A B -> A <> B /\ I <> A
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_not
+midpoint_not_midpoint : A <> B -> Midpoint I A B -> ~ Midpoint B A I
+not_midpoint_cases : ~ Bet A I B \/ ~ Cong A I I B -> ~ Midpoint I A B.
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_decidable
+is_midpoint_dec : Midpoint I A B \/ ~ Midpoint I A B
 
 
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_col
+l7_20 : Col A M B -> Cong M A M B -> A = B \/ Midpoint M A B
+l7_20_bis : A <> B -> Col A M B -> Cong M A M B -> Midpoint M A B
+cong_col_mid : A <> C -> Col A B C -> Cong A B B C -> Midpoint B A C
+l7_21 : ~ Col A B C -> B <> D -> Cong A B C D -> Cong B C D A -> Col A P C -> Col B P D -> Midpoint P A C /\ Midpoint P B D
+(* début pour milieu parallélogramme ? *)
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_col_cong_bet
+col_cong_bet : Col A B D -> Cong A B C D -> Bet A C B -> Bet C A D \/ Bet C B D
+col_cong2_bet1 : Col A B D -> Bet A C B -> Cong A B C D -> Cong A C B D -> Bet C B D
+col_cong2_bet2 : Col A B D -> Bet A C B -> Cong A B C D -> Cong A D B C -> Bet C A D
+col_cong2_bet3 : Col A B D -> Bet A B C -> Cong A B C D -> Cong A C B D -> Bet B C D
+col_cong2_bet4 : Col A B C -> Bet A B D -> Cong A B C D -> Cong A D B C -> Bet B D C
+col_bet2_cong1 : Col A B D -> Bet A C B -> Cong A B C D -> Bet C B D -> Cong A C D B
+col_bet2_cong2 : Col A B D -> Bet A C B -> Cong A B C D -> Bet C A D -> Cong D A B C
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_le_lt
+mid_lt : A <> B -> Midpoint M A B -> Lt A M A B
+le_mid2_le13 : Midpoint M A B -> Midpoint M' A' B' -> Le A M A' M' -> Le A B A' B'
+le_mid2_le12 : Midpoint M A B -> Midpoint M' A' B' -> Le A B A' B' -> Le A M A' M'
+lt_mid2_lt13 : Midpoint M A B -> Midpoint M' A' B' -> Lt A M A' M' -> Lt A B A' B'
+lt_mid2_lt12 : Midpoint M A B -> Midpoint M' A' B' -> Lt A B A' B' -> Lt A M A' M'
+
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_exists
+symmetric_point_construction : exists P' : Tpoint, Midpoint A P P'
+l7_25 : Cong C A C B -> exists X : Tpoint, Midpoint X A B
+
+
+ >>>>>>> Library GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_Krippen
+l7_22_aux : Bet A1 C A2 -> Bet B1 C B2 -> Cong C A1 C B1 -> Cong C A2 C B2 -> Midpoint M1 A1 B1 -> Midpoint M2 A2 B2 -> Le C A1 C A2 -> Bet M1 C M2
+l7_22 : Bet A1 C A2 -> Bet B1 C B2 -> Cong C A1 C B1 -> Cong C A2 C B2 -> Midpoint M1 A1 B1 -> Midpoint M2 A2 B2 -> Bet M1 C M2
 
 
