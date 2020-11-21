@@ -166,28 +166,45 @@ Proof.
       assumption.
 Qed.
 
+Lemma bet2_le_13_exists: forall O o A B a b,
+Bet a o b -> Bet A O B -> Le o a O A -> Le o b O B
+ -> exists a' b', Bet_4 A a' b' B /\ Le a' b' A B /\ Cong a b a' b' /\ Cong o b O b'.
+Proof.
+    intros.
+    exists_and H1 a'.
+      apply between_symmetry in H1.
+    exists_and H2 b'.
+    assert(Bet_4 A a' b' B).
+      apply bet4_sides2 with O; assumption.
+    assert(Le a' b' A B).
+      apply bet4_le_23; assumption.
+    assert(Cong a b a' b').
+      apply (l2_11 a o b a' O b').
+        assumption.
+        apply between_inner with A B; assumption.
+        apply cong_2143; assumption.
+      assumption.
+    exists a'. exists b'.
+    split. assumption.
+    split. assumption.
+    split; assumption.
+Qed.
+
+
 Lemma bet2_le2_le : forall O o A B a b,
   Bet a o b -> Bet A O B -> Le o a O A -> Le o b O B -> Le a b A B.
 Proof.
     intros.
-      exists_and H1 a'.
-        apply between_symmetry in H1.
-      exists_and H2 b'.
-      assert(Bet_4 A a' b' B).
-        apply bet4_sides2 with O; assumption.
-      assert(Le a' b' A B).
-        apply bet4_le_23; assumption.
-      assert(Cong a b a' b').
-        apply (l2_11 a o b a' O b').
-          assumption.
-          apply between_inner with A B; assumption.
-          apply cong_2143; assumption.
-        assumption.
-      apply(l5_6 a' b' A B a b A B).
-        assumption.
-        apply cong_3412; assumption.
-        apply cong_1212.
+    assert(exists a' b', Bet_4 A a' b' B /\ Le a' b' A B /\ Cong a b a' b'/\ Cong o b O b').
+      apply bet2_le_13_exists; assumption.
+    exists_and H3 a'.
+    exists_and H4 b'.
+    apply(l5_6 a' b' A B a b A B).
+      assumption.
+      apply cong_3412; assumption.
+      apply cong_1212.
 Qed.
+
 
 Lemma bet2_le2_le_13 : forall A B C A' B' C', 
   Bet A B C -> Bet A' B' C'
@@ -197,6 +214,41 @@ Proof.
     intros.
     apply bet2_le2_le with B' B; try assumption.
       apply le_2143; assumption.
+Qed.
+
+Lemma bet2_le_23_exists : forall A B C A' B' C', 
+  A<>B -> Bet A B C -> Bet A' B' C'
+  -> Le A B A' B' -> Le A' C' A C
+  -> exists b c, Bet_5 A B b c C /\ Cong A b A' B' /\ Cong A' C' A c.
+Proof.
+    intros.
+    apply le_to_def2 in H2.
+    exists_and H2 b.
+    apply le_to_def in H3.
+    exists_and H3 c.
+    exists b.
+    exists c.
+    assert(Bet A b c).
+      assert (Bet A b c \/ Bet A c b).
+        (* l5_4 needs A<>B *)
+        apply l5_4 with B C; assumption. 
+      assert(Le A' B' A' C').
+        apply bet_le_1213. assumption.
+      assert(Le A b A c).
+        apply l5_6 with A' B' A' C'.
+          assumption.
+          apply cong_3412. assumption.
+          assumption.
+      induction H6.
+        assumption.
+        assert(c = b).
+          apply bet_le_eq_reverse with A; assumption.
+        subst c. apply between_trivial_122.
+    assert(Bet_5 A B b c C).
+      apply bet5_bet_2; assumption.
+    split. assumption.
+    split. assumption.
+    assumption.
 Qed.
 
 Lemma bet2_le2_le_23 : forall A B C A' B' C', 
@@ -211,37 +263,18 @@ Proof.
       apply le_transitivity with A' C'.
         apply bet_le_2313. assumption.
         assumption.
-    (* A <> B for l5_4*)
-    apply le_to_def2 in H1.
-    exists_and H1 B0.
-    apply le_to_def in H2.
-    exists_and H2 C0.
-    assert(Bet A B0 C0).
-      assert (Bet A B0 C0 \/ Bet A C0 B0).
-        apply l5_4 with B C; assumption.
-      assert(Col A B0 C0).
-        induction H6.
-          apply bet_col_123. assumption.
-          apply bet_col_132. assumption.
-      assert(Le A' B' A' C').
-        apply bet_le_1213. assumption.
-      assert(Le A B0 A C0).
-        apply l5_6 with A' B' A' C'.
-          assumption.
-          apply cong_3412. assumption.
-          assumption.
-      induction H6.
-        assumption.
-        assert(C0 = B0).
-          apply bet_le_eq_reverse with A; assumption.
-        subst C0. apply between_trivial_122.
-    assert(Bet_5 A B B0 C0 C).
-      apply bet5_bet_2; assumption.
-    apply (l5_6 B0 C0 B C).
-      apply le_transitivity with B C0.
-        apply l5_12_a. apply bet5_bet_234 with A C. assumption.
-        apply l5_12_a. apply bet5_bet_245 with A B0. assumption.
+    (* A <> B *)
+    assert(exists b c : Tpoint, Bet_5 A B b c C /\
+       Cong A b A' B' /\ Cong A' C' A c).
+      apply bet2_le_23_exists; assumption.
+    exists_and H4 b.
+    exists_and H5 c.
+    apply (l5_6 b c B C).
+      apply le_transitivity with B c.
+        apply l5_12_a. apply H4.
+        apply l5_12_a. apply H4.
       apply l4_3_1 with A A'; try assumption.
+        apply H4.
         apply cong_3412; assumption.
       apply cong_1212.
 Qed.

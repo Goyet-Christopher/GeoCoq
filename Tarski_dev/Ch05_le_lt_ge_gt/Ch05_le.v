@@ -67,7 +67,7 @@ Proof.
     exists y.
     split.
     assumption.
-    apply cong3_12 with P D.
+    apply cong3_1245 with P D.
     assumption.
 Qed.
 
@@ -125,7 +125,7 @@ Proof.
     apply between_exchange_3 with z; assumption.
     apply cong_transitivity with C y.
       assumption.
-      apply cong3_12 with D z.
+      apply cong3_1245 with D z.
       assumption.
 Qed.
 
