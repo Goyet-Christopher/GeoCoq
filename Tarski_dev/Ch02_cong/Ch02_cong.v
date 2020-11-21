@@ -36,15 +36,14 @@ Lemma cong_trivial_identity : forall A B : Tpoint,
  Cong A A B B.
 Proof.
     intros.
-    prolong A B E A A.
-    apply cong_inner_transitivity with B E.
-    apply cong_symmetry; assumption.
-    assert(B=E).
-      apply (cong_identity B E A).
+    prolong B A E B B.
+    assert(A=E).
+      apply cong_identity with B.
       apply cong_symmetry.
       assumption.
     subst.
-    apply cong_reflexivity.
+    apply cong_symmetry.
+    assumption.
 Qed.
 
 Lemma cong_left_commutativity : forall A B C D,

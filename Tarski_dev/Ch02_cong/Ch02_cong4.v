@@ -28,6 +28,18 @@ Proof.
     repeat split; assumption.
 Qed.
 
+Lemma def_to_cong4_reverse : forall P1 P2 P3 P4 Q1 Q2 Q3 Q4, 
+  Cong P1 P2 Q2 Q1 ->
+  Cong P1 P3 Q3 Q1 ->
+  Cong P1 P4 Q4 Q1 ->
+  Cong P2 P3 Q3 Q2 ->
+  Cong P2 P4 Q4 Q2 ->
+  Cong P3 P4 Q4 Q3 -> Cong_4 P1 P2 P3 P4 Q1 Q2 Q3 Q4.
+Proof.
+    intros.
+    repeat split; apply cong_1243; assumption.
+Qed.
+
 Lemma cong4_to_def : forall P1 P2 P3 P4 Q1 Q2 Q3 Q4, 
   Cong_4 P1 P2 P3 P4 Q1 Q2 Q3 Q4 ->
   Cong P1 P2 Q1 Q2 /\
@@ -39,6 +51,21 @@ Lemma cong4_to_def : forall P1 P2 P3 P4 Q1 Q2 Q3 Q4,
 Proof.
     intros.
     assumption.
+Qed.
+
+Lemma cong4_to_def_reverse : forall P1 P2 P3 P4 Q1 Q2 Q3 Q4, 
+  Cong_4 P1 P2 P3 P4 Q1 Q2 Q3 Q4 ->
+  Cong P1 P2 Q2 Q1 /\
+  Cong P1 P3 Q3 Q1 /\
+  Cong P1 P4 Q4 Q1 /\
+  Cong P2 P3 Q3 Q2 /\
+  Cong P2 P4 Q4 Q2 /\
+  Cong P3 P4 Q4 Q3.
+Proof.
+    intros.
+    apply cong4_to_def in H.
+    spliter.
+    repeat split; apply cong_1243; assumption.
 Qed.
 
 Lemma cong4_to_def_with_cong3 : forall P1 P2 P3 P4 Q1 Q2 Q3 Q4, 

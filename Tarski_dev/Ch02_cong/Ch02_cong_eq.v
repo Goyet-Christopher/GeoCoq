@@ -36,6 +36,7 @@ Proof.
     apply cong_symmetry. assumption.
 Qed.
 
+(** future between_cong_3 *)
 Lemma construction_uniqueness_simple : forall A B C C',
  A <> B -> Bet A B C -> Bet A B C' -> Cong B C B C' -> C=C'.
 Proof.
