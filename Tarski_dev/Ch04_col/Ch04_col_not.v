@@ -1,4 +1,4 @@
-Require Export GeoCoq.Tarski_dev.Ch04_col.Ch04_col.
+Require Export GeoCoq.Tarski_dev.Ch04_col.Ch04_col_transitivity.
 
 
 Section T4_2.
@@ -102,7 +102,7 @@ Proof.
 Qed.
 
 Lemma not_bet_not_col : forall A B C,
-~ Bet A B C -> ~ Bet B C A -> ~ Bet C A B -> ~ Col A B C.
+  ~ Bet A B C -> ~ Bet B C A -> ~ Bet C A B -> ~ Col A B C.
 Proof.
     intros.
     intro.
@@ -114,7 +114,7 @@ Proof.
 Qed.
 
 Lemma not_col_not_bet : forall A B C,
-~ Col A B C -> ~ Bet A B C /\ ~ Bet B C A /\ ~ Bet C A B.
+  ~ Col A B C -> ~ Bet A B C /\ ~ Bet B C A /\ ~ Bet C A B.
 Proof.
     intros.
     repeat split.
@@ -129,6 +129,30 @@ Proof.
     apply bet_col_312; assumption.
 Qed.
 
+Lemma not_col_trans : forall A B C Q,
+  A <> Q -> ~ Col A B C -> Col A B Q -> ~ Col A C Q.
+Proof.
+    intros.
+    intro.
+    apply H0.
+    apply col_transitivity_1 with Q.
+    assumption.
+    apply col_132. assumption.
+    apply col_132. assumption.
+Qed.
+
+Lemma not_col_trans_2 : forall A B C Q,
+  B <> Q -> ~ Col A B C -> Col B C Q -> ~ Col A Q B.
+Proof.
+    intros.
+    intro.
+    apply H0.
+    apply col_312.
+    apply col_transitivity_2 with Q.
+    apply diff_symmetry. assumption.
+    apply col_312. assumption.
+    apply col_231. assumption.
+Qed.
 
 End T4_4.
 

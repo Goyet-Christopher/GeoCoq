@@ -41,7 +41,7 @@ Proof.
       assumption.
     apply l4_18 with A' B'.
       apply cong_diff_12_34 with A B. assumption.
-      apply cong3_12 with C C1. assumption.
+      apply cong3_1245 with C C1. assumption.
       apply l4_13 with A B C; assumption.
     apply H3.
     apply H3.

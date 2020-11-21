@@ -171,8 +171,8 @@ Proof.
     split.
     apply bet_col_132; assumption.
     split. apply cong3_swap_132; assumption.
-    split. apply cong3_13 with B B'; assumption.
-    apply cong3_23 with A A'; assumption.
+    split. apply cong3_1346 with B B'; assumption.
+    apply cong3_2356 with A A'; assumption.
 Qed.
 
 Lemma FSC_cases : forall A B C D A' B' C' D',
@@ -271,12 +271,12 @@ Proof.
     assert (FSC A B C P A B C Q).
       induction H0.
         apply OFSC_to_FSC_1.
-        apply OFSC_axial_sym2; assumption.
+        apply OFSC_axial_sym; assumption.
       induction H0.
         apply IFSC_to_FSC.
-        apply IFSC_axial_sym2; assumption.
+        apply IFSC_axial_sym; assumption.
       apply OFSC_to_FSC_2.
-      apply OFSC_axial_sym2; assumption.
+      apply OFSC_axial_sym; assumption.
     apply l4_16 with A B A B.
       assumption.
       left. assumption.
