@@ -1,9 +1,9 @@
 Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet_cong3.
 
-Section Cong4_cons.
+Section Cong4_cons_123.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-Lemma bet4_cong4_122334 : forall A B C D A' B' C' D',
+Lemma bet4_122334_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A B A' B' -> Cong B C B' C' -> Cong C D C' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -21,7 +21,7 @@ Proof.
     apply def_to_cong4; assumption.
 Qed.
 
-Lemma bet4_cong4_122324 : forall A B C D A' B' C' D', 
+Lemma bet4_122324_cong4 : forall A B C D A' B' C' D', 
   Bet_4 A B C D -> Bet_4 A' B' C' D' ->
   Cong A B A' B'-> Cong B C B' C' -> Cong B D B' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -31,10 +31,10 @@ Proof.
     assert(Cong C D C' D').
       apply l4_3_1 with B B'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_122334; assumption.
+    apply bet4_122334_cong4; assumption.
 Qed.
 
-Lemma bet4_cong4_122314 : forall A B C D A' B' C' D', 
+Lemma bet4_122314_cong4 : forall A B C D A' B' C' D', 
   Bet_4 A B C D -> Bet_4 A' B' C' D' ->
   Cong A B A' B'-> Cong B C B' C' -> Cong A D A' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -44,7 +44,7 @@ Proof.
     assert(Cong B D B' D').
       apply l4_3_1 with A A'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_122324; assumption.
+    apply bet4_122324_cong4; assumption.
 Qed.
 
 Lemma bet4_12_23_cases : forall A B C D A' B' C' D', 
@@ -55,13 +55,13 @@ Lemma bet4_12_23_cases : forall A B C D A' B' C' D',
 Proof.
     intros.
     induction H3.
-      apply bet4_cong4_122334; assumption.
+      apply bet4_122334_cong4; assumption.
     induction H3.
-      apply bet4_cong4_122324; assumption.
-    apply bet4_cong4_122314; assumption.
+      apply bet4_122324_cong4; assumption.
+    apply bet4_122314_cong4; assumption.
 Qed.
 
-Lemma bet4_cong4_121334 : forall A B C D A' B' C' D',
+Lemma bet4_121334_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A B A' B' -> Cong A C A' C' -> Cong C D C' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -74,7 +74,7 @@ Proof.
       left; assumption.
 Qed.
 
-Lemma bet4_cong4_121324 : forall A B C D A' B' C' D',
+Lemma bet4_121324_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A B A' B' -> Cong A C A' C' -> Cong B D B' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -87,7 +87,7 @@ Proof.
       right. left; assumption.
 Qed.
 
-Lemma bet4_cong4_121314 : forall A B C D A' B' C' D',
+Lemma bet4_121314_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A B A' B' -> Cong A C A' C' -> Cong A D A' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -108,13 +108,13 @@ Lemma bet4_12_13_cases : forall A B C D A' B' C' D',
 Proof.
     intros.
     induction H3.
-      apply bet4_cong4_121334; assumption.
+      apply bet4_121334_cong4; assumption.
     induction H3.
-      apply bet4_cong4_121324; assumption.
-    apply bet4_cong4_121314; assumption.
+      apply bet4_121324_cong4; assumption.
+    apply bet4_121314_cong4; assumption.
 Qed.
 
-Lemma bet4_cong4_121423 : forall A B C D A' B' C' D',
+Lemma bet4_121423_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A B A' B' -> Cong A D A' D' -> Cong B C B' C'
   -> Cong_4 A B C D A' B' C' D'.
@@ -123,10 +123,10 @@ Proof.
     assert( Cong A C A' C').
       apply l2_11 with B B'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_121314; assumption.
+    apply bet4_121314_cong4; assumption.
 Qed.
 
-Lemma bet4_cong4_121434 : forall A B C D A' B' C' D',
+Lemma bet4_121434_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A B A' B' -> Cong A D A' D' -> Cong C D C' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -135,7 +135,7 @@ Proof.
     assert( Cong A C A' C').
       apply l4_3 with D D'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_121314; assumption.
+    apply bet4_121314_cong4; assumption.
 Qed.
 
 Lemma bet4_12_14_cases : forall A B C D A' B' C' D', 
@@ -146,14 +146,14 @@ Lemma bet4_12_14_cases : forall A B C D A' B' C' D',
 Proof.
     intros.
     induction H3.
-      apply bet4_cong4_121314; assumption.
+      apply bet4_121314_cong4; assumption.
     induction H3.
-      apply bet4_cong4_121423; assumption.
-    apply bet4_cong4_121434; assumption.
+      apply bet4_121423_cong4; assumption.
+    apply bet4_121434_cong4; assumption.
 Qed.
 
 
-Lemma bet4_cong4_122434 : forall A B C D A' B' C' D',
+Lemma bet4_122434_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A B A' B' -> Cong B D B' D' -> Cong C D C' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -162,7 +162,7 @@ Proof.
     assert( Cong B C B' C').
       apply l4_3 with D D'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_122324; assumption.
+    apply bet4_122324_cong4; assumption.
 Qed.
 
 Lemma bet4_12_24_cases : forall A B C D A' B' C' D', 
@@ -173,13 +173,13 @@ Lemma bet4_12_24_cases : forall A B C D A' B' C' D',
 Proof.
     intros.
     induction H3.
-      apply bet4_cong4_121324; assumption.
+      apply bet4_121324_cong4; assumption.
     induction H3.
-      apply bet4_cong4_122324; assumption.
-    apply bet4_cong4_122434; assumption.
+      apply bet4_122324_cong4; assumption.
+    apply bet4_122434_cong4; assumption.
 Qed.
 
-Lemma bet4_cong4_131423 : forall A B C D A' B' C' D',
+Lemma bet4_131423_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A C A' C' -> Cong A D A' D' -> Cong B C B' C'
   -> Cong_4 A B C D A' B' C' D'.
@@ -188,10 +188,10 @@ Proof.
     assert( Cong A B A' B').
       apply l4_3 with C C'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_121314; assumption.
+    apply bet4_121314_cong4; assumption.
 Qed.
 
-Lemma bet4_cong4_131424 : forall A B C D A' B' C' D',
+Lemma bet4_131424_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A C A' C' -> Cong A D A' D' -> Cong B D B' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -200,7 +200,7 @@ Proof.
     assert( Cong A B A' B').
       apply l4_3 with D D'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_121314; assumption.
+    apply bet4_121314_cong4; assumption.
 Qed.
 
 Lemma bet4_13_14_cases : forall A B C D A' B' C' D', 
@@ -211,13 +211,13 @@ Lemma bet4_13_14_cases : forall A B C D A' B' C' D',
 Proof.
     intros.
     induction H3.
-      apply bet4_cong4_121314; assumption.
+      apply bet4_121314_cong4; assumption.
     induction H3.
-      apply bet4_cong4_131423; assumption.
-    apply bet4_cong4_131424; assumption.
+      apply bet4_131423_cong4; assumption.
+    apply bet4_131424_cong4; assumption.
 Qed.
 
-Lemma bet4_cong4_132324 : forall A B C D A' B' C' D',
+Lemma bet4_132324_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A C A' C' -> Cong B C B' C' -> Cong B D B' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -226,10 +226,10 @@ Proof.
     assert( Cong A B A' B').
       apply l4_3 with C C'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_122324; assumption.
+    apply bet4_122324_cong4; assumption.
 Qed.
 
-Lemma bet4_cong4_132334 : forall A B C D A' B' C' D',
+Lemma bet4_132334_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A C A' C' -> Cong B C B' C' -> Cong C D C' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -238,7 +238,7 @@ Proof.
     assert( Cong A B A' B').
       apply l4_3 with C C'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_122334; assumption.
+    apply bet4_122334_cong4; assumption.
 Qed.
 
 Lemma bet4_13_23_cases : forall A B C D A' B' C' D', 
@@ -249,13 +249,13 @@ Lemma bet4_13_23_cases : forall A B C D A' B' C' D',
 Proof.
     intros.
     induction H3.
-      apply bet4_cong4_131423; assumption.
+      apply bet4_131423_cong4; assumption.
     induction H3.
-      apply bet4_cong4_132324; assumption.
-    apply bet4_cong4_132334; assumption.
+      apply bet4_132324_cong4; assumption.
+    apply bet4_132334_cong4; assumption.
 Qed.
 
-Lemma bet4_cong4_132434 : forall A B C D A' B' C' D',
+Lemma bet4_132434_cong4 : forall A B C D A' B' C' D',
   Bet_4 A B C D -> Bet_4 A' B' C' D'
   -> Cong A C A' C' -> Cong B D B' D' -> Cong C D C' D'
   -> Cong_4 A B C D A' B' C' D'.
@@ -264,7 +264,7 @@ Proof.
     assert( Cong A D A' D').
       apply l2_11 with C C'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_131424; assumption.
+    apply bet4_131424_cong4; assumption.
 Qed.
 
 Lemma bet4_13_24_cases : forall A B C D A' B' C' D', 
@@ -275,12 +275,12 @@ Lemma bet4_13_24_cases : forall A B C D A' B' C' D',
 Proof.
     intros.
     induction H3.
-      apply bet4_cong4_121324; assumption.
+      apply bet4_121324_cong4; assumption.
     induction H3.
-      apply bet4_cong4_131424; assumption.
+      apply bet4_131424_cong4; assumption.
     induction H3.
-      apply bet4_cong4_132324; assumption.
-    apply bet4_cong4_132434; assumption.
+      apply bet4_132324_cong4; assumption.
+    apply bet4_132434_cong4; assumption.
 Qed.
 
 Lemma bet4_13_34_cases : forall A B C D A' B' C' D', 
@@ -291,10 +291,10 @@ Lemma bet4_13_34_cases : forall A B C D A' B' C' D',
 Proof.
     intros.
     induction H3.
-      apply bet4_cong4_121334; assumption.
+      apply bet4_121334_cong4; assumption.
     induction H3.
-      apply bet4_cong4_132334; assumption.
-    apply bet4_cong4_132434; assumption.
+      apply bet4_132334_cong4; assumption.
+    apply bet4_132434_cong4; assumption.
 Qed.
 
 
@@ -307,7 +307,7 @@ Proof.
     assert( Cong A B A' B').
       apply l4_3 with D D'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_122324; assumption.
+    apply bet4_122324_cong4; assumption.
 Qed.
 
 Lemma bet4_cong4_142334 : forall A B C D A' B' C' D',
@@ -330,9 +330,9 @@ Lemma bet4_14_23_cases : forall A B C D A' B' C' D',
 Proof.
     intros.
     induction H3.
-      apply bet4_cong4_121423; assumption.
+      apply bet4_121423_cong4; assumption.
     induction H3.
-      apply bet4_cong4_131423; assumption.
+      apply bet4_131423_cong4; assumption.
     induction H3.
       apply bet4_cong4_142324; assumption.
     apply bet4_cong4_142334; assumption.
@@ -347,7 +347,7 @@ Proof.
     assert( Cong A B A' B').
       apply l4_3 with D D'; try assumption.
       apply H. apply H0.
-    apply bet4_cong4_121434; assumption.
+    apply bet4_121434_cong4; assumption.
 Qed.
 
 Lemma bet4_14_24_cases : forall A B C D A' B' C' D', 
@@ -358,7 +358,7 @@ Lemma bet4_14_24_cases : forall A B C D A' B' C' D',
 Proof.
     intros.
     induction H3.
-      apply bet4_cong4_131424; assumption.
+      apply bet4_131424_cong4; assumption.
     induction H3.
       apply bet4_cong4_142324; assumption.
     apply bet4_cong4_142434; assumption.
@@ -378,6 +378,27 @@ Proof.
       apply cong4_cong3_134 with B B'; assumption.
 Qed.
 
-End Cong4_cons.
+End Cong4_cons_123.
+
+(*
+Section Cong4_cons_132.
+Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
+
+Lemma bet4_12_14_cases : forall A B C D A' B' C' D', 
+  Bet_4 A B C D -> Bet_4 A' B' C' D' ->
+  Cong A B A' B'-> Cong A D A' D' 
+  -> Cong B C C' D' \/ Cong C D B'
+  -> Cong_4 A B C D A' B' C' D'.
+Proof.
+    intros.
+    induction H3.
+      apply bet4_121314_cong4; assumption.
+    induction H3.
+      apply bet4_121423_cong4; assumption.
+    apply bet4_121434_cong4; assumption.
+Qed.
+
+End Cong4_cons_132.
+*)
 
 Print All.
