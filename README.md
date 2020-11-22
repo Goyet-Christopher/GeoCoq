@@ -3,11 +3,12 @@ A forked formalization of geometry in Coq by Goyet Christopher
 
 Trying to make a more usable version of Geocoq in practice, with :
 - as little tactics as possible,
-- explicits and readable proofs,
+- explicits and readable proofs (especially without auto tactics),
+- faster compilation (another reason to avoid auto tactics),
 - smalls files / sort lemmas by similarity,
-- changing the names of many lemmas to make them more understandable and recognizable,
-- as many lemmas as possible (to simplify the use for everyone, 
-without having to know the whole library by heart ... ) 
+- changing the names of lemmas to make them more understandable and recognizable,
+- as many lemmas as possible, to simplify the use for everyone, 
+without having to know the whole library by heart ...
 
 Goyet Christopher
 
