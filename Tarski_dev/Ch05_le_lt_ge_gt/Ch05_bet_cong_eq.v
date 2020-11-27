@@ -66,7 +66,7 @@ Proof.
     split.
       subst B'.
       assert(Cong A B A C).
-        apply cong_1234_5634 with A' C'; assumption.
+        apply cong_12XY_34XY with A' C'; assumption.
       apply between_cong with A; assumption.
     apply eq_sym. assumption.
 Qed.

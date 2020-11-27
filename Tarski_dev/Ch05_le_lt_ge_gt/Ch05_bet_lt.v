@@ -134,7 +134,7 @@ Proof.
         apply H5.
         apply cong_3412. assumption.
     assert(Cong B C b c).
-      apply cong_1234_1256 with B' C'; assumption. 
+      apply cong_XY12_XY34 with B' C'; assumption. 
     assert(B=b/\c=C).
       apply bet4_cong_eq.
         apply H5.

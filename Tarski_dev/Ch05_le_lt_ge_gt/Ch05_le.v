@@ -141,7 +141,7 @@ Proof.
     assert (Y=T).
       apply between_cong with C. 
         apply between_exchange_3 with D; assumption.
-        apply cong_1234_1256 with A B; assumption.
+        apply cong_XY12_XY34 with A B; assumption.
     subst Y.
     assert (D=T).
       apply between_equality_2 with C; assumption.
@@ -227,11 +227,11 @@ Proof.
     exists z.
     split.
       assumption.
-      apply cong_1234_1256 with A B.
+      apply cong_XY12_XY34 with A B.
         assumption.
-        apply cong_1234_3456 with C y.
+        apply cong_12XY_XY34 with C y.
     assumption.
-    apply H4.
+    apply cong3_1245 with D D'. assumption.
 Qed.
 
 Lemma le_2134 : forall A B C D, 
