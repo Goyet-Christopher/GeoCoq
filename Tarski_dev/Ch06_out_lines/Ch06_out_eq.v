@@ -14,7 +14,7 @@ Proof.
     intros.
     spliter.
     assert (Cong A X A Y).
-      apply cong_1234_5634 with B C; assumption.
+      apply cong_12XY_34XY with B C; assumption.
     induction H8; induction H6.
       apply l4_19 with A R; try assumption.
         apply cong_2143.

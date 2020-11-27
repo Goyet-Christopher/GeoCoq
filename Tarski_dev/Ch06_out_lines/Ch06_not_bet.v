@@ -3,6 +3,16 @@ Require Export GeoCoq.Tarski_dev.Ch06_out_lines.Ch06_out.
 Section Not_bet.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
+Lemma not_out_symmetry : forall P A B,
+  ~ Out P A B -> ~ Out P B A.
+Proof.
+    intros.
+    intro.
+    apply H.
+    apply out_symmetry.
+    assumption.
+Qed.
+
 Lemma not_out_bet : forall A B C,
  Col A B C -> ~ Out B A C -> Bet A B C.
 Proof.
