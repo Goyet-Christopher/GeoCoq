@@ -127,7 +127,7 @@ Qed.
 
 (************************************************************)
 
-Lemma Cong_cases :
+Lemma cong_cases :
  forall A B C D,
  Cong A B C D \/ Cong A B D C \/ Cong B A C D \/ Cong B A D C \/
  Cong C D A B \/ Cong C D B A \/ Cong D C A B \/ Cong D C B A ->
@@ -146,7 +146,7 @@ Proof.
     assumption.
 Qed.
 
-Lemma Cong_perm :
+Lemma cong_perm :
  forall A B C D,
  Cong A B C D ->
  Cong A B C D /\ Cong A B D C /\ Cong B A C D /\ Cong B A D C /\
@@ -192,8 +192,10 @@ Lemma l2_11_neq : forall A B C A' B' C',
 Proof.
     intros.
     apply cong_commutativity.
-    assert (Cong A A A' A') by apply cong_1122.
-    assert (Cong B A B' A') by (apply cong_2143; assumption).
+    assert (Cong A A A' A').
+      apply cong_1122.
+    assert (Cong B A B' A').
+      apply cong_2143. assumption.
     apply (five_segment A A' B B' C C' A A'); assumption.
 Qed.
 

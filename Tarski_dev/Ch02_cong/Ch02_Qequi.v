@@ -27,10 +27,10 @@ Proof.
     apply qequi_to_def in H.
     spliter.
     assert(Cong A B C D).
-      apply cong_1234_3456 with B C; assumption.
+      apply cong_12XY_XY34 with B C; assumption.
     repeat split; try assumption.
-    apply cong_1234_1256 with A B; assumption.
-    apply cong_1234_1256 with A B; assumption.
+    apply cong_XY12_XY34 with A B; assumption.
+    apply cong_XY12_XY34 with A B; assumption.
 Qed.
 
 Lemma qequi_reverse : forall A B C D,
@@ -109,8 +109,8 @@ Lemma qequi_2op_1adj_B : forall A B C D,
 Proof.
     intros.
     repeat split; try assumption.
-      apply cong_1234_5634 with B C; assumption.
-      apply cong_1234_1256 with A B; assumption.
+      apply cong_12XY_34XY with B C; assumption.
+      apply cong_XY12_XY34 with A B; assumption.
 Qed.
 
 Lemma qequi_2op_1adj_A : forall A B C D,
@@ -155,7 +155,7 @@ Lemma qequi_2adj_1op_1 : forall A B C D,
 Proof.
     intros.
     repeat split; try assumption.
-      apply cong_1234_5634 with C D; assumption.
+      apply cong_12XY_34XY with C D; assumption.
 Qed.
 
 Lemma qequi_2adj_1op_2 : forall A B C D,
@@ -164,7 +164,7 @@ Lemma qequi_2adj_1op_2 : forall A B C D,
 Proof.
     intros.
     repeat split; try assumption.
-      apply cong_1234_3456 with A D; assumption.
+      apply cong_12XY_XY34 with A D; assumption.
 Qed.
 
 Lemma qequi_2adj_1op_3 : forall A B C D,
@@ -173,7 +173,7 @@ Lemma qequi_2adj_1op_3 : forall A B C D,
 Proof.
     intros.
     repeat split; try assumption.
-      apply cong_1234_1256 with A B; assumption.
+      apply cong_XY12_XY34 with A B; assumption.
 Qed.
 
 Lemma qequi_3adj : forall A B C D,
@@ -186,6 +186,64 @@ Qed.
 
 End Cong_Rhb.
 
+Section To_Cong.
+Context `{Tn:Tarski_neutral_dimensionless}.
+
+Lemma qequi_cong_1214 : forall A B C D, 
+  QEqui A B C D -> Cong A B A D.
+Proof.
+    intros.
+    apply qequi_to_all in H.
+    spliter.
+    assumption.
+Qed.
+
+Lemma qequi_cong_1223 : forall A B C D, 
+  QEqui A B C D -> Cong A B B C.
+Proof.
+    intros.
+    apply qequi_to_all in H.
+    spliter.
+    assumption.
+Qed.
+
+Lemma qequi_cong_1234 : forall A B C D, 
+  QEqui A B C D -> Cong A B C D.
+Proof.
+    intros.
+    apply qequi_to_all in H.
+    spliter.
+    assumption.
+Qed.
+
+Lemma qequi_cong_1423 : forall A B C D, 
+  QEqui A B C D -> Cong A D B C.
+Proof.
+    intros.
+    apply qequi_to_all in H.
+    spliter.
+    assumption.
+Qed.
+
+Lemma qequi_cong_1434 : forall A B C D, 
+  QEqui A B C D -> Cong A D C D.
+Proof.
+    intros.
+    apply qequi_to_all in H.
+    spliter.
+    assumption.
+Qed.
+
+Lemma qequi_cong_2334 : forall A B C D, 
+  QEqui A B C D -> Cong B C C D.
+Proof.
+    intros.
+    apply qequi_to_all in H.
+    spliter.
+    assumption.
+Qed.
+
+End To_Cong.
 
 Print All.
 
