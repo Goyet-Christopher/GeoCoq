@@ -1,4 +1,4 @@
-Require Export GeoCoq.Tarski_dev.Ch02_cong.Ch02_cong3.
+Require Export GeoCoq.Tarski_dev.Ch02_cong.cong3.Ch02_cong3.
 
 Section Cong4_def.
 
@@ -158,7 +158,7 @@ Qed.
 
 End Cong4_def.
 
-Section Cong4_prop.
+Section Cong4_properties.
 
 Context `{Tn:Tarski_neutral_dimensionless}.
 
@@ -179,6 +179,6 @@ Proof.
     repeat split; apply cong_3412; assumption.
 Qed.
 
-End Cong4_prop.
+End Cong4_properties.
 
 Print All.
