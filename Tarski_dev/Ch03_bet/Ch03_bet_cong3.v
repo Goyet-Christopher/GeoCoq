@@ -1,5 +1,6 @@
 Require Export GeoCoq.Tarski_dev.Ch03_bet.bet4.Ch03_bet4.
 Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_IFSC.
+Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet_l2_11.
 
 
 Section T3.
@@ -78,6 +79,60 @@ Proof.
     apply cong_1243. assumption.
 Qed.
 
+Lemma cong3_degenerate_a : forall A B C A',
+ Bet A B C -> Bet A' B C -> Cong A C A' C -> Cong_3 A B C A' B C.
+Proof.
+    intros.
+    apply bet_cong1323_cong3; try assumption.
+      apply cong_1212.
+Qed.
+
+Lemma cong3_degenerate_a2 : forall A B C A',
+ Bet A B C -> Bet A' B C -> Cong A B A' B -> Cong_3 A B C A' B C.
+Proof.
+    intros.
+    assert(Cong A C A' C).
+      apply l2_11 with B B; try assumption.
+      apply cong_1212.
+    apply cong3_degenerate_a; assumption.
+Qed.
+
+Lemma cong3_degenerate_b : forall A B C B',
+ Bet A B C -> Bet A B' C -> Cong A B A B' -> Cong_3 A B C A B' C.
+Proof.
+    intros.
+    apply bet_cong1213_cong3; try assumption.
+      apply cong_1212.
+Qed.
+
+Lemma cong3_degenerate_b2 : forall A B C B',
+ Bet A B C -> Bet A B' C -> Cong B C B' C -> Cong_3 A B C A B' C.
+Proof.
+    intros.
+    assert(Cong A B A B').
+      apply l4_3 with C C; try assumption.
+      apply cong_1212.
+    apply cong3_degenerate_b; assumption.
+Qed.
+
+Lemma cong3_degenerate_c : forall A B C C',
+ Bet A B C -> Bet A B C' -> Cong A C A C' -> Cong_3 A B C A B C'.
+Proof.
+    intros.
+    apply bet_cong1213_cong3; try assumption.
+      apply cong_1212.
+Qed.
+
+Lemma cong3_degenerate_c2 : forall A B C C',
+ Bet A B C -> Bet A B C' -> Cong B C B C' -> Cong_3 A B C A B C'.
+Proof.
+    intros.
+    assert(Cong A C A C').
+      apply l2_11 with B B; try assumption.
+      apply cong_1212.
+    apply cong3_degenerate_c; assumption.
+Qed.
+
 Lemma l4_6 : forall A B C A' B' C', 
   Bet A B C -> Cong_3 A B C A' B' C' -> Bet A' B' C'.
 Proof.
@@ -88,12 +143,11 @@ Proof.
       exists_and H1 x.
     assert ( x = B').
       apply IFSC_eq with A' C'.
-      apply def_to_IFSC_with_cong3.
-      assumption. assumption.
-      apply cong_1212.
-      apply cong3_swap_132.
-      apply cong3_transitivity_12_13_23 with A B C;
-      assumption.
+        apply IFSC_same_base_cong3.
+          assumption.
+          apply cong3_swap_132.
+            apply cong3_transitivity_X1_X2 with A B C;
+            assumption.
     subst.
     assumption.
 Qed.
@@ -105,6 +159,19 @@ End T3.
 
 Section T3_cases.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
+
+Lemma l4_6_bet_cases : forall A B C A' B' C',
+  Bet A B C \/ Bet A' B' C' -> Cong_3 A B C A' B' C' -> Bet A B C /\ Bet A' B' C'.
+Proof.
+    intros.
+    induction H.
+      split.
+        assumption. apply l4_6 with A B C; assumption.
+      split.
+        apply l4_6 with A' B' C'. assumption.
+          apply cong3_symmetry. assumption.
+        assumption.
+Qed.
 
 Lemma l4_6_cong3_cases : forall A B C A' B' C', 
   Bet A B C 
@@ -184,10 +251,28 @@ Proof.
       assumption.
       left. assumption.
     apply def_to_cong3.
+      apply H0.
+      apply cong_4321; assumption.
+      apply cong_1221.
     apply H0.
-    apply cong_4321; assumption.
-    apply cong_1221.
-    apply H0.
+Qed.
+
+Lemma OFSC_isosceles_cong3 : forall A B C B' C',
+    Bet B A B' \/ Bet C A C' -> Cong_3 B A B' C A C'
+ -> Cong_3 A B C' A C B'.
+Proof.
+    intros.
+    assert(Bet B A B' /\ Bet C A C').
+      apply l4_6_bet_cases; assumption.
+    spliter.
+    assert(Cong A B A C).
+      apply cong3_2154 with B' C'. assumption.
+    assert(Cong A B' A C').
+      apply cong3_2356 with B C. assumption.
+    assert(Cong A C' A B').
+      apply cong_3412. assumption.
+    apply def_to_cong3; try assumption.
+      apply OFSC_isosceles with A; assumption.
 Qed.
 
 

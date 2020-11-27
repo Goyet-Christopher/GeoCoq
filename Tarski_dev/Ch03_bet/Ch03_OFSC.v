@@ -323,7 +323,7 @@ Proof.
     right. assumption.
 Qed.
 
-Lemma OFSC_axial_sym : forall A B C D D',
+Lemma OFSC_same_base : forall A B C D D',
   Bet A B C -> Cong A D A D' -> Cong B D B D'
   -> OFSC A B C D A B C D'.
 Proof.
@@ -335,7 +335,7 @@ Proof.
       assumption.
 Qed.
 
-Lemma OFSC_axial_sym_cong3 : forall A B C D D',
+Lemma OFSC_same_base_cong3 : forall A B C D D',
   Bet A B C -> Cong_3 A B D A B D'
   -> OFSC A B C D A B C D'.
 Proof.
@@ -347,7 +347,7 @@ Proof.
       apply H0.
 Qed.
 
-Lemma OFSC_axial_sym2 : forall A B C D,
+Lemma OFSC_axial_sym : forall A B C D,
   Bet A B C -> Cong A B B C -> Cong A D C D
   -> OFSC A B C D C B A D.
 Proof.
@@ -386,7 +386,7 @@ Lemma l4_17_OFSC : forall A B C P Q,
 Proof.
     intros.
     assert (OFSC A B C P A B C Q).
-      apply OFSC_axial_sym; assumption.
+      apply OFSC_same_base; assumption.
     apply OFSC_cong_34 with A B A B.
       assumption.
       left; assumption.
@@ -405,6 +405,25 @@ Proof.
       assumption.
 Qed.
 
+Lemma OFSC_isosceles : forall A B C B' C',
+    Bet B A B' -> Bet C A C' -> Cong A B A C -> Cong A B' A C' -> Cong B C' C B'.
+Proof.
+    intros.
+    assert(OFSC B A B' C C A C' B).
+      apply def_to_OFSC; try assumption.
+        apply cong_2143. assumption.
+        apply cong_1221.
+        apply cong_3412. assumption.
+    induction(eq_dec_points B A).
+      subst B. assert(A=C). 
+        apply cong_reverse_identity with A. assumption.
+      subst C. apply cong_3412. assumption.
+    apply cong_4321.
+    apply OFSC_cong_34 with B A C A.
+      assumption.
+      left. assumption.
+Qed.
+
 Lemma OFSC_transitivity : forall A B C D A' B' C' D' A'' B'' C'' D'', 
 OFSC A B C D A' B' C' D' ->  OFSC A' B' C' D' A'' B'' C'' D''
 -> OFSC A B C D A'' B'' C'' D''.
@@ -416,9 +435,9 @@ Proof.
     apply def_to_OFSC_with_cong3.
     assumption.
     assumption.
-    apply cong3_transitivity_12_23_13 with A' B' D';
+    apply cong3_transitivity_1X_X2 with A' B' D';
       assumption.
-    apply cong_transitivity with B' C'; assumption.
+    apply cong_12XY_XY34 with B' C'; assumption.
 Qed.
 
 

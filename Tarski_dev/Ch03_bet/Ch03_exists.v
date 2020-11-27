@@ -1,3 +1,4 @@
+Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet_l2_11.
 Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet_diff.
 Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet_not.
 Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet_transitivity.
@@ -86,11 +87,9 @@ Proof.
     intros.
     prolong A' B' C' B C.
     exists C'.
-    assert (Cong A C A' C').
-      apply l2_11 with B B'; assumption.
     split.
-    assumption.
-    apply def_to_cong3; assumption.
+      assumption.
+      apply l2_11_cong3; assumption.
 Qed.
 
 Lemma l4_5_a : forall A B C B' C',
@@ -126,7 +125,8 @@ Proof.
         apply between_exchange_3 with B'; assumption.
       assert(Cong A C A' C'').
         apply l2_11 with B B'; assumption.
-      apply (construction_uniqueness_sym x' A' A C); assumption.
+      apply (construction_uniqueness x' A' A C); try assumption.
+        apply cong_3412. assumption. apply cong_3412. assumption.
     subst C''.
     exists B'.
     split.

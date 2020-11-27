@@ -31,7 +31,7 @@ Proof.
       (* B <> D' *)
         right. intro.
         assert(Cong A D' A B).
-          apply cong_1234_5634 with C D; assumption.
+          apply cong_12XY_34XY with C D; assumption.
         induction H0.
         (*Bet A B D'*)
         assert (B = D').

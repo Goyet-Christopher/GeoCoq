@@ -10,7 +10,7 @@ Proof.
     intros.
     assert (IFSC A B C B A B C X).
       apply cong3_swap_132 in H0.
-      apply IFSC_axial_sym_cong3; assumption.
+      apply IFSC_same_base_cong3; assumption.
     apply IFSC_eq with A C.
     assumption.
 Qed.
@@ -58,19 +58,8 @@ Lemma between_cong_2 : forall A B D E,
 Proof.
     intros.
     apply cong3_bet_eq with A B.
-    assumption.
-    apply def_to_cong3.
-    assumption.
-    apply cong_1212.
-    apply cong_3412.
-    apply (l4_2 B E A B B D A B).
-    apply def_to_IFSC; try assumption.
-    apply between_symmetry; assumption.
-    apply between_symmetry; assumption.
-    apply cong_1212.
-    apply cong_4321; assumption.
-    apply cong_trivial_identity.
-    apply cong_1212.
+      assumption.
+      apply cong3_degenerate_b; assumption.
 Qed.
 
 Lemma between_cong_3 : forall A B D E, 
@@ -97,7 +86,7 @@ Lemma construction_uniqueness_1 : forall Q A B C X Y,
 Proof.
     intros.
     assert(Cong Q X Q Y).
-      apply cong_1234_5634 with B C; assumption.
+      apply cong_12XY_34XY with B C; assumption.
     apply between_cong_1 with Q A; assumption.
 Qed.
 
@@ -107,19 +96,8 @@ Lemma construction_uniqueness_2 : forall Q A B C X Y,
 Proof.
     intros.
     assert(Cong A X A Y).
-      apply cong_1234_5634 with B C; assumption. 
+      apply cong_12XY_34XY with B C; assumption. 
     apply between_cong_2 with A Q; assumption.
-Qed.
-
-Lemma construction_uniqueness_2_sym : forall Q A B C X Y,
-  Bet Q X A -> Cong A X B C -> Bet Q Y A -> Cong A Y B C -> X = Y.
-Proof.
-    intros.
-    apply construction_uniqueness_2 with Q A B C.
-      apply between_symmetry. assumption.
-      assumption.
-      apply between_symmetry. assumption.
-      assumption.
 Qed.
 
 (** construction_uniqueness already corresponds between_cong_3 *)

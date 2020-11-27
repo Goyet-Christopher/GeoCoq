@@ -152,7 +152,7 @@ Proof.
       apply cong3_reflexivity.
 Qed.
 
-Lemma IFSC_axial_sym : forall A B C D D',
+Lemma IFSC_same_base : forall A B C D D',
   Bet A B C -> Cong A D A D' -> Cong C D C D'
   -> IFSC A B C D A B C D'.
 Proof.
@@ -164,7 +164,7 @@ Proof.
     assumption.
 Qed.
 
-Lemma IFSC_axial_sym_cong3 : forall A B C D D',
+Lemma IFSC_same_base_cong3 : forall A B C D D',
   Bet A B C -> Cong_3 A C D A C D'
   -> IFSC A B C D A B C D'.
 Proof.
@@ -179,7 +179,7 @@ Proof.
     assumption.
 Qed.
 
-Lemma IFSC_axial_sym2 : forall A B C D,
+Lemma IFSC_axial_sym : forall A B C D,
   Bet A B C -> Cong A B B C -> Cong A D C D
   -> IFSC A B C D C B A D.
 Proof.
@@ -268,31 +268,21 @@ End IFSC_prop.
 Section IFSC_extend.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-Lemma IFSC_prolong_to_OFSC : forall A B C D E A' B' C' D' E',
-  IFSC A B C D A' B' C' D' -> Bet A C E -> Bet A' C' E'
-  -> Cong C E C' E'
-  -> OFSC A C E D A' C' E' D'.
+Lemma IFSC_prolong_to_OFSC : forall A B C D A' B' C' D',
+  IFSC A B C D A' B' C' D'
+  -> exists E E', C<>E /\ OFSC A C E D A' C' E' D'.
 Proof.
     intros.
-    apply IFSC_to_def in H.
-    spliter. 
-    repeat split; try assumption.
-Qed.
-
-Lemma IFSC_prolong_to_IFSC : forall A B C D E A' B' C' D' E',
-  IFSC A B C D A' B' C' D' -> Bet A C E -> Bet A' C' E'
-  -> Cong C E C' E' -> A<>B \/ A<>C
-  -> IFSC A C E D A' C' E' D'.
-Proof.
-    intros.
-    apply OFSC_to_IFSC.
-    apply IFSC_prolong_to_OFSC with B B';
-      assumption.
-    left.
-    induction H3.
-      apply IFSC_bet1 in H.
-      apply bet_neq12__neq with B; assumption.
+    prolong_bet A C E.
+    assert(exists E', Bet A' C' E' /\ Cong_3 A C E A' C' E').
+      apply l4_5_c. assumption. apply H.
+    exists_and H2 E'.
+    exists E. exists E'.
+    split.
     assumption.
+    apply def_to_OFSC_with_cong3; try assumption.
+      apply IFSC_cong3_134 with B B'. assumption.
+      apply cong3_2356 with A A'. assumption.
 Qed.
 
 Lemma IFSC_IFSC_swap_OFSC : forall A B C D E A' B' C' D' E', 
@@ -323,20 +313,19 @@ Lemma l4_2_neq : forall A B C D A' B' C' D',
   IFSC A B C D A' B' C' D' -> A<>C -> Cong B D B' D'.
 Proof.
     intros.
-    prolong_bet A C E.
-    prolong A' C' E' C E.
+    assert(exists E E', C<>E /\ OFSC A C E D A' C' E' D').
+      apply IFSC_prolong_to_OFSC with B B'; assumption.
+      exists_and H1 E.
+      exists_and H2 E'.
     (* Mq ACED en configuration 5 segments *)
     assert(IFSC A C E D A' C' E' D').
-      apply IFSC_prolong_to_IFSC with B B'; try assumption.
-      right; assumption.
+      apply OFSC_to_IFSC. assumption. left. assumption.
     (* Mq ECBD en configuration 5 segments *)
     assert(OFSC E C B D E' C' B' D').
       apply IFSC_IFSC_swap_OFSC with A A'; assumption.
     apply (OFSC_cong_34 E C B D E' C' B' D').
       assumption.
-      left.
-      apply diff_symmetry.
-      assumption.
+      left. apply diff_symmetry. assumption.
 Qed.
 
 Lemma l4_2_eq : forall A B C D A' B' C' D', 
@@ -374,7 +363,7 @@ Lemma l4_17_IFSC : forall A B C P Q,
 Proof.
     intros.
     assert (IFSC A C B P A C B Q).
-      apply IFSC_axial_sym; assumption.
+      apply IFSC_same_base; assumption.
     apply IFSC_cong_24 with A B A B; assumption.
 Qed.
 
