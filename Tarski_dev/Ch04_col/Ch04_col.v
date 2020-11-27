@@ -221,6 +221,78 @@ Section col_cons.
 
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
+Lemma col_exchange_1 : forall A B C D,
+  Bet A B C -> Bet A C D -> Col B C D.
+Proof.
+    intros.
+    assert(Bet B C D).
+      apply between_exchange_1 with A; assumption.
+    apply bet_col_123. assumption.
+Qed.
+
+Lemma col_exchange_2 : forall A B C D,
+  Bet A B D -> Bet B C D -> Col A C D.
+Proof.
+    intros.
+    assert(Bet A C D).
+      apply between_exchange_2 with B; assumption.
+    apply bet_col_123. assumption.
+Qed.
+
+Lemma col_exchange_3 : forall A B C D,
+  Bet A B C -> Bet A C D -> Col A B D.
+Proof.
+    intros.
+    assert(Bet A B D).
+      apply between_exchange_3 with C; assumption.
+    apply bet_col_123. assumption.
+Qed.
+
+Lemma col_exchange_4 : forall A B C D,
+  Bet A B D -> Bet B C D -> Col A B C.
+Proof.
+    intros.
+    assert(Bet A B C).
+      apply between_exchange_4 with D; assumption.
+    apply bet_col_123. assumption.
+Qed.
+
+Lemma col_outer_transitivity_2 : forall A B C D,
+  B <> C -> Bet A B C -> Bet B C D -> Col A C D.
+Proof.
+    intros.
+    assert(Bet A C D).
+      apply between_outer_transitivity_2 with B; assumption.
+    apply bet_col_123. assumption.
+Qed.
+
+Lemma col_outer_transitivity_3 : forall A B C D,
+  B <> C -> Bet A B C -> Bet B C D -> Col A B D.
+Proof.
+    intros.
+    assert(Bet A B D).
+      apply between_outer_transitivity_3 with C; assumption.
+    apply bet_col_123. assumption.
+Qed.
+
+Lemma col_inner : forall A B C D E,
+  Bet A C E -> Bet A B C -> Bet C D E -> Col B C D.
+Proof.
+    intros.
+    assert(Bet B C D).
+      apply between_inner with A E; assumption.
+    apply bet_col_123. assumption.
+Qed.
+
+Lemma col_inner_2 : forall A B C D E,
+  Bet A B E -> Bet A D E -> Bet B C D -> Col A C E.
+Proof.
+    intros.
+    assert(Bet A C E).
+      apply between_inner_2 with B D; assumption.
+    apply bet_col_123. assumption.
+Qed.
+
 Lemma bet2_col_1 : forall A B C D,
   A <> B -> Bet A B C -> Bet A B D -> Col B C D.
 Proof.
@@ -317,6 +389,17 @@ Proof.
     apply l4_6_bet_132 with A B C; assumption.
     apply bet_col_213.
     apply l4_6_bet_213 with A B C; assumption.
+Qed.
+
+Lemma l4_13_bis  : forall A B C A' B' C',
+ Col A B C \/ Col A' B' C' -> Cong_3 A B C A' B' C' -> Col A B C.
+Proof.
+    intros.
+    induction H.
+      assumption.
+      apply l4_13 with A' B' C'.
+        assumption.
+        apply cong3_symmetry. assumption.
 Qed.
 
 End col_cons.

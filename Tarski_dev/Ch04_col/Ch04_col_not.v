@@ -61,17 +61,6 @@ End T4_2.
 Section T4_4.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-Lemma not_col_distincts : forall A B C ,
- ~ Col A B C ->
- ~ Col A B C /\ A <> B /\ B <> C /\ A <> C.
-Proof.
-    intros.
-    repeat split;(auto;intro); subst; apply H.
-    apply col_trivial_112.
-    apply col_trivial_122.
-    apply col_trivial_121.
-Qed.
-
 Lemma not_col_cases : forall A B C,
  ~ Col A B C \/ ~ Col A C B \/ ~ Col B A C \/
  ~ Col B C A \/ ~ Col C A B \/ ~ Col C B A 

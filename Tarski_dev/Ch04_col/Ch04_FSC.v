@@ -3,16 +3,6 @@ Require Export GeoCoq.Tarski_dev.Ch04_col.Ch04_col.
 Section FSC_def.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-Lemma FSC_to_def : forall A B C D A' B' C' D',
-  FSC A B C D A' B' C' D' ->  Col A B C /\
-  Cong_3 A B C A' B' C' /\
-  Cong A D A' D' /\
-  Cong B D B' D'.
-Proof.
-    intros.
-    assumption.
-Qed.
-
 Lemma def_to_FSC : forall A B C D A' B' C' D',
   Col A B C ->
   Cong_3 A B C A' B' C' ->
@@ -21,6 +11,16 @@ Lemma def_to_FSC : forall A B C D A' B' C' D',
 Proof.
     intros.
     repeat (split; try assumption).
+Qed.
+
+Lemma FSC_to_def : forall A B C D A' B' C' D',
+  FSC A B C D A' B' C' D' ->  Col A B C /\
+  Cong_3 A B C A' B' C' /\
+  Cong A D A' D' /\
+  Cong B D B' D'.
+Proof.
+    intros.
+    assumption.
 Qed.
 
 Lemma FSC_col1 : forall A B C D A' B' C' D',
@@ -39,11 +39,20 @@ Proof.
     apply l4_13 with A B C; assumption.
 Qed.
 
-Lemma FSC_cong3 : forall A B C D A' B' C' D',
+Lemma FSC_cong3_123 : forall A B C D A' B' C' D',
   FSC A B C D A' B' C' D' ->  Cong_3 A B C A' B' C'.
 Proof.
     intros.
     apply H.
+Qed.
+
+Lemma FSC_cong3_124 : forall A B C D A' B' C' D',
+  FSC A B C D A' B' C' D' ->  Cong_3 A B D A' B' D'.
+Proof.
+    intros.
+    apply FSC_to_def in H. spliter.
+    apply cong3_to_def in H0. spliter.
+    repeat split; assumption.
 Qed.
 
 Lemma FSC_cong_12 : forall A B C D A' B' C' D',
@@ -81,113 +90,27 @@ Proof.
     apply H.
 Qed.
 
-End FSC_def.
-
-Section FSC_cons.
-Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
-
-Lemma FSC_cons_1213 : forall A B C D A' B' C' D',
-  Bet A B C -> Bet A' B' C'
-  -> Cong A B A' B'
-  -> Cong A C A' C'
-  -> Cong A D A' D'
-  -> Cong B D B' D'
-  -> FSC A B C D A' B' C' D'.
+Lemma FSC_cong : forall A B C D A' B' C' D',
+  FSC A B C D A' B' C' D' -> 
+    Cong A B A' B' /\
+    Cong A C A' C' /\
+    Cong A D A' D' /\
+    Cong B C B' C' /\
+    Cong B D B' D'.
 Proof.
     intros.
-    apply def_to_FSC.
-    apply bet_col_123. assumption.
-    apply bet_cong1213_cong3; assumption.
-    assumption.
-    assumption.
-Qed.
-
-Lemma FSC_cons_1223 : forall A B C D A' B' C' D',
-  Bet A B C -> Bet A' B' C'
-  -> Cong A B A' B'
-  -> Cong B C B' C'
-  -> Cong A D A' D'
-  -> Cong B D B' D'
-  -> FSC A B C D A' B' C' D'.
-Proof.
-    intros.
-    apply def_to_FSC.
-    apply bet_col_123. assumption.
-    apply bet_cong1223_cong3; assumption.
-    assumption.
-    assumption.
-Qed.
-
-Lemma FSC_cons_1323 : forall A B C D A' B' C' D',
-  Bet A B C -> Bet A' B' C'
-  -> Cong A C A' C'
-  -> Cong B C B' C'
-  -> Cong A D A' D'
-  -> Cong B D B' D'
-  -> FSC A B C D A' B' C' D'.
-Proof.
-    intros.
-    apply def_to_FSC.
-    apply bet_col_123. assumption.
-    apply bet_cong1323_cong3; assumption.
-    assumption.
-    assumption.
-Qed.
-
-End FSC_cons.
-
-Section FSC_prop.
-Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
-
-Lemma OFSC_to_FSC_1 : forall A B C D A' B' C' D',
-  OFSC A B C D A' B' C' D' -> FSC A B C D A' B' C' D'.
-Proof.
-    intros.
-    apply OFSC_to_def in H.
+    apply FSC_to_def in H.
     spliter.
-    split. apply bet_col_123 in H; assumption.
-    split. apply bet_cong1223_cong3; assumption.
+    apply cong3_to_def in H0.
+    spliter.
     repeat split; assumption.
 Qed.
 
-Lemma OFSC_to_FSC_2 : forall A B C D A' B' C' D',
-  OFSC B A C D B' A' C' D' -> FSC A B C D A' B' C' D'.
-Proof.
-    intros.
-    apply OFSC_to_def in H.
-    spliter.
-    split. apply bet_col_213; assumption.
-    split. apply cong3_swap_213.
-    apply bet_cong1223_cong3; assumption.
-    split ; assumption.
-Qed.
+End FSC_def.
 
-Lemma IFSC_to_FSC : forall A B C D A' B' C' D',
-  IFSC A C B D A' C' B' D' -> FSC A B C D A' B' C' D'.
-Proof.
-    intros.
-    apply IFSC_cong3 in H.
-    spliter.
-    split.
-    apply bet_col_132; assumption.
-    split. apply cong3_swap_132; assumption.
-    split. apply cong3_1346 with B B'; assumption.
-    apply cong3_2356 with A A'; assumption.
-Qed.
 
-Lemma FSC_cases : forall A B C D A' B' C' D',
-  OFSC A B C D A' B' C' D'
-  \/ OFSC B A C D B' A' C' D'
-  \/ IFSC A C B D A' C' B' D'
- -> FSC A B C D A' B' C' D'.
-Proof.
-    intros.
-    induction H.
-    apply OFSC_to_FSC_1; assumption.
-    induction H.
-    apply OFSC_to_FSC_2; assumption.
-    apply IFSC_to_FSC; assumption.
-Qed.
+Section FSC_prop.
+Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
 Lemma FSC_bet_123 : forall A B C D A' B' C' D',
   FSC A B C D A' B' C' D' -> Bet A B C
@@ -262,25 +185,61 @@ Qed.
 Definition FSC_cong_34 A B C D A' B' C' D' :=
     l4_16 A B C D A' B' C' D' .
 
-Lemma l4_17 : forall A B C P Q,
-  A<>B -> Col A B C 
-  -> Cong A P A Q -> Cong B P B Q 
-  -> Cong C P C Q.
+Lemma FSC_cong3_134 : forall A B C D A' B' C' D',
+  FSC A B C D A' B' C' D' -> A <> B \/ A' <> B' ->  Cong_3 A C D A' C' D'.
 Proof.
     intros.
-    assert (FSC A B C P A B C Q).
-      induction H0.
-        apply OFSC_to_FSC_1.
-        apply OFSC_axial_sym; assumption.
-      induction H0.
-        apply IFSC_to_FSC.
-        apply IFSC_axial_sym; assumption.
-      apply OFSC_to_FSC_2.
-      apply OFSC_axial_sym; assumption.
-    apply l4_16 with A B A B.
-      assumption.
-      left. assumption.
+    apply def_to_cong3.
+      apply FSC_cong_13 with B D B' D'. assumption.
+      apply FSC_cong_14 with B C B' C'. assumption.
+      apply FSC_cong_34 with A B A' B'. assumption.
+    assumption.
 Qed.
+
+Lemma FSC_cong3_234 : forall A B C D A' B' C' D',
+  FSC A B C D A' B' C' D' -> A <> B \/ A' <> B' ->  Cong_3 B C D B' C' D'.
+Proof.
+    intros.
+    apply def_to_cong3.
+      apply FSC_cong_23 with A D A' D'. assumption.
+      apply FSC_cong_24 with A C A' C'. assumption.
+      apply FSC_cong_34 with A B A' B'. assumption.
+    assumption.
+Qed.
+
+
+Lemma FSC_cong3_all : forall A B C D A' B' C' D',
+  FSC A B C D A' B' C' D' -> A <> B \/ A' <> B' ->  
+  Cong_3 A B C A' B' C' /\ Cong_3 A B D A' B' D' /\
+  Cong_3 A C D A' C' D' /\ Cong_3 B C D B' C' D'.
+Proof.
+    intros.
+    split.
+      apply FSC_cong3_123 with D D'. assumption.
+    split.
+      apply FSC_cong3_124 with C C'. assumption.
+    split.
+      apply FSC_cong3_134 with B B'; assumption.
+      apply FSC_cong3_234 with A A'; assumption.
+Qed.
+
+Lemma FSC_cong_all : forall A B C D A' B' C' D',
+  FSC A B C D A' B' C' D' -> A <> B \/ A' <> B'
+ -> Cong A B A' B' /\
+    Cong A C A' C' /\
+    Cong A D A' D' /\
+    Cong B C B' C' /\
+    Cong B D B' D' /\ 
+    Cong C D C' D'.
+Proof.
+    intros.
+    assert(Cong C D C' D').
+      apply FSC_cong_34 with A B A' B'; assumption.
+    apply FSC_to_def in H. spliter.
+    apply cong3_to_def in H2. spliter.
+    repeat split; assumption.
+Qed.
+
 
 End T4_4.
 

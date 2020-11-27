@@ -1,6 +1,6 @@
-Require Export GeoCoq.Tarski_dev.Ch04_col.Ch04_FSC.
+Require Export GeoCoq.Tarski_dev.Ch04_col.Ch04_col_cong.
 Require Export GeoCoq.Tarski_dev.Ch04_col.Ch04_col_transitivity.
-Require Export GeoCoq.Tarski_dev.Ch04_col.Ch04_col_not.
+Require Export GeoCoq.Tarski_dev.Ch04_col.Ch04_col_diff.
 
 
 Section T4_4.
@@ -37,7 +37,7 @@ Lemma col_cong_3_cong_3_eq : forall A B C A' B' C1 C2,
 Proof.
     intros.
     assert(Cong_3 A' B' C1 A' B' C2).
-      apply cong3_transitivity_12_13_23 with A B C;
+      apply cong3_transitivity_X1_X2 with A B C;
       assumption.
     apply l4_18 with A' B'.
       apply cong_diff_12_34 with A B. assumption.
