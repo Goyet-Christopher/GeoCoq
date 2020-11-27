@@ -72,4 +72,9 @@ Hint Resolve midpoint_col : col.
 Hint Resolve midpoint_cong : cong.
 
 
+Ltac double A B A' :=
+   assert (mp:= symmetric_point_construction A B);
+   elim mp; intros A' ; intro; clear mp.
+
+
 

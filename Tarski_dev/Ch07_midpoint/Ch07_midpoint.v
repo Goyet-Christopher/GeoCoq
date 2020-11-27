@@ -36,11 +36,56 @@ Proof.
     assumption.
 Qed.
 
-Lemma midpoint_col : forall A M B,
+Lemma midpoint_col_123 : forall A M B,
  Midpoint M A B -> Col M A B.
 Proof.
     intros.
     apply bet_col_213.
+    apply midpoint_bet1.
+    assumption.
+Qed.
+
+Lemma midpoint_col_132 : forall A M B,
+ Midpoint M A B -> Col M B A.
+Proof.
+    intros.
+    apply bet_col_312.
+    apply midpoint_bet1.
+    assumption.
+Qed.
+
+Lemma midpoint_col_213 : forall A M B,
+ Midpoint M A B -> Col A M B.
+Proof.
+    intros.
+    apply bet_col_123.
+    apply midpoint_bet1.
+    assumption.
+Qed.
+
+Lemma midpoint_col_231 : forall A M B,
+ Midpoint M A B -> Col A B M.
+Proof.
+    intros.
+    apply bet_col_132.
+    apply midpoint_bet1.
+    assumption.
+Qed.
+
+Lemma midpoint_col_312 : forall A M B,
+ Midpoint M A B -> Col B M A.
+Proof.
+    intros.
+    apply bet_col_321.
+    apply midpoint_bet1.
+    assumption.
+Qed.
+
+Lemma midpoint_col_321 : forall A M B,
+ Midpoint M A B -> Col B A M.
+Proof.
+    intros.
+    apply bet_col_231.
     apply midpoint_bet1.
     assumption.
 Qed.

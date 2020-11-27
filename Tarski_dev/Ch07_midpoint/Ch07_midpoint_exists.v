@@ -3,7 +3,6 @@ Require Export GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_col.
 Section T7_1.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-
 (** This corresponds to l7_8 in Tarski's book. *)
 
 Lemma symmetric_point_construction : forall P A,
@@ -14,6 +13,14 @@ Proof.
     exists E.
     split; assumption.
 Qed.
+
+End T7_1.
+
+Ltac symmetric B' A B :=
+assert(sp:= symmetric_point_construction B A); exists_and sp B'.
+
+Section T7_1.
+Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
 Lemma l7_25 : forall A B C,
   Cong C A C B -> exists X, Midpoint X A B.
@@ -102,5 +109,7 @@ Proof.
 Qed.
 
 End T7_1.
+
+
 
 Print All.

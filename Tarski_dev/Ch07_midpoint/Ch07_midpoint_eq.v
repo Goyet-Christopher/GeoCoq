@@ -36,7 +36,7 @@ End Trivial_midpoint_eq.
 Section Symmetric_eq.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-Lemma symmetric_point_uniqueness : forall A P P1 P2,
+Lemma symmetric_point_uniqueness : forall P A P1 P2,
   Midpoint P A P1 -> Midpoint P A P2 -> P1=P2.
 Proof.
     intros.
@@ -49,31 +49,33 @@ Proof.
     apply midpoint_to_def in H.
     apply midpoint_to_def in H0.
     spliter.
-    apply (construction_uniqueness_sym A P A P); assumption.
+    assert(Cong P P1 P P2).
+      apply cong_XY12_XY34 with A P; assumption.
+    apply between_cong_3 with A P; assumption.
 Qed.
 
-(** symmetric point uniquemess 2 *)
-Lemma l7_9 : forall P Q A X,
-  Midpoint A P X -> Midpoint A Q X -> P=Q.
+(** l7_9 symmetric point uniquemess 2 *)
+Lemma symmetric_point_uniqueness_sym : forall P A P1 P2,
+  Midpoint P P1 A -> Midpoint P P2 A -> P1=P2.
 Proof.
     intros.
-    apply symmetric_point_uniqueness with X A.
+    apply symmetric_point_uniqueness with P A.
       apply midpoint_symmetry. assumption.
       apply midpoint_symmetry. assumption.
 Qed.
 
-(** symmetry is an involution *)
-Lemma l7_9_bis : forall P Q A X,
- Midpoint A P X -> Midpoint A X Q -> P=Q.
+(** l7_9_bis symmetry is an involution *)
+Lemma symmetry_involution : forall P A A' A'',
+ Midpoint P A A' -> Midpoint P A' A'' -> A=A''.
 Proof.
   intros.
-  apply l7_9 with A X.
+  apply symmetric_point_uniqueness_sym with P A'.
     assumption.
     apply midpoint_symmetry. assumption.
 Qed.
 
-(** same center of symmetry *)
-Lemma l7_17 : forall P P' A B,
+(** l7_17 same center of symmetry *)
+Lemma symmetry_same_center : forall P P' A B,
   Midpoint A P P' -> Midpoint B P P' -> A=B.
 Proof.
     intros.
@@ -99,11 +101,12 @@ Proof.
       assumption.
 Qed.
 
-Lemma l7_17_bis : forall P P' A B,
+(** l7_17_bis **)
+Lemma symmetry_same_center_reverse : forall P P' A B,
  Midpoint A P P' -> Midpoint B P' P -> A=B.
 Proof.
     intros.
-    apply l7_17 with P P'.
+    apply symmetry_same_center with P P'.
       assumption.
       apply midpoint_symmetry. assumption.
 Qed.

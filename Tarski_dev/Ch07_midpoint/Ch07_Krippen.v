@@ -57,10 +57,10 @@ Proof.
             apply midpoint_bet1. assumption.
         assumption.
     assert(Cong C A2' C B2').
-      apply cong_1234_1256 with A2 C.
-        apply midpoint_cong_2113. assumption.
-         apply cong_1234_3456 with B2 C.
-            apply cong_2143. assumption.
+        apply cong_XY12_XY34 with A2 C.
+          apply midpoint_cong_2113. assumption.
+          apply cong_21XY_YX34 with C B2.
+            assumption.
             apply midpoint_cong_2113. assumption.
     assert (Le C B1 C B2').
       apply l5_6 with C A1 C A2'; assumption.
@@ -101,7 +101,7 @@ Proof.
         assumption.
         apply cong_2134. assumption.
     assert (Q=M1).
-      apply l7_17 with A1 B1; assumption.
+      apply symmetry_same_center with A1 B1; assumption.
     subst Q.
     apply between_exchange_1 with M2'.
       assumption.

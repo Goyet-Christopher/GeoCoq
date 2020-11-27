@@ -30,7 +30,7 @@ Proof.
       apply l2_11_cong3_reverse; try assumption.
         apply H4. apply cong_1212.
     assert(Cong_3 C A D1 D2 B C).
-      apply cong3_transitivity_12_13_23 with A C B; assumption.
+      apply cong3_transitivity_X1_X2 with A C B; assumption.
     assert(Col D C D1).
       induction (eq_dec_points A B).
       (* A = B *)
@@ -46,7 +46,7 @@ Proof.
       eapply col_transitivity_3 with A B; assumption.
     assert(D = D1 \/ Midpoint C D D1).
       apply l7_20. assumption.
-        apply cong_1234_1256 with A B.
+        apply cong_XY12_XY34 with A B.
           assumption. apply H7.
     induction H11.
     (* D = D1 -> Bet C A D *)
@@ -59,7 +59,7 @@ Proof.
       apply between_symmetry. apply H6.
       apply cong3_4613 with A B. assumption.
     assert(D = D2).
-      apply l7_9 with C D1; assumption.
+      apply symmetric_point_uniqueness_sym with C D1; assumption.
     subst D2.
     right.
     apply H6.

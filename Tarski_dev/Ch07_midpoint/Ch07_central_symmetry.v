@@ -3,75 +3,90 @@ Require Export GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint.
 Section T7_1.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-(** l7_13 *) 
-Lemma symmetry_preserves_length : forall A P Q P' Q',
- Midpoint A P P' -> Midpoint A Q Q' -> Cong P Q P' Q'.
+Lemma midpoint_prolong_cong : forall A P P' B Q Q',
+  Midpoint A P P' -> Midpoint B Q Q' 
+-> exists X X' Y Y', Bet_5 X P A P' X' /\ Bet_5 Y Q B Q' Y' /\
+  Midpoint A X X' /\ Midpoint B Y Y' /\
+  Cong_3 X A X' Y B Y' /\ Cong_3 X A X' Y' B Y /\
+  Cong_3 X P A B Q Y   /\ Cong_3 A P' X' Y' Q' B /\
+  Cong_3 X P A B Q' Y' /\ Cong_3 A P' X' Y Q B.
 Proof.
     intros.
     apply midpoint_to_def in H.
     apply midpoint_to_def in H0.
     spliter.
-    induction (eq_dec_points P A).
-      subst P.
-      assert(A = P').
-        apply cong_reverse_identity with A. assumption.
-      subst P'.
-        apply cong_2134. assumption.
-    prolong P' P X Q A.
-      apply between_symmetry in H4.
-      apply cong_4312 in H5.
-    prolong X P' X' Q A.
-      apply cong_3412 in H7.
+    prolong P' P X Q B.
+      apply between_symmetry in H3.
+      apply cong_4312 in H4.
+    prolong X P' X' Q B.
+      apply cong_3412 in H6.
     prolong Q' Q Y P A.
-      apply between_symmetry in H8.
-      apply cong_1243 in H9.
+      apply between_symmetry in H7.
+      apply cong_1243 in H8.
     prolong Y Q' Y' P A.
+    exists X. exists X'. exists Y. exists Y'.
     assert(Bet_5 X P A P' X').
       apply bet5_bet_4; assumption.
-    assert(Bet_5 Y Q A Q' Y').
+    assert(Bet_5 Y Q B Q' Y').
       apply bet5_bet_4; assumption.
-    assert(Cong_3 X A X' Y A Y' /\ Cong_3 X P A A Q Y /\ Cong_3 A P' X' Y' Q' A  /\ Cong X X' Y Y').
-      apply (l2_11_bet5_2143 X P A P' X' Y Q A Q' Y'); try assumption.
-        apply cong_1234_1256 with P A; assumption.
-        apply cong_1234_3456 with Q A; assumption.
-    assert(Cong_3 X A X' Y' A Y /\ Cong_3 X P A A Q' Y' /\ Cong_3 A P' X' Y Q A  /\ Cong X X' Y Y').
-      apply (l2_11_bet5_3412 X P A P' X' Y Q A Q' Y'); try assumption.
-        apply cong_1234_3456 with Q A; assumption.
-        apply cong_1234_1256 with P A; assumption.
+    assert(Cong_3 X A X' Y B Y' /\ Cong_3 X P A B Q Y /\ Cong_3 A P' X' Y' Q' B  /\ Cong X X' Y Y').
+      apply (l2_11_bet5_2143 X P A P' X' Y Q B Q' Y'); try assumption.
+        apply cong_XY12_XY34 with P A; assumption.
+        apply cong_12XY_XY34 with Q B; assumption.
+    assert(Cong_3 X A X' Y' B Y /\ Cong_3 X P A B Q' Y' /\ Cong_3 A P' X' Y Q B  /\ Cong X X' Y Y').
+      apply (l2_11_bet5_3412 X P A P' X' Y Q B Q' Y'); try assumption.
+        apply cong_12XY_XY34 with Q B; assumption.
+        apply cong_XY12_XY34 with P A; assumption.
     spliter.
-    assert (X <> A).
-      apply bet_neq23__neq with P.
-        apply bet5_bet_123 with P' X'. assumption.
-        assumption.
-    assert (Cong X' Y' Y X).
-      apply FSC_cong_34 with X A Y' A.
-        apply def_to_FSC.
-          apply bet_col_123. apply bet5_bet_135 with P P'. assumption.
-          assumption.
-          apply cong_1221.
-          apply cong3_4631 with P Q'. assumption.
-        left. assumption.
-    assert (Cong X' A A X).
-      apply cong_1234_3456 with A Y.
-        apply cong_2134. apply H15.
-        apply cong_3421. apply H19.
-    assert(Cong_3 Y A Y' Y' A Y).
-      apply cong3_transitivity_12_13_23 with X A X'; assumption.
+    assert(Cong_3 Y B Y' Y' B Y).
+      apply cong3_transitivity_X1_X2 with X A X'; assumption.
+    assert(Cong_3 X A X' X' A X).
+      apply cong3_transitivity_1X_2X with Y B Y'.
+        assumption. apply cong3_swap_321. assumption.
+    repeat (split; try assumption).
+      apply H11.
+      apply cong3_1254 with X' X. assumption.
+      apply H12.
+      apply cong3_1254 with Y' Y. assumption.
+Qed.
+
+(** l7_13 *) 
+Lemma symmetry_preserves_length : forall A P Q P' Q',
+ Midpoint A P P' -> Midpoint A Q Q' -> Cong P Q P' Q'.
+Proof.
+    intros.
+    assert(H' := midpoint_prolong_cong A P P' A Q Q' H H0).
+      exists_and H' X. exists_and H1 X'.
+      exists_and H2 Y. exists_and H1 Y'.
+    assert (Cong_3 A X Y A Y' X').
+      apply OFSC_isosceles_cong3.
+        left. apply H1. assumption.
     assert (Cong Q X Q' X').
       apply IFSC_cong_24 with Y A Y' A.
         apply def_to_IFSC.
-        apply H13. apply between_symmetry. apply H13.
-        apply H25.
-        apply cong_1243. assumption.
-        apply cong_3421. assumption.
-        apply cong_3421. assumption.
+        apply H2. apply between_symmetry. apply H2.
+        apply midpoint_cong_2131. assumption.
+        apply midpoint_cong_2131. assumption.
+        apply cong3_3256 with A A. assumption.
+        apply midpoint_cong_1213. assumption.
     apply IFSC_cong_24 with X A X' A.
       apply def_to_IFSC.
-        apply H12. apply between_symmetry. apply H12.
-        apply cong_4312. assumption.
-        apply cong_1243. assumption.
+        apply H1. apply between_symmetry. apply H1.
+        apply midpoint_cong_2131. assumption.
+        apply midpoint_cong_2131. assumption.
         apply cong_2143. assumption.
-        apply cong_2134. assumption.
+        apply midpoint_cong_1213. assumption.
+Qed.
+
+Lemma symmetry_preserves_length_cong3 : forall A P Q R P' Q' R',
+ Midpoint A P P' -> Midpoint A Q Q' -> Midpoint A R R'
+ -> Cong_3 P Q R P' Q' R'.
+Proof.
+    intros.
+    apply def_to_cong3.
+    apply symmetry_preserves_length with A; assumption.
+    apply symmetry_preserves_length with A; assumption.
+    apply symmetry_preserves_length with A; assumption.
 Qed.
 
 (** l7_15 *) 
@@ -99,9 +114,9 @@ Proof.
       apply symmetry_preserves_length with A; assumption.
     assert (Cong R S R' S').
       apply symmetry_preserves_length with A; assumption.
-    apply cong_1234_1256 with P Q.
+    apply cong_XY12_XY34 with P Q.
       assumption.
-      apply cong_1234_3456 with R S; assumption.
+      apply cong_12XY_XY34 with R S; assumption.
 Qed.
 
 Lemma symmetry_preserves_midpoint : forall A B C A' B' C' Z,

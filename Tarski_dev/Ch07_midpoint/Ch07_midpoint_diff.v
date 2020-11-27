@@ -62,6 +62,63 @@ Proof.
     assumption.
 Qed.
 
+Lemma midpoint_distinct : forall A B X C C',
+ ~ Col A B C -> Col A B X -> Midpoint X C C' -> C <> C'.
+Proof.
+    intros.
+    intro.
+    subst C'.
+    apply midpoint_identity_122 in H1.
+    subst X.
+    contradiction.
+Qed.
+
+Lemma l8_20_2 : forall A1 A2 A3 P Q A',
+ Midpoint P A1 A' -> Midpoint Q A3 A'
+ -> Midpoint A2 A1 A3 -> A1<>A2 -> P<>Q.
+Proof.
+    intros.
+    intro.
+    subst P.
+    assert (A1 = A3).
+      apply symmetric_point_uniqueness_sym with Q A'; assumption.
+    subst A3.
+    assert (A2 = A1).
+      apply midpoint_identity_122. assumption.
+    subst A2.
+    contradiction.
+Qed.
+
+Lemma midpoint_cong_diff : forall A X P P',
+  X <> A -> Midpoint A P P' -> Cong X P X P' -> X<>P /\ X<>P'.
+Proof.
+    intros.
+    assert(X <> P).
+      intro.
+      subst.
+      apply cong_reverse_identity in H1.
+      subst.
+      apply midpoint_identity_122 in H0.
+      subst.
+      apply H.
+      apply eq_refl.
+    split.
+      assumption.
+      apply cong_diff_12_34 with X P; assumption.
+Qed.
+
+Lemma midpoint_cong_diff_2 : forall A X P P',
+  ~ Col P P' X -> Midpoint A P P' -> Cong X P X P' -> A<>X.
+Proof.
+    intros.
+    intro.
+    subst A.
+    apply H.
+    apply midpoint_col_231.
+      assumption.
+Qed.
+
+
 End T7_1.
 
 Print All.

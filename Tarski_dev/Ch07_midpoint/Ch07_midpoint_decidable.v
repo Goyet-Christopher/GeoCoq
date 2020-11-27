@@ -3,7 +3,7 @@ Require Export GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_not.
 Section T7_1.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-Lemma is_midpoint_dec :
+Lemma midpoint_dec :
  forall I A B, Midpoint I A B \/ ~ Midpoint I A B.
 Proof.
     intros.

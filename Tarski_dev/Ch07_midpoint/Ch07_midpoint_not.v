@@ -3,6 +3,15 @@ Require Export GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_diff.
 Section T7_1.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
+Lemma not_midpoint_symmetry : forall I A B,
+  ~ Midpoint I A B -> ~ Midpoint I B A .
+Proof.
+    intros.
+    intro.
+    apply H.
+    apply midpoint_symmetry.
+      assumption.
+Qed.
 
 Lemma midpoint_not_midpoint : forall I A B,
   A<>B -> Midpoint I A B
@@ -18,6 +27,16 @@ Proof.
         apply H0. apply H3.
     subst.
     contradiction.
+Qed.
+
+Lemma midpoint_not_midpoint_sym : forall I A B,
+  A<>B -> Midpoint I A B
+ -> ~ Midpoint A B I.
+Proof.
+    intros.
+    apply midpoint_not_midpoint.
+      apply diff_symmetry. assumption.
+      apply midpoint_symmetry. assumption.
 Qed.
 
 Lemma not_midpoint_cases : forall I A B,
