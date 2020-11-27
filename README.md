@@ -9,7 +9,7 @@ Trying to make a more usable version of Geocoq in practice, with :
 - changing the names of lemmas to make them more understandable and recognizable,
 - as many lemmas as possible to :
   - simplify the use for everyone (without having to know the whole library by heart ...),
-  - have a large choice of constructor, to avoid having to go back to the definition.
+  - have a large choice of constructors, to avoid having to go back to the definition.
 
 Goyet Christopher
 
