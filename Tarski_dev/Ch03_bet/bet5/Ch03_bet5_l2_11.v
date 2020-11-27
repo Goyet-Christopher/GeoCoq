@@ -1,4 +1,4 @@
-Require Export GeoCoq.Tarski_dev.Ch03_bet.bet5.Ch03_bet5.
+Require Export GeoCoq.Tarski_dev.Ch03_bet.bet5.Ch03_bet5_bet.
 Require Export GeoCoq.Tarski_dev.Ch03_bet.bet4.Ch03_bet4_l2_11.
 
 Section bet5_l2_11.
@@ -358,10 +358,10 @@ Proof.
         assumption.
         assumption.
         apply cong_1212.
-        apply cong_1234_3456 with B' C'.
+        apply cong_12XY_XY34 with B' C'.
           assumption.
           apply cong_3412. assumption.
-    apply cong_1234_1256 with B F; assumption.
+    apply cong_XY12_XY34 with B F; assumption.
 Qed.
 
 
