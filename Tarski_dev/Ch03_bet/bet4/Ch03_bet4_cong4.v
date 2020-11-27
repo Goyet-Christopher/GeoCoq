@@ -1,3 +1,4 @@
+Require Export GeoCoq.Tarski_dev.Ch03_bet.bet4.Ch03_bet4_bet.
 Require Export GeoCoq.Tarski_dev.Ch03_bet.Ch03_bet_cong3.
 
 Section Cong4_cons_123.

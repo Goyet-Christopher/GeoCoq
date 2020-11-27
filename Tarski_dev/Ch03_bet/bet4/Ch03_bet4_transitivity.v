@@ -1,4 +1,4 @@
-Require Export GeoCoq.Tarski_dev.Ch03_bet.bet4.Ch03_bet4.
+Require Export GeoCoq.Tarski_dev.Ch03_bet.bet4.Ch03_bet4_bet.
 
 
 Section Bet4_transitivity.
