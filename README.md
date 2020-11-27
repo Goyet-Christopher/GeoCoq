@@ -5,7 +5,7 @@ Trying to make a more usable version of Geocoq in practice, with :
 - the fewest tactics as possible,
 - explicit and readable proofs (especially without auto tactics),
 - faster compilation (another reason to avoid auto tactics),
-- shorter files and sorting lemmas by same utility/similarity/goal/aim, 
+- short files and sorting lemmas by same utility/similarity/goal/aim, 
 - changing the names of lemmas to make them more understandable and recognizable,
 - as many lemmas as possible to :
   - simplify the use for everyone (without having to know the whole library by heart ...),
