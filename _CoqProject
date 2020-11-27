@@ -128,8 +128,11 @@
 ./Tarski_dev/Ch02_cong/Ch02_cong_transitivity.v
 ./Tarski_dev/Ch02_cong/Ch02_Qequi.v
 ./Tarski_dev/Ch02_cong/Ch02_cong_eq.v
-./Tarski_dev/Ch02_cong/Ch02_cong3.v
-./Tarski_dev/Ch02_cong/Ch02_cong4.v
+./Tarski_dev/Ch02_cong/cong3/Ch02_cong3.v
+./Tarski_dev/Ch02_cong/cong3/Ch02_cong3_cong.v
+./Tarski_dev/Ch02_cong/cong3/Ch02_cong3_transitivity.v
+./Tarski_dev/Ch02_cong/cong3/Ch02_cong3_eq.v
+./Tarski_dev/Ch02_cong/cong4/Ch02_cong4.v
 ./Tarski_dev/Ch02_cong/Ch02_cong_not.v
 ./Tarski_dev/Ch02_cong/Ch02_decidable.v
 ./Tarski_dev/Ch02_cong/Ch02_stability.v
@@ -137,6 +140,7 @@
 ./Tarski_dev/Ch02_cong/Ch02_final.v
 
 ./Tarski_dev/Ch03_bet/Ch03_bet.v
+./Tarski_dev/Ch03_bet/Ch03_bet_l2_11.v
 ./Tarski_dev/Ch03_bet/Ch03_bet_eq.v
 ./Tarski_dev/Ch03_bet/Ch03_bet_diff.v
 ./Tarski_dev/Ch03_bet/Ch03_bet_not.v
@@ -145,12 +149,18 @@
 ./Tarski_dev/Ch03_bet/Ch03_OFSC.v
 ./Tarski_dev/Ch03_bet/Ch03_IFSC.v
 ./Tarski_dev/Ch03_bet/bet4/Ch03_bet4.v
+./Tarski_dev/Ch03_bet/bet4/Ch03_bet4_bet.v
+./Tarski_dev/Ch03_bet/bet4/Ch03_bet4_eq.v
+./Tarski_dev/Ch03_bet/bet4/Ch03_bet4_exists.v
 ./Tarski_dev/Ch03_bet/bet4/Ch03_bet4_transitivity.v
 ./Tarski_dev/Ch03_bet/bet4/Ch03_bet4_l2_11.v
 ./Tarski_dev/Ch03_bet/bet5/Ch03_bet5.v
+./Tarski_dev/Ch03_bet/bet5/Ch03_bet5_bet4.v
+./Tarski_dev/Ch03_bet/bet5/Ch03_bet5_bet.v
 ./Tarski_dev/Ch03_bet/bet5/Ch03_bet5_l2_11.v
 ./Tarski_dev/Ch03_bet/Ch03_bet_cong3.v
 ./Tarski_dev/Ch03_bet/bet4/Ch03_bet4_cong4.v
+./Tarski_dev/Ch03_bet/Ch03_QEqui.v
 ./Tarski_dev/Ch03_bet/Ch03_bet_cases.v
 ./Tarski_dev/Ch03_bet/Ch03_bet_cong_eq.v
 ./Tarski_dev/Ch03_bet/Ch03_decidability.v
@@ -161,11 +171,13 @@
 ./Tarski_dev/Ch04_col/Ch04_col.v
 ./Tarski_dev/Ch04_col/Ch04_col_transitivity.v
 ./Tarski_dev/Ch04_col/Ch04_col_not.v
+./Tarski_dev/Ch04_col/Ch04_col_diff.v
 ./Tarski_dev/Ch04_col/Ch04_col_decidability.v
 ./Tarski_dev/Ch04_col/Ch04_col_exists.v
 ./Tarski_dev/Ch04_col/Ch04_FSC.v
+./Tarski_dev/Ch04_col/Ch04_FSC_cons.v
+./Tarski_dev/Ch04_col/Ch04_col_cong.v
 ./Tarski_dev/Ch04_col/Ch04_col_eq.v
-#./Tarski_dev/Ch04_col/Ch04_bet_cases.v
 #./Tarski_dev/Ch04_col/Ch04_tactics.v
 ./Tarski_dev/Ch04_col/Ch04_final.v
 
@@ -207,8 +219,36 @@
 ./Tarski_dev/Ch07_midpoint/Ch07_col_cong_bet.v
 ./Tarski_dev/Ch07_midpoint/Ch07_midpoint_exists.v
 ./Tarski_dev/Ch07_midpoint/Ch07_Krippen.v
+./Tarski_dev/Ch07_midpoint/Ch07_midpoint_decidable.v
 #./Tarski_dev/Ch07_midpoint/Ch07_tactics.v
 ./Tarski_dev/Ch07_midpoint/Ch07_final.v
+
+
+./Tarski_dev/Ch08_orthogonality/per/Ch08_per.v
+./Tarski_dev/Ch08_orthogonality/per/Ch08_per_exists.v
+./Tarski_dev/Ch08_orthogonality/per/Ch08_per_col.v
+./Tarski_dev/Ch08_orthogonality/per/Ch08_per_eq.v
+./Tarski_dev/Ch08_orthogonality/per/Ch08_per_diff.v
+./Tarski_dev/Ch08_orthogonality/per/Ch08_per_cong3.v
+./Tarski_dev/Ch08_orthogonality/per/Ch08_per_midpoint.v
+./Tarski_dev/Ch08_orthogonality/per/Ch08_per_not_col.v
+./Tarski_dev/Ch08_orthogonality/per/Ch08_per_cong.v
+
+./Tarski_dev/Ch08_orthogonality/perp_at/Ch08_perpat.v
+./Tarski_dev/Ch08_orthogonality/perp_at/Ch08_perpat_eq.v
+./Tarski_dev/Ch08_orthogonality/perp_at/Ch08_perpat_per.v
+./Tarski_dev/Ch08_orthogonality/perp_at/Ch08_perpat_col.v
+./Tarski_dev/Ch08_orthogonality/perp_at/Ch08_perpat_midpoint.v
+
+./Tarski_dev/Ch08_orthogonality/perp/Ch08_perp.v
+./Tarski_dev/Ch08_orthogonality/perp/Ch08_perp_diff.v
+./Tarski_dev/Ch08_orthogonality/perp/Ch08_perp_not.v
+./Tarski_dev/Ch08_orthogonality/perp/Ch08_perp_perpat.v
+./Tarski_dev/Ch08_orthogonality/perp/Ch08_perp_eq.v
+./Tarski_dev/Ch08_orthogonality/perp/Ch08_perp_col.v
+./Tarski_dev/Ch08_orthogonality/perp/Ch08_perp_per.v
+
+
 
 
 #./Tarski_dev/Annexes/sums.v
@@ -226,4 +266,3 @@
 #./Tarski_dev/Annexes/tangency.v
 #./Tarski_dev/Annexes/vectors.v
 
-#./Tarski_dev/Ch10_line_reflexivity.v
