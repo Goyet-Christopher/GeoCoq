@@ -8,8 +8,9 @@ Trying to make a more usable version of Geocoq in practice, with :
 - short files and sorting lemmas by same utility/similarity/goal/aim, 
 - changing the names of lemmas to make them more understandable and recognizable,
 - as many lemmas as possible to :
-  - simplify the use for everyone (without having to know the whole library by heart ...),
-  - have a large choice of constructors, to avoid having to go back to the definition.
+  - simplify the use for everyone (without having to know the whole library by heart ...)
+  - have a large choice of constructors, to avoid having to go back to the definition
+  - banning unfold tactic to have a code that is as independent as possible from the choice of definitions and as maintainable as possible. 
 
 Goyet Christopher
 
