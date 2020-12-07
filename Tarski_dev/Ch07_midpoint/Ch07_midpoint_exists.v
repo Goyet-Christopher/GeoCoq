@@ -52,7 +52,7 @@ Proof.
         apply cong_1221.
     assert (Cong P B Q A).
       apply OFSC_cong_34 with C A C B. assumption.
-      left. apply diff_symmetry. assumption.
+      left. apply not_eq_sym. assumption.
     assert (exists R', Bet A R' Q /\ Cong_3 B R P A R' Q).
       apply l4_5_b.
         assumption.

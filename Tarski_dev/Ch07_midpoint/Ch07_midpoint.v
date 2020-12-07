@@ -215,6 +215,26 @@ Proof.
       assumption.
 Qed.
 
+Lemma midpoint_IFSC_same_base : forall A B C M B' C',
+  Bet B A B' -> Bet C A C' 
+  -> Midpoint M B C -> Cong A B A C -> Cong A B' A C'
+  -> Cong B C' C B' /\ Cong M B' M C'.
+Proof.
+    intros.
+    assert(Cong B C' C B').
+      apply OFSC_isosceles with A; assumption.
+    split.
+      assumption.
+    apply IFSC_cong_24 with C B B C.
+      apply def_to_IFSC.
+        apply midpoint_bet2. assumption.
+        apply midpoint_bet1. assumption.
+        apply cong_1221.
+        apply midpoint_cong_1213. assumption.
+        apply cong_3412. assumption.
+        apply l2_11 with A A; try assumption.
+          apply cong_2143. assumption.
+Qed.
 
 End T7_1.
 

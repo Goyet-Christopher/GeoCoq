@@ -43,7 +43,7 @@ Proof.
         assert(Col A B D1).
           apply bet_col_312.
           apply bet4_bet_124 with C. assumption.
-      eapply col_transitivity_3 with A B; assumption.
+      apply col_transitivity_3 with A B; assumption.
     assert(D = D1 \/ Midpoint C D D1).
       apply l7_20. assumption.
         apply cong_XY12_XY34 with A B.
@@ -79,7 +79,7 @@ Proof.
     (* Bet C A D *)
       assert(B = C /\ A = D ).
         apply between_symmetry in H0.
-        apply diff_symmetry in H3.
+        apply not_eq_sym in H3.
         apply bet_cong_eq.
           assumption.
           apply between_outer_transitivity_2 with C; assumption.

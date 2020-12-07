@@ -41,7 +41,7 @@ Lemma le_mid2_le12 : forall A M B A' M' B',
 Proof.
     intros.
     assert(Le A M A' M' \/ Le A' M' A M).
-      apply le_cases.
+      apply le_cases_min.
     induction H2.
       assumption.
     assert(Le A' B' A B).

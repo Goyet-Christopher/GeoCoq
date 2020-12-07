@@ -103,6 +103,22 @@ Proof.
     apply symmetry_preserves_length with A; assumption.
 Qed.
 
+Lemma symmetry_preserves_col : forall P Q R P' Q' R' A,
+ Midpoint A P P' -> Midpoint A Q Q' -> Midpoint A R R'
+ -> Col P Q R -> Col P' Q' R'.
+Proof.
+    intros.
+    apply col_to_def in H2.
+    induction H2.
+      apply bet_col_123.
+        apply symmetry_preserves_bet with P Q R A; assumption.
+    induction H2.
+      apply bet_col_132.
+        apply symmetry_preserves_bet with P R Q A; assumption.
+      apply bet_col_213.
+      apply symmetry_preserves_bet with Q P R A; assumption.
+Qed.
+
 (** l7_16 *) 
 Lemma symmetry_preserves_cong : forall P Q R S P' Q' R' S' A,
   Midpoint A P P' -> Midpoint A Q Q' ->

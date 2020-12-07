@@ -1,4 +1,5 @@
 Require Export GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_central_symmetry.
+Require Export GeoCoq.Tarski_dev.Ch07_midpoint.Ch07_midpoint_col.
 
 Section Trivial_midpoint_eq.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
@@ -112,5 +113,24 @@ Proof.
 Qed.
 
 End Symmetric_eq.
+
+Section midpoint_eq.
+Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
+
+Lemma mid_cong_eq : forall A B M X,
+ A <> B -> Midpoint M A B -> Cong X A X B -> Col A B X
+ -> X=M.
+Proof.
+    intros.
+    assert(A = B \/ Midpoint X A B).
+        apply l7_20.
+          apply col_132. assumption.
+          assumption.
+      induction H3.
+        contradiction.
+        apply (symmetry_same_center A B); assumption.
+Qed.
+
+End midpoint_eq.
 
 Print All.

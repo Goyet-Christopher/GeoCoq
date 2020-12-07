@@ -108,7 +108,7 @@ Proof.
 Qed.
 
 Lemma midpoint_cong_diff_2 : forall A X P P',
-  ~ Col P P' X -> Midpoint A P P' -> Cong X P X P' -> A<>X.
+  ~ Col P P' X -> Midpoint A P P' -> A<>X.
 Proof.
     intros.
     intro.
@@ -117,7 +117,6 @@ Proof.
     apply midpoint_col_231.
       assumption.
 Qed.
-
 
 End T7_1.
 

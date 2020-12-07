@@ -32,21 +32,9 @@ Proof.
         apply cong_2134. assumption.
 Qed.
 
-Lemma l7_20_bis : forall M A B, A<>B ->
-  Col A M B -> Cong M A M B -> Midpoint M A B.
-Proof.
-    intros.
-    assert(H2 := l7_20 M A B H0 H1).
-    apply cong_2134 in H1.
-    induction H2.
-    subst.
-      contradiction.
-    assumption.
-Qed.
-
-Lemma cong_col_mid : forall A B C,
- A <> C -> Col A B C -> Cong A B B C
- -> Midpoint B A C.
+Lemma cong_col_mid : forall M A B,
+ A <> B -> Col A M B -> Cong A M M B
+ -> Midpoint M A B.
 Proof.
     intros.
     apply l7_20 in H0.
@@ -101,9 +89,10 @@ Proof.
     apply not_col_distincts in H.
     spliter.
     split.
-      apply l7_20_bis; try assumption.
-      apply l7_20_bis; try assumption.
-        apply cong3_3164 with D B. assumption.
+      apply cong_col_mid; try assumption.
+        apply cong_2134. assumption.
+      apply cong_col_mid; try assumption.
+        apply cong3_1364 with D B. assumption.
 Qed.
 
 End T7_1.

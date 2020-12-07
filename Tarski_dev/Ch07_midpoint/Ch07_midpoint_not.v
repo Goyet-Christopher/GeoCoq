@@ -35,7 +35,7 @@ Lemma midpoint_not_midpoint_sym : forall I A B,
 Proof.
     intros.
     apply midpoint_not_midpoint.
-      apply diff_symmetry. assumption.
+      apply not_eq_sym. assumption.
       apply midpoint_symmetry. assumption.
 Qed.
 
@@ -46,6 +46,26 @@ Proof.
     induction H.
       intro. apply H. apply H0.
       intro. apply H. apply H0.
+Qed.
+
+Lemma not_col_midpoint : forall I A B X,
+  ~Col A B X -> Midpoint I A B -> ~Col A X I /\ ~Col B X I.
+Proof.
+    intros.
+    apply not_col_distincts in H.
+      spliter.
+    assert(I <> A /\ I <> B).
+      apply midpoint_distinct_1; assumption.
+      spliter.
+    assert(Col A B I).
+      apply midpoint_col_231. assumption.
+    split.
+      apply not_col_trans with B; try assumption.
+        apply not_eq_sym. assumption.
+      apply not_col_trans with A; try assumption.
+        apply not_eq_sym. assumption.
+        apply not_col_213. assumption.
+        apply col_213. assumption.
 Qed.
 
 End T7_1.

@@ -118,7 +118,7 @@ Lemma l7_22 : forall A1 A2 B1 B2 C M1 M2,
 Proof.
     intros.
     assert (Le C A1 C A2 \/ Le C A2 C A1).
-      apply le_cases.
+      apply le_cases_min.
     induction H5.
       apply l7_22_aux with A1 A2 B1 B2; assumption.
       apply between_symmetry.
