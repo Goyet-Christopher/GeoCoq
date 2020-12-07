@@ -20,7 +20,6 @@ Proof.
       assumption.
 Qed.
 
-
 Lemma per_equality_2 : forall A B C,
  Per A B C -> Per A C B -> B=C.
 Proof.
@@ -32,7 +31,7 @@ Proof.
       assumption.
     assert (Per A C C').
       apply per_col_3 with B.
-        apply diff_symmetry. assumption.
+        apply not_eq_sym. assumption.
         assumption.
         apply midpoint_col_213. assumption.
     apply per_exists_1 in H4.
@@ -87,11 +86,11 @@ Proof.
     intros.
     apply per_equality_2 with F.
       apply per_col_3 with A.
-        apply diff_symmetry. assumption.
+        apply not_eq_sym. assumption.
         apply per_symmetry. assumption.
         apply col_213. assumption.
       apply per_col_3 with B.
-        apply diff_symmetry. assumption.
+        apply not_eq_sym. assumption.
         apply per_symmetry. assumption.
         apply col_312. assumption.
 Qed.

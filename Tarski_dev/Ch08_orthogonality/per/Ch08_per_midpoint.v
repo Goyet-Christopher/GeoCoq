@@ -1,62 +1,63 @@
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per_col.
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per_exists.
-Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per_cong3.
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per_preserved.
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per_cong.
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per_bet.
 
 Section Per_midpoint.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-Lemma l8_4 : forall A B C C',
- Per A B C -> Midpoint B C C' -> Per A B C'.
+Lemma per_cong_mid_bet_1 : forall A B C A',
+ A <> B -> Bet A B A' -> Cong C A C A' -> Per A B C ->
+ Midpoint B A A'.
 Proof.
     intros.
-    exists_and H C''.
-    exists C.
-    split.
-      apply midpoint_symmetry. assumption.
-    assert (C' = C'').
-      apply symmetric_point_uniqueness with B C; assumption.
-    subst C''.
-      apply cong_3412. assumption.
-Qed.
-
-Lemma per_cong_mid : forall A B C H,
- B <> C -> Bet A B C -> Cong A H C H -> Per H B C ->
- Midpoint B A C.
-Proof.
-    intros.
-    induction (eq_dec_points H B).
-      subst H.
-      split.
+    induction (eq_dec_points B C).
+      subst C.
+      apply def_to_midpoint.
         assumption.
-        apply cong_1243. assumption.
-    assert (Per H B A).
-      apply per_col_3 with C; try assumption.
-        apply bet_col_312. assumption.
-    apply per_exists_1 in H3.
-    exists_and H3 H'.
-    apply per_exists_1 in H5.
-    exists_and H5 H''.
-    assert (H' = H'').
-      apply construction_uniqueness with H B H B.
-        assumption.
-        apply midpoint_bet1. assumption.
-        apply midpoint_cong_1321. assumption.
-        apply midpoint_bet1. assumption.
-        apply midpoint_cong_1321. assumption.
-    subst H''.
-    assert(IFSC H B H' A H B H' C).
-      apply IFSC_same_base.
-        apply midpoint_bet1. assumption.
-        apply cong_2143. assumption.
-        apply cong_XY21_XY34 with A H.
-          assumption.
-          apply cong_12XY_XY43 with C H; assumption.
-    assert(Cong B A B C).
-      apply IFSC_cong_24 with H H' H H'. assumption.
-    split.
+        apply cong_2134. assumption.
+    assert (Per A' B C).
+      apply per_col_1 with A; try assumption.
+        apply bet_col_213. assumption.
+    assert(Cong B A B A').
+      apply per_per_cong with C; assumption.
+    apply def_to_midpoint.
       assumption.
       apply cong_2134. assumption.
 Qed.
+
+Lemma per_cong_mid_bet_3 : forall A B C C',
+ C<>B -> Bet C B C' -> Cong A C A C' -> Per A B C ->
+ Midpoint B C C'.
+Proof.
+    intros.
+    apply per_symmetry in H2.
+    apply per_cong_mid_bet_1 with A; assumption.
+Qed.
+
+Lemma per_cong_mid_1 : forall A B C A',
+ A<>A'-> A<>B -> Col B A A' -> Cong C A C A' -> Per A B C ->
+ Midpoint B A A'.
+Proof.
+    intros.
+    assert(Bet A B A').
+      apply per_cong_col with C; assumption.
+    apply per_cong_mid_bet_1 with C; assumption.
+Qed.
+
+Lemma per_cong_mid_3 : forall A B C C',
+ C<>C' -> C<>B -> Col B C C' -> Cong A C A C' -> Per A B C ->
+ Midpoint B C C'.
+Proof.
+    intros.
+    assert(Bet C B C').
+      apply per_cong_col with A; try assumption.
+        apply per_symmetry. assumption.
+    apply per_cong_mid_bet_3 with A; assumption.
+Qed.
+
+
 
 Lemma l8_20_1 : forall A B C C' D P,
   Per A B C -> Midpoint A C C' -> Midpoint B C D
@@ -79,7 +80,7 @@ Proof.
     assert(Midpoint B' C' D').
       apply symmetry_preserves_midpoint with C B D A; assumption.
     assert(Cong B C' B D').
-      apply per_def_cong with B'; assumption.
+      apply per_mid_cong_3 with B'; assumption.
     assert (Cong C' D C D').
       apply symmetry_preserves_length with A.
         apply midpoint_symmetry. assumption.
@@ -101,11 +102,8 @@ Proof.
         apply midpoint_cong_3121. assumption.
     assert (Cong P B P' B).
       apply IFSC_cong_24 with C' D D' C. assumption.
-    apply exists_per_3.
-    exists P'.
-    split.
-      assumption.
-      apply cong_2143. assumption.
+    apply mid_cong_per_3 with P'.
+      assumption. apply cong_2143. assumption.
 Qed.
 
 

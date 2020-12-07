@@ -7,7 +7,8 @@ Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 Lemma exists_per_3: forall A B C,
   (exists C', Midpoint B C C' /\ Cong A C A C') -> Per A B C.
 Proof.
-    exact def_to_per.
+    intros.
+    assumption.
 Qed.
 
 Lemma per_exists_3: forall A B C,
@@ -20,11 +21,8 @@ Lemma exists_per_1: forall A B C,
   (exists A', Midpoint B A A' /\ Cong C A C A') -> Per A B C.
 Proof.
     intros.
-    apply per_symmetry.
     exists_and H A'.
-    apply exists_per_3.
-    exists A'.
-    split; assumption.
+    apply mid_cong_per_1 with A'; assumption.
 Qed.
 
 Lemma per_exists_1: forall A B C,

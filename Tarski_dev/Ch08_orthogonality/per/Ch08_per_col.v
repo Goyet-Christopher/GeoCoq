@@ -1,13 +1,15 @@
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per.
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per_exists.
 
 Section Per_col.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
 Lemma per_col_1 : forall A B C A',
- Per A B C -> A<>B -> Col B A A' -> Per A' B C.
+ A<>B -> Per A B C -> Col B A A' -> Per A' B C.
 Proof.
     intros.
-    exists_and H C'.
+    apply per_exists_3 in H0.
+    exists_and H0 C'.
     exists C'.
     split.
       assumption.
@@ -24,12 +26,12 @@ Proof.
     intros.
     apply per_symmetry.
     apply per_col_1 with C.
+      apply not_eq_sym. assumption.
       apply per_symmetry. assumption.
-      apply diff_symmetry. assumption.
       assumption.
 Qed.
 
-Lemma col_col_per_per : forall A B C A' C',
+Lemma per_col_13 : forall A B C A' C',
  A<>B -> B<>C -> Col A' A B -> Col C' C B
  -> Per A B C -> Per A' B C'.
 Proof.

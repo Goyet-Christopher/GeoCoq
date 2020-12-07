@@ -12,7 +12,7 @@ Proof.
     assert (C = C' \/ Midpoint A C C').
       apply l7_20.
         apply col_transitivity_1 with B.
-          apply diff_symmetry. assumption.
+          apply not_eq_sym. assumption.
           apply col_321. assumption.
           apply bet_col_123. apply midpoint_bet1. assumption.
         assumption.

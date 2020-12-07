@@ -4,28 +4,18 @@ Section Per_def.
 
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
-Lemma def_to_per: forall A B C,
-  (exists C', Midpoint B C C' /\ Cong A C A C') -> Per A B C.
+Lemma mid_cong_per_3: forall A B C C',
+  Midpoint B C C' -> Cong A C A C' -> Per A B C.
 Proof.
     intros.
-    assumption.
+    exists C'.
+    split; assumption.
 Qed.
 
 Lemma per_to_def: forall A B C,
   Per A B C -> exists C', Midpoint B C C' /\ Cong A C A C'.
 Proof.
     intros.
-    assumption.
-Qed.
-
-Lemma per_def_cong : forall A B C C',
-  Per A B C -> Midpoint B C C' -> Cong A C A C'.
-Proof.
-    intros.
-    exists_and H C''.
-    assert (C' = C'').
-      apply symmetric_point_uniqueness with B C; assumption.
-    subst C''.
     assumption.
 Qed.
 
@@ -68,6 +58,47 @@ Proof.
     split.
       assumption.
       apply per_symmetry. assumption.
+Qed.
+
+Lemma mid_cong_per_1: forall A B C A',
+  Midpoint B A A' -> Cong C A C A' -> Per A B C.
+Proof.
+    intros.
+    apply per_symmetry.
+    apply mid_cong_per_3 with A'; assumption.
+Qed.
+
+Lemma per_supplementary_3 : forall A B C C',
+ Per A B C -> Midpoint B C C' -> Per A B C'.
+Proof.
+    intros.
+    apply per_to_def in H.
+    exists_and H C''.
+    apply mid_cong_per_3 with C.
+      apply midpoint_symmetry. assumption.
+    assert (C' = C'').
+      apply symmetric_point_uniqueness with B C; assumption.
+    subst C''.
+      apply cong_3412. assumption.
+Qed.
+
+Lemma per_supplementary_1 : forall A B C A',
+ Per A B C -> Midpoint B A A' -> Per A' B C.
+Proof.
+    intros.
+    apply per_symmetry.
+    apply per_supplementary_3 with A.
+      apply per_symmetry. assumption.
+      assumption.
+Qed.
+
+Lemma per_opposite : forall A B C A' C',
+ Per A B C -> Midpoint B A A' -> Midpoint B C C' -> Per A' B C'.
+Proof.
+    intros.
+    apply per_supplementary_1 with A.
+      apply per_supplementary_3 with C; assumption.
+      assumption.
 Qed.
 
 Lemma per_trivial_122 : forall A B,
