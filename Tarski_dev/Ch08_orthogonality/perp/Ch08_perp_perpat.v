@@ -82,7 +82,7 @@ Proof.
     unfold Perp_at in *.
     spliter.
     repeat split; try assumption.
-      apply diff_symmetry. assumption.
+      apply not_eq_sym. assumption.
       apply col_trivial_121.
     intros.
     apply H4.
@@ -91,6 +91,12 @@ Proof.
         apply col_321. assumption.
     assumption.
 Qed.
+
+(*
+Lemma perp_or_perpat : forall A B C D X,
+ A<>B -> Col A B X -> Perp X B C D \/ Perp A X C D -> Perp A B C D.
+Proof.
+*)
 
 End Perp_perpat.
 

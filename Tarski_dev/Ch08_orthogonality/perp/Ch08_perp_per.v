@@ -13,7 +13,7 @@ Proof.
       apply perpat_2143.
       apply perp_perpat.
       assumption.
-    apply perpat_per.
+    apply perpat_per_14 with A A.
     assumption.
 Qed.
 
@@ -59,7 +59,7 @@ Proof.
       apply per_perp; assumption.
     apply perp_symmetry.
     apply perp_col_34 with B C; try assumption.
-      apply diff_symmetry. assumption.
+      apply not_eq_sym. assumption.
       apply col_trivial_122.
 Qed.
 
@@ -78,7 +78,7 @@ Proof.
           apply H5.
           apply col_312. assumption.
         apply col_transitivity_3 with A B; assumption.
-      apply diff_symmetry in H2.
+      apply not_eq_sym in H2.
       contradiction.
     apply l8_14_2_1b_bis with C X U X; try apply col_trivial_121; try apply col_trivial_112.
     apply perp_3412.
@@ -91,16 +91,12 @@ Lemma l8_16_2 : forall A B C U X,
 Proof.
     intros.
     assert (C <> X).
-      apply diff_symmetry.
-      apply col_not_col_diff with A B; assumption.
-    apply def_to_perp.
-    exists X.
-    apply l8_13_2; try assumption.
+      apply not_eq_sym.
+    apply col_not_col_diff with A B; assumption.
+    apply perpat_perp with X.
+    apply l8_13_2 with U C; try assumption.
       apply col_312. assumption.
       apply col_trivial_121.
-    exists U.
-    exists C.
-    repeat split; try assumption.
       apply col_312. assumption.
       apply col_trivial_112.
       apply per_symmetry. assumption.

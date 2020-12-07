@@ -1,50 +1,48 @@
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp.
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp_per.
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp_perpat.
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat_not.
+
+Section Perp_not_col.
+Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
+
+Lemma perp_not_col : forall A B C,
+  Perp A B C A -> ~ Col A B C.
+Proof.
+    intros.
+    assert (Perp_at A A B C A).
+      apply perp_perpat. assumption.
+    apply not_col_213.
+    apply perpat_not_col.
+      apply perpat_2134. assumption.
+Qed.
 
 Lemma perp_not_col2 : forall A B C D,
- Perp A B C D -> ~ Col A B C \/ ~ Col A B D.
+  Perp A B C D -> ~ Col A B C \/ ~ Col A B D.
 Proof.
     intros.
     induction (Col_dec A B C).
       right.
       assert(Perp_at C A B C D).
-        apply l8_14_2_1b_bis; Col.
+        apply l8_14_2_1b_bis.
+          assumption.
+          apply col_312. assumption.
+          apply col_trivial_112.
       intro.
       assert(Perp_at D A B C D).
-        apply l8_14_2_1b_bis; Col.
+        apply l8_14_2_1b_bis.
+          assumption.
+          apply col_312. assumption.
+          apply col_trivial_121.
       assert(C = D).
-        eapply l8_14_3.
-          apply H1.
-        assumption.
+        apply l8_14_3 with A B C D; assumption.
       apply perp_not_eq_2 in H.
       contradiction.
     left.
     assumption.
 Qed.
 
-Lemma perp_not_col : forall A B P,
- Perp A B P A -> ~ Col A B P.
-Proof.
-    intros.
-    assert (Perp_at A A B P A).
-      apply perp_perp_in.
-      assumption.
-    assert (Per P A B).
-      apply perp_in_per.
-      apply perp_in_sym.
-      assumption.
-    apply perp_in_left_comm in H0.
-    assert (~ Col B A P  -> ~ Col A B P).
-      intro.
-      intro.
-      apply H2.
-      apply col_permutation_4.
-      assumption.
-    apply H2.
-    apply perp_distinct in H.
-    spliter.
-    apply per_not_col.
-      auto.
-      auto.
-    apply perp_in_per.
-    apply perp_in_right_comm.
-    assumption.
-Qed.
+End Perp_not_col.
+
+Print All.
+
