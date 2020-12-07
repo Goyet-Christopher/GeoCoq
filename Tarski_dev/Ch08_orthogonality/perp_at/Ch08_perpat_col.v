@@ -1,5 +1,4 @@
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat.
-Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per_col.
 
 Section Perpat_col.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
@@ -43,7 +42,7 @@ Lemma perpat_col_perpat_34 : forall A B C D X Y P,
 Proof.
     intros.
     assert(A <> B /\ C <> D).
-      apply perpat_distinct with P. assumption.
+      apply perpat_diff_1234 with P. assumption.
     assert(Col P A B /\ Col P C D).
       apply perpat_col. assumption.
     spliter.
@@ -61,7 +60,7 @@ Proof.
         apply col_231. assumption.
         apply col_231. apply col_transitivity_1 with D; assumption.
         apply col_231. apply col_transitivity_1 with C.
-          apply diff_symmetry. assumption.
+          apply not_eq_sym. assumption.
           apply col_213. assumption.
           apply col_213. assumption.
 Qed.
@@ -108,8 +107,21 @@ Proof.
     apply perpat_col_perpat_34 with C D; assumption.
 Qed.
 
+Lemma perpat_or_col : forall A B C D X,
+  A<>B -> Col A B X -> Perp_at X A X C D \/ Perp_at X X B C D
+ -> Perp_at X A B C D.
+Proof.
+    intros.
+    induction H1.
+      apply perpat_col_perpat_2 with X; try assumption.
+        apply col_132. assumption.
+      apply perpat_col_perpat_1 with X.
+        apply not_eq_sym. assumption.
+        apply col_321. assumption.
+        assumption.
+Qed.
 
-Lemma l8_13_2 : forall A B C D X,
+Lemma l8_13_2_exists : forall A B C D X,
    A <> B -> C <> D -> Col X A B -> Col X C D ->
   (exists U, exists V :Tpoint, Col U A B /\ Col V C D /\ U<>X /\ V<>X /\ Per U X V) ->
   Perp_at X A B C D.
@@ -125,9 +137,22 @@ Proof.
     assert(Col V0 V X).
       apply col_transitivity_3 with C D;
         try apply col_231; assumption.
-    apply col_col_per_per with U V; try assumption.
-      apply diff_symmetry. assumption.
+    apply per_col_13 with U V; try assumption.
+      apply not_eq_sym. assumption.
 Qed.
+
+Lemma l8_13_2 : forall A B C D X U V,
+   A <> B -> C <> D -> Col X A B -> Col X C D ->
+  Col U A B -> Col V C D -> U<>X -> V<>X -> Per U X V ->
+  Perp_at X A B C D.
+Proof.
+    intros.
+    apply l8_13_2_exists; try assumption.
+    exists U.
+    exists V.
+    repeat split; assumption.
+Qed.
+
 
 End Perpat_col.
 

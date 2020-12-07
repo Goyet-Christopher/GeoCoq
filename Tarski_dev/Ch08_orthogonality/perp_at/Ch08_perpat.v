@@ -1,4 +1,4 @@
-Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per.
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per_final.
 
 Section PerpAt_def.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
@@ -23,7 +23,7 @@ Proof.
     assumption.
 Qed.
 
-Lemma perpat_distinct : forall X A B C D ,
+Lemma perpat_diff_1234 : forall X A B C D ,
  Perp_at X A B C D -> A <> B /\ C <> D.
 Proof.
     intros.
@@ -31,6 +31,7 @@ Proof.
     spliter.
     split; assumption.
 Qed.
+
 
 Lemma perpat_col : forall A B C D X,
   Perp_at X A B C D -> Col X A B /\ Col X C D.
@@ -80,7 +81,7 @@ Proof.
     apply perpat_to_def in H.
     spliter.
     repeat split; try assumption.
-      apply diff_symmetry. assumption.
+      apply not_eq_sym. assumption.
       apply col_132. assumption.
     intros.
     apply H3.

@@ -1,5 +1,4 @@
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat.
-Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.per.Ch08_per_eq.
 
 Section Perpat_equalities.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
@@ -24,7 +23,7 @@ Proof.
     apply l8_14_2_1b with A B C D; assumption.
 Qed.
 
-Lemma perpat_identity : forall A B C X,
+Lemma perpat_identity_14 : forall A B C X,
   Perp_at X A B C A -> X = A.
 Proof.
     intros.
@@ -39,6 +38,33 @@ Proof.
       apply col_trivial_112.
       apply col_trivial_121.
     apply per_trivial_112.
+Qed.
+
+Lemma perpat_identity_13 : forall A B C X,
+  Perp_at X A B A C -> X = A.
+Proof.
+    intros.
+    apply perpat_identity_14 with B C.
+    apply perpat_1243.
+      assumption.
+Qed.
+
+Lemma perpat_identity_23 : forall A B C X,
+  Perp_at X B A A C -> X = A.
+Proof.
+    intros.
+    apply perpat_identity_14 with B C.
+    apply perpat_2143.
+      assumption.
+Qed.
+
+Lemma perpat_identity_24 : forall A B C X,
+  Perp_at X B A C A -> X = A.
+Proof.
+    intros.
+    apply perpat_identity_23 with B C.
+    apply perpat_1243.
+      assumption.
 Qed.
 
 End Perpat_equalities.
