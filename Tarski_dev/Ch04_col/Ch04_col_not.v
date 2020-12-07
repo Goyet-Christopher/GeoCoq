@@ -138,7 +138,7 @@ Proof.
     apply H0.
     apply col_312.
     apply col_transitivity_2 with Q.
-    apply diff_symmetry. assumption.
+    apply not_eq_sym. assumption.
     apply col_312. assumption.
     apply col_231. assumption.
 Qed.

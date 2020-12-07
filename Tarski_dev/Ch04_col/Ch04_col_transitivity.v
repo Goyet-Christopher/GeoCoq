@@ -9,7 +9,7 @@ Lemma l6_16_a : forall P Q S X,
 Proof.
     intros.
     assert(Q<>P).
-      apply diff_symmetry; assumption.
+      apply not_eq_sym; assumption.
     assert(Bet Q P S).
       apply between_symmetry; assumption.
     apply col_to_all in H1.
@@ -31,7 +31,7 @@ Lemma l6_16_b : forall P Q S X,
 Proof.
     intros.
     assert(Q<>P).
-      apply diff_symmetry; assumption.
+      apply not_eq_sym; assumption.
     assert(Bet P Q S).
       apply between_symmetry; assumption.
     apply col_to_all in H1.
@@ -99,7 +99,7 @@ Lemma col_transitivity_2 : forall P Q A B,
 Proof.
     intros.
     apply (col_transitivity_1 Q P A B).
-      apply diff_symmetry. assumption.
+      apply not_eq_sym. assumption.
       apply col_213; assumption.
       apply col_213; assumption.
 Qed.
@@ -123,6 +123,20 @@ Proof.
         apply col_transitivity_1 with Y; assumption.
 Qed.
 
+Lemma col_transitivity_3_rec : forall A B C X Y,
+  A <> B -> Col X Y A -> Col X Y B -> Col A B C
+ -> Col X Y C.
+Proof.
+    intros.
+    destruct (eq_dec_points X Y).
+      subst. apply col_trivial_112.
+    apply col_transitivity_3 with A B; try assumption.
+      apply col_231.
+        apply col_transitivity_1 with Y; assumption.
+      apply col_231.
+        apply col_transitivity_2 with X; assumption.
+Qed.
+
 Lemma col_transitivity_4 : forall A B C X Y,
  A<>B -> A <> C -> Col A B C -> Col A B X -> Col A C Y 
 -> Col A X Y /\ Col B X Y /\ Col C X Y.
@@ -133,9 +147,9 @@ Proof.
     apply col_perm in H3.
     spliter.
     assert(B<>A).
-      apply diff_symmetry. assumption.
+      apply not_eq_sym. assumption.
     assert(C<>A).
-      apply diff_symmetry. assumption.
+      apply not_eq_sym. assumption.
     assert(Col A B Y).
       apply col_transitivity_1 with C; assumption.
     apply col_perm in H21.

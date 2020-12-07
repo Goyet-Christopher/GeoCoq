@@ -64,9 +64,9 @@ Proof.
     apply col_perm in H4.
     spliter.
     assert(Q<>P).
-      apply diff_symmetry; assumption.
+      apply not_eq_sym; assumption.
     assert(B<>A).
-      apply diff_symmetry; assumption.
+      apply not_eq_sym; assumption.
     assert (Col C P Q).
       apply col_transitivity_1 with D; assumption.
     assert (Col Q B C).
@@ -85,8 +85,21 @@ Proof.
           apply col_transitivity_1 with P; assumption.
         apply col_213.
           apply col_transitivity_1 with Q; try assumption.
-          apply diff_symmetry; assumption.
+          apply not_eq_sym; assumption.
     contradiction.
+Qed.
+
+Lemma col2_eq : forall A B X Y,
+  Col A X Y -> Col B X Y -> ~ Col A X B ->
+  X = Y.
+Proof.
+    intros.
+    apply not_col_distincts in H1.
+      spliter.
+    apply l6_21 with A X B X; try assumption.
+      apply not_eq_sym. assumption.
+      apply col_trivial_122.
+      apply col_trivial_122.
 Qed.
 
 End T4_4.

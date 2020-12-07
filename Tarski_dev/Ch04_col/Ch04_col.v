@@ -214,7 +214,27 @@ Proof.
 
 Qed.
 
+
 End T4_3.
+
+Section col_bet_cases.
+Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
+
+Lemma fourth_point : forall A B C P,
+  A <> B -> B <> C -> Col A B P -> Bet A B C ->
+  Bet P A B \/ Bet A P B \/ Bet B P C \/ Bet B C P.
+Proof.
+    intros.
+    induction H1.
+      assert(HH:= l5_2 A B C P H H2 H1).
+      right. right. 
+      apply disjunction_commutativity. assumption.
+    induction H1.
+      right. left. assumption.
+    left. apply between_symmetry. assumption.
+Qed.
+
+End col_bet_cases.
 
 
 Section col_cons.
@@ -403,5 +423,7 @@ Proof.
 Qed.
 
 End col_cons.
+
+
 
 Print All.

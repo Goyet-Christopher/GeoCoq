@@ -178,8 +178,8 @@ Proof.
     apply OFSC_cong_34 with B A B' A'.
     apply FSC_bet_312; assumption.
       induction H0.
-      left. apply diff_symmetry; assumption.
-      right. apply diff_symmetry; assumption.
+      left. apply not_eq_sym; assumption.
+      right. apply not_eq_sym; assumption.
 Qed.
 
 Definition FSC_cong_34 A B C D A' B' C' D' :=

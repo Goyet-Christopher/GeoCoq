@@ -36,7 +36,7 @@ Proof.
               apply col_transitivity_1 with B; assumption.
             assert (Col x x0 x1).
               apply col_transitivity_1 with A.
-                apply diff_symmetry. assumption.
+                apply not_eq_sym. assumption.
                 apply col_213. assumption.
                 apply col_213. assumption.
             contradiction.
