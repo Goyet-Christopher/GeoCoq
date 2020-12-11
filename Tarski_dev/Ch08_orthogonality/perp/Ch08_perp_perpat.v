@@ -1,5 +1,4 @@
-Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp_diff.
-Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat_eq.
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp.
 
 Section Perp_perpat.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
@@ -43,13 +42,45 @@ Proof.
 Qed.
 
 
-Lemma perp_perpat : forall A B C,
-  Perp A B C A -> Perp_at A A B C A.
+Lemma perp_perpat_14 : forall X B C,
+  Perp X B C X -> Perp_at X X B C X.
 Proof.
     intros.
     apply l8_15_1.
-      apply perp_not_eq_1 with C A. assumption.
+      exists_and H A.
+        apply perpat_diff_12 with A C X.
+        assumption.
       apply col_trivial_121.
+      assumption.
+Qed.
+
+Lemma perp_perpat_13 : forall X B D,
+  Perp X B X D -> Perp_at X X B X D.
+Proof.
+    intros.
+    apply perpat_1243.
+    apply perp_perpat_14.
+    apply perp_1243.
+      assumption.
+Qed.
+
+Lemma perp_perpat_23 : forall X A D,
+  Perp A X X D -> Perp_at X A X X D.
+Proof.
+    intros.
+    apply perpat_2134.
+    apply perp_perpat_13.
+    apply perp_2134.
+      assumption.
+Qed.
+
+Lemma perp_perpat_24 : forall X A C,
+  Perp A X C X -> Perp_at X A X C X.
+Proof.
+    intros.
+    apply perpat_2143.
+    apply perp_perpat_13.
+    apply perp_2143.
       assumption.
 Qed.
 
@@ -60,12 +91,14 @@ Lemma l8_14_2_2 : forall X A B C D,
 Proof.
     intros.
     assert(H' := H).
-      exists_and H Y.
-      apply perpat_to_def in H1.
+      apply perp_to_def in H'.
+      exists_and H' Y.
+    assert(Col Y A B /\ Col Y C D).
+      apply perpat_col. assumption.
       spliter.
-      assert(X=Y).
-        apply H0; assumption.
-      subst Y.
+    assert(X=Y).
+      apply H0; assumption.
+    subst Y.
     apply l8_14_2_1b_bis; assumption.
 Qed.
 
@@ -78,25 +111,11 @@ Proof.
       subst X.
       left. apply perpat_perp with A. assumption.
     right.
-    exists X.
-    unfold Perp_at in *.
-    spliter.
-    repeat split; try assumption.
+    apply perpat_perp with X.
+    apply perpat_inter_2 with B.
+      assumption.
       apply not_eq_sym. assumption.
-      apply col_trivial_121.
-    intros.
-    apply H4.
-      apply col_213.
-      apply col_transitivity_2 with X; try assumption.
-        apply col_321. assumption.
-    assumption.
 Qed.
-
-(*
-Lemma perp_or_perpat : forall A B C D X,
- A<>B -> Col A B X -> Perp X B C D \/ Perp A X C D -> Perp A B C D.
-Proof.
-*)
 
 End Perp_perpat.
 

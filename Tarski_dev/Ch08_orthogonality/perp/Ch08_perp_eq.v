@@ -14,12 +14,9 @@ Proof.
       apply l8_15_1; assumption.
     assert (Perp_at Y A B C Y).
       apply l8_15_1;assumption.
-    apply perpat_to_def in H7.
-    apply perpat_to_def in H8.
-    spliter.
-    apply per_equality_2 with C.
-      apply per_symmetry. apply H16. apply col_312. assumption. apply col_trivial_112.
-      apply per_symmetry. apply H12. apply col_312. assumption. apply col_trivial_112.
+    apply perpat_equality_2 with A B C; try assumption.
+      apply col_312. assumption.
+      apply col_312. assumption.
 Qed.
 
 

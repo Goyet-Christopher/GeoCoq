@@ -1,7 +1,6 @@
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp.
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp_per.
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp_perpat.
-Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat_not.
 
 Section Perp_not_col.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
@@ -11,7 +10,7 @@ Lemma perp_not_col : forall A B C,
 Proof.
     intros.
     assert (Perp_at A A B C A).
-      apply perp_perpat. assumption.
+      apply perp_perpat_14. assumption.
     apply not_col_213.
     apply perpat_not_col.
       apply perpat_2134. assumption.
@@ -21,7 +20,7 @@ Lemma perp_not_col2 : forall A B C D,
   Perp A B C D -> ~ Col A B C \/ ~ Col A B D.
 Proof.
     intros.
-    induction (Col_dec A B C).
+    induction (col_dec A B C).
       right.
       assert(Perp_at C A B C D).
         apply l8_14_2_1b_bis.

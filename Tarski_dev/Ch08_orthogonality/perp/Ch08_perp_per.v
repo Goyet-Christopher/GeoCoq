@@ -1,23 +1,33 @@
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp_perpat.
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp_col.
-Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat_per.
 
 Section Perp_perp.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
+
+Lemma perp_per : forall A B C D,
+  Perp A B C D -> exists X, Per A X C.
+Proof.
+    intros.
+    apply perp_to_def in H.
+    exists_and H X.
+    exists X.
+    apply perpat_per_13 with B D.
+      assumption.
+Qed.
 
 Lemma perp_per_14 : forall A B C,
   Perp A B C A -> Per B A C.
 Proof.
     intros.
     assert (Perp_at A B A A C).
-      apply perpat_2143.
-      apply perp_perpat.
+      apply perp_perpat_23.
+      apply perp_2143.
       assumption.
     apply perpat_per_14 with A A.
     assumption.
 Qed.
 
-Lemma perp_per_12 : forall A B C,
+Lemma perp_per_13 : forall A B C,
  Perp A B A C -> Per B A C.
 Proof.
     intros.

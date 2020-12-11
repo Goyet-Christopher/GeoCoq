@@ -1,7 +1,4 @@
-Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp.
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp_diff.
-Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat_col.
-
 
 Section Perp_col.
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
