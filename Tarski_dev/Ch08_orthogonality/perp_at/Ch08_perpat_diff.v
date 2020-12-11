@@ -68,6 +68,16 @@ Proof.
       apply perpat_per_14 with A A. assumption.
 Qed.
 
+Lemma not_col_perpat_diff : forall X A B C D,
+  ~ Col A C D -> Perp_at X A B C D -> A <> X.
+Proof.
+    intros.
+    assert(Col X A B /\ Col X C D).
+      apply perpat_col. assumption. spliter.
+    intro. subst A.
+    contradiction.
+Qed.
+
 
 End Perpat_diff.
 

@@ -7,4 +7,5 @@ Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat_not.
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat_preserved.
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat_cong.
 Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat_midpoint.
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat_exists.
 (* Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp_at.Ch08_perpat_tactics. *)

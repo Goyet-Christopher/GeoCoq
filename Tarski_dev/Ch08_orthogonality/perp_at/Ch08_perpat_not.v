@@ -23,6 +23,28 @@ Proof.
     contradiction.
 Qed.
 
+Lemma not_perpat_12 : forall X A C D, 
+  ~ Perp_at X A A C D.
+Proof.
+    intros.
+    intro.
+    assert(A <> A).
+      apply perpat_diff_12 with X C D.
+        assumption.
+    contradiction.
+Qed.
+
+Lemma not_perpat_34 : forall X A B C, 
+  ~ Perp_at X A B C C.
+Proof.
+    intros.
+    assert(~ Perp_at X C C A B).
+      apply not_perpat_12.
+    intro.
+    apply H.
+    apply perpat_3412. assumption.
+Qed.
+
 Lemma perpat_not_col_13 : forall X A B C D,
   A<>X -> C<>X -> Perp_at X A B C D -> ~ Col A X C.
 Proof.

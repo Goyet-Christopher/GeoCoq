@@ -30,7 +30,7 @@ Lemma cong_perpat_or_mid : forall A B M X,
  -> X = M \/ ( ~Col A B X /\ Perp_at M X M A B).
 Proof.
     intros.
-    induction(Col_dec A B X).
+    induction(col_dec A B X).
     (* Col A B X *)
       left.
       apply mid_cong_eq with A B; assumption.
@@ -118,6 +118,43 @@ Proof.
     intros.
     apply perpat_3421 in H0.
     apply perpat_cong_mid_3 with B A; assumption.
+Qed.
+
+Lemma mid_tri_perpap : forall X A B C D C' C'' P,
+ ~ Col A X C -> Perp_at X A B C D
+ -> Midpoint A C C' -> Midpoint X C C'' -> Midpoint P C' C''
+ -> Perp_at A A B A P.
+Proof.
+    intros.
+    assert(Per A X C).
+      apply perpat_per_13 with B D. assumption.
+    assert(Per X A P).
+      apply l8_20_1 with C C' C''; assumption.
+    apply not_col_distincts in H. spliter.
+    assert(C<> C'' /\ X <> C'').
+      apply midpoint_distinct_2; assumption. spliter.
+    assert(C<>C' /\ A <> C').
+      apply midpoint_distinct_2; assumption. spliter.
+    assert(A <> P).
+      intro. subst P.
+        apply H.
+        apply col_transitivity_3 with C C''.
+        assumption.
+        apply col_321.
+        apply col_transitivity_1 with C'. assumption.
+          apply midpoint_col_123. assumption.
+          apply midpoint_col_132. assumption.
+        apply midpoint_col_231. assumption.
+        apply col_trivial_121.
+    assert(Perp_at A X A A P).
+      apply per_perpat; try assumption.
+        apply not_eq_sym. assumption.
+    assert(Col X A B /\ Col X C D).
+      apply perpat_col. assumption. spliter.
+    apply perpat_col_perpat_2 with X.
+      apply perpat_diff_12 with X C D. assumption.
+      apply col_213. assumption.
+      apply perpat_2134. assumption.
 Qed.
 
 End Perpat_midpoint.

@@ -23,6 +23,21 @@ Proof.
     apply l8_14_2_1b with A B C D; assumption.
 Qed.
 
+Lemma perpat_equality_2 : forall A B C X Y,
+  Col X A B -> Col Y A B
+ -> Perp_at X A B C X -> Perp_at Y A B C Y
+ -> X=Y.
+Proof.
+    intros.
+    assert(forall U V : Tpoint, Col U A B -> Col V C X -> Per U X V).
+      apply perpat_forall. assumption.
+    assert(forall U V : Tpoint, Col U A B -> Col V C Y -> Per U Y V).
+      apply perpat_forall. assumption.
+    apply per_equality_2 with C.
+      apply per_symmetry. apply H3. assumption. apply col_trivial_112.
+      apply per_symmetry. apply H4. assumption. apply col_trivial_112.
+Qed.
+
 Lemma perpat_identity_14 : forall A B C X,
   Perp_at X A B C A -> X = A.
 Proof.

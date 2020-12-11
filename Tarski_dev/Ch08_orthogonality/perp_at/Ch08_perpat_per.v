@@ -61,6 +61,46 @@ Proof.
       apply col_trivial_121.
 Qed.
 
+Lemma not_per_not_perpat_13 : forall A B C D X,
+ ~ Per A X C -> ~ Perp_at X A B C D.
+Proof.
+    intros.
+    intro.
+    apply H.
+    apply perpat_per_13 with B D.
+    assumption.
+Qed.
+
+Lemma not_per_not_perpat_14 : forall A B C D X,
+ ~ Per A X D -> ~ Perp_at X A B C D.
+Proof.
+    intros.
+    intro.
+    apply H.
+    apply perpat_per_14 with B C.
+    assumption.
+Qed.
+
+Lemma not_per_not_perpat_23 : forall A B C D X,
+ ~ Per B X C -> ~ Perp_at X A B C D.
+Proof.
+    intros.
+    intro.
+    apply H.
+    apply perpat_per_23 with A D.
+    assumption.
+Qed.
+
+Lemma not_per_not_perpat_24 : forall A B C D X,
+ ~ Per B X D -> ~ Perp_at X A B C D.
+Proof.
+    intros.
+    intro.
+    apply H.
+    apply perpat_per_24 with A C.
+    assumption.
+Qed.
+
 Lemma per_perpat : forall A B C,
  A <> B -> B <> C -> Per A B C -> Perp_at B A B B C.
 Proof.

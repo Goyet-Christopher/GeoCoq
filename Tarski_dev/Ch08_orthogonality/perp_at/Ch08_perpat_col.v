@@ -121,6 +121,46 @@ Proof.
         assumption.
 Qed.
 
+Lemma perpat_inter_1 : forall X A B C D,
+  Perp_at X A B C D -> B <> X -> Perp_at X X B C D.
+Proof.
+    intros.
+    assert(Col X A B /\ Col X C D).
+      apply perpat_col. assumption. spliter.
+    apply perpat_col_perpat_1 with A; try assumption.
+      apply col_231. assumption.
+Qed.
+
+Lemma perpat_inter_2 : forall X A B C D,
+  Perp_at X A B C D -> A <> X -> Perp_at X A X C D.
+Proof.
+    intros.
+    assert(Col X A B /\ Col X C D).
+      apply perpat_col. assumption. spliter.
+    apply perpat_col_perpat_2 with B; try assumption.
+      apply col_231. assumption.
+Qed.
+
+Lemma perpat_inter_3 : forall X A B C D,
+  Perp_at X A B C D -> D <> X -> Perp_at X A B X D.
+Proof.
+    intros.
+    assert(Col X A B /\ Col X C D).
+      apply perpat_col. assumption. spliter.
+    apply perpat_col_perpat_3 with C; try assumption.
+      apply col_231. assumption.
+Qed.
+
+Lemma perpat_inter_4 : forall X A B C D,
+  Perp_at X A B C D -> C <> X -> Perp_at X A B C X.
+Proof.
+    intros.
+    assert(Col X A B /\ Col X C D).
+      apply perpat_col. assumption. spliter.
+    apply perpat_col_perpat_4 with D; try assumption.
+      apply col_231. assumption.
+Qed.
+
 Lemma l8_13_2_exists : forall A B C D X,
    A <> B -> C <> D -> Col X A B -> Col X C D ->
   (exists U, exists V :Tpoint, Col U A B /\ Col V C D /\ U<>X /\ V<>X /\ Per U X V) ->
