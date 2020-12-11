@@ -43,6 +43,20 @@ Proof.
       apply col_321. assumption.
 Qed.
 
+Lemma col_per2__per : forall A B C P X,
+  A <> B -> Col A B C -> Per A X P -> Per B X P
+ -> Per C X P.
+Proof.
+    intros.
+    symmetric Q X P.
+    apply exists_per_3.
+    exists Q. split.
+      assumption.
+      apply (l4_17 A B); try assumption.
+      apply per_mid_cong_3 with X; assumption.
+      apply per_mid_cong_3 with X; assumption.
+Qed.
+
 End Per_col.
 
 Print All.

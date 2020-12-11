@@ -68,6 +68,29 @@ Proof.
     apply mid_cong_per_3 with A'; assumption.
 Qed.
 
+Lemma per_mid_cong_1 : forall A B C A',
+  Per A B C -> Midpoint B A A' -> Cong C A C A'.
+Proof.
+    intros.
+    apply per_symmetry in H.
+    exists_and H A''.
+    assert (A' = A'').
+      apply symmetric_point_uniqueness with B A; assumption.
+    subst A''.
+    assumption.
+Qed.
+
+Lemma per_mid_cong_3 : forall A B C C',
+  Per A B C -> Midpoint B C C' -> Cong A C A C'.
+Proof.
+    intros.
+    exists_and H C''.
+    assert (C' = C'').
+      apply symmetric_point_uniqueness with B C; assumption.
+    subst C''.
+    assumption.
+Qed.
+
 Lemma per_supplementary_3 : forall A B C C',
  Per A B C -> Midpoint B C C' -> Per A B C'.
 Proof.
