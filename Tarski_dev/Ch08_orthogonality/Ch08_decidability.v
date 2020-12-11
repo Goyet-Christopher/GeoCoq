@@ -1,47 +1,92 @@
-Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.Ch08_per.
+Require Export GeoCoq.Tarski_dev.Ch08_orthogonality.perp.Ch08_perp_final.
 
 Section T8_1.
-
 Context `{TnEQD:Tarski_neutral_dimensionless_with_decidable_point_equality}.
 
 
-Lemma Per_dec : forall A B C, Per A B C \/ ~ Per A B C.
+Lemma per_dec : forall A B C,
+ Per A B C \/ ~ Per A B C.
 Proof.
     intros.
-    unfold Per.
-    elim (symmetric_point_construction C B);intros C' HC'.
-    elim (Cong_dec A C A C');intro.
-      left.
-      exists C'.
-      intuition.
-    right.
-    intro.
-    decompose [ex and] H0;clear H0.
-    assert (C'=x) by (apply symmetric_point_uniqueness with C B;assumption).
-    subst.
-    intuition.
+    symmetric C' B C.
+    induction(cong_dec A C A C').
+      left. apply mid_cong_per_3 with C'; assumption.
+    right. intro. apply H0. 
+      apply per_mid_cong_3 with B; assumption.
 Qed.
 
-Lemma Perp_in_dec : forall X A B C D,
+Lemma perpat_dec : forall X A B C D,
  Perp_at X A B C D \/ ~ Perp_at X A B C D.
 Proof.
     intros.
-    unfold Perp_at.
-    elim (eq_dec_points A B);intro; elim (eq_dec_points C D);intro; elim (Col_dec X A B);intro; elim (Col_dec X C D);intro; try tauto.
-    elim (eq_dec_points B X);intro; elim (eq_dec_points D X);intro;subst;treat_equalities.
-      elim (Per_dec A X C);intro.
-        left;repeat split;Col;intros; apply col_col_per_per with A C;Col.
-      right;intro;spliter;apply H3;apply H8;Col.
-      elim (Per_dec A X D);intro.
-        left;repeat split;Col;intros; apply col_col_per_per with A D;Col;ColR.
-      right;intro;spliter;apply H3;apply H9;Col.
-      elim (Per_dec B X C);intro.
-        left;repeat split;Col;intros; apply col_col_per_per with B C;Col;ColR.
-      right;intro;spliter;apply H4;apply H9;Col.
-    elim (Per_dec B X D);intro.
-      left;repeat split;Col;intros; apply col_col_per_per with B D;Col;ColR.
-    right;intro;spliter;apply H5;apply H10;Col.
+    induction (eq_dec_points A B).
+      subst. right. apply not_perpat_12.
+      induction (eq_dec_points C D).
+        subst. right. apply not_perpat_34.
+        induction (col_dec X A B).
+          induction (col_dec X C D).
+            induction (eq_dec_points B X).
+              subst.
+              induction (eq_dec_points D X).
+                subst.
+                induction (per_dec A X C).
+                  left. apply l8_13; assumption.
+                  right. apply not_per_not_perpat_13. assumption.
+                induction (per_dec A X D).
+                  left. apply perpat_1243. apply l8_13; try assumption.
+                    apply not_eq_sym. assumption.
+                    apply col_132. assumption.
+                  right. apply not_per_not_perpat_14. assumption.
+              induction (eq_dec_points D X).
+                subst.
+                induction (per_dec B X C).
+                  left. apply perpat_2134. apply l8_13; try assumption.
+                    apply not_eq_sym. assumption.
+                    apply col_132. assumption.
+                  right. apply not_per_not_perpat_23. assumption.
+                induction (per_dec B X D).
+                  left. apply perpat_2143. apply l8_13; try assumption.
+                    apply not_eq_sym. assumption.
+                    apply not_eq_sym. assumption.
+                    apply col_132. assumption.
+                    apply col_132. assumption.
+                  right. apply not_per_not_perpat_24. assumption.
+          right. intro. apply H2. apply (perpat_col A B C D). assumption.
+        right. intro. apply H1. apply (perpat_col A B C D). assumption.
 Qed.
+
+(*
+Lemma perp_dec : forall A B C D,
+ Perp A B C D \/ ~ Perp A B C D.
+Proof.
+    intros.
+    induction (col_dec A B C).
+      induction (perpat_dec C A B C D).
+        left. apply perpat_perp with C. assumption.
+      right. intro. apply H0.
+        apply perpat_1243.
+        apply (l8_15_1 A B D C).
+          apply perp_distinct in H1. spliter. assumption.
+          assumption.
+          apply perp_1243. assumption.
+    assert(exists X : Tpoint, Col A B X /\ Perp A B C X).
+      apply l8_18_existence. assumption.
+      exists_and H0 P.
+    induction (eq_dec_points C D).
+      subst. right. apply not_perp_34.
+    induction (col_dec P C D).
+      left.
+      assert (A <> B /\ C <> P).
+        apply perp_distinct. assumption.
+      spliter.
+      apply perp_col_4 with P; try assumption.
+        apply col_213. assumption.
+    right.
+    intro.
+    apply H3.
+    apply col_permutation_2, cop_perp2__col with A B; [Cop|apply perp_sym;assumption..].
+Qed.
+*)
 
 End T8_1.
 
